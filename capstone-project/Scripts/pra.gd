@@ -55,11 +55,11 @@ func spawn_new_instance():
 		print("Maximum tiles placed!")
 		return
 	
-	var new_tile = load("res://pra.tscn").instantiate()
+	var new_tile = load("res://Scenes/pra.tscn").instantiate()
 	new_tile.global_position = Vector2(152, 502)  
 	new_tile.scale = Vector2(0.43, 0.43)
 	get_parent().add_child(new_tile)  
-	var new_script = load("res://pra.gd")  
+	var new_script = load("res://Scenes/pra.gd")  
 	new_tile.set_script(new_script)  
 
 	instance_count += 1  # Increase the counter

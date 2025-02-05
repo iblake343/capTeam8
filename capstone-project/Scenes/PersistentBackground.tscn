@@ -1,0 +1,260 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy7eww6cypw2s"]
+
+[ext_resource type="PackedScene" uid="uid://q85gakxkk7yn" path="res://Scenes/shark_cage/scene.gltf" id="1_7bkn5"]
+[ext_resource type="Script" path="res://Scenes/persistent_background.gd" id="2_a6rlq"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_7bkn5")]
+script = ExtResource("2_a6rlq")
+
+[node name="Armature_47" parent="Sketchfab_model/root/GLTF_SceneRootNode/Yup2Zup_147/RootNode (gltf orientation matrix)_146/RootNode (model correction matrix)_145/Root_144" index="0"]
+transform = Transform3D(0.355379, 0.0265531, 0.934345, -0.0739464, 0.997262, -0.000215605, -0.931793, -0.0690148, 0.35637, 3.90248, -0.01681, -7.18459)
+
+[node name="Skeleton3D" parent="Sketchfab_model/root/GLTF_SceneRootNode/Yup2Zup_147/RootNode (gltf orientation matrix)_146/RootNode (model correction matrix)_145/Root_144/Armature_47/Armature_0_42/GLTF_created_0" index="0"]
+bones/2/position = Vector3(0, 0.566841, 1.23627)
+bones/2/rotation = Quaternion(0.999227, 0.000744249, 0.0216567, -0.0328088)
+bones/3/rotation = Quaternion(0.998558, 1.16249e-10, 6.24556e-12, -0.0536828)
+bones/4/rotation = Quaternion(-0.0333041, 0.00162599, 0.0115622, 0.999377)
+bones/5/rotation = Quaternion(-0.106947, -3.81535e-05, 0.0514698, 0.992932)
+bones/6/rotation = Quaternion(-0.0386046, -0.000618795, 0.00418701, 0.999246)
+bones/7/rotation = Quaternion(0.047495, 0.00641605, -0.0462473, 0.99778)
+bones/10/rotation = Quaternion(-0.243325, -0.0280055, -0.0411365, 0.968668)
+bones/12/rotation = Quaternion(0.184941, 0.0427766, -0.03432, 0.981218)
+bones/15/rotation = Quaternion(-0.107645, -0.441655, 0.526161, 0.718685)
+bones/19/rotation = Quaternion(-0.10823, 0.442308, -0.533205, 0.712981)
+bones/24/rotation = Quaternion(-0.167369, -0.0360405, 0.0393931, 0.984448)
+bones/33/rotation = Quaternion(-0.0105432, 0.996383, 0.0843035, -0.0018867)
+bones/34/rotation = Quaternion(-0.408409, 0.00646177, -0.00840199, 0.912737)
+bones/36/position = Vector3(0.00494004, 0.879864, -0.460462)
+bones/36/rotation = Quaternion(0.595852, 4.76532e-09, 4.13709e-08, 0.803094)
+
+[node name="Armature_001_95" parent="Sketchfab_model/root/GLTF_SceneRootNode/Yup2Zup_147/RootNode (gltf orientation matrix)_146/RootNode (model correction matrix)_145/Root_144" index="1"]
+transform = Transform3D(-0.198739, 0.0218936, -0.979808, -0.00210679, 0.999739, 0.0227663, 0.98005, 0.00658882, -0.198641, -4.95514, -1.54948, 11.3251)
+
+[node name="Skeleton3D" parent="Sketchfab_model/root/GLTF_SceneRootNode/Yup2Zup_147/RootNode (gltf orientation matrix)_146/RootNode (model correction matrix)_145/Root_144/Armature_001_95/Armature_1_90/GLTF_created_1" index="0"]
+bones/2/position = Vector3(0, 0.566841, 1.23627)
+bones/2/rotation = Quaternion(0.999227, 0.000780266, 0.0216573, -0.032807)
+bones/3/rotation = Quaternion(0.998558, 9.94346e-16, -4.28266e-15, -0.05368)
+bones/4/rotation = Quaternion(-0.0333019, 0.00162596, 0.0115622, 0.999377)
+bones/5/rotation = Quaternion(-0.106939, -3.8524e-05, 0.0514698, 0.992932)
+bones/6/rotation = Quaternion(-0.0386022, -0.00061881, 0.004187, 0.999246)
+bones/7/rotation = Quaternion(0.047492, 0.00641591, -0.0462473, 0.99778)
+bones/10/rotation = Quaternion(-0.243317, -0.0280052, -0.0411367, 0.968669)
+bones/12/rotation = Quaternion(0.184945, 0.0427767, -0.0343198, 0.981218)
+bones/15/rotation = Quaternion(-0.107644, -0.441658, 0.526158, 0.718686)
+bones/19/rotation = Quaternion(-0.108229, 0.442311, -0.533201, 0.712982)
+bones/24/rotation = Quaternion(-0.167369, -0.0360405, 0.0393931, 0.984448)
+bones/30/rotation = Quaternion(-0.457409, -0.524443, 0.541216, -0.472041)
+bones/33/rotation = Quaternion(-0.0105432, 0.996383, 0.0842991, -0.00188675)
+bones/34/rotation = Quaternion(-0.408403, 0.00646183, -0.00840195, 0.91274)
+bones/36/position = Vector3(0.00494004, 0.879807, -0.460455)
+bones/36/rotation = Quaternion(0.595844, 4.90718e-09, 4.11134e-08, 0.8031)
+
+[node name="Armature_002_143" parent="Sketchfab_model/root/GLTF_SceneRootNode/Yup2Zup_147/RootNode (gltf orientation matrix)_146/RootNode (model correction matrix)_145/Root_144" index="2"]
+transform = Transform3D(-0.16294, 0.512558, -0.843051, -0.00751102, 0.853801, 0.520546, 0.986607, 0.0911499, -0.135269, -3.37608, 0.07254, 8.03941)
+
+[node name="Skeleton3D" parent="Sketchfab_model/root/GLTF_SceneRootNode/Yup2Zup_147/RootNode (gltf orientation matrix)_146/RootNode (model correction matrix)_145/Root_144/Armature_002_143/Armature_2_138/GLTF_created_2" index="0"]
+bones/2/rotation = Quaternion(0.999227, 0.000817592, 0.0216579, -0.0328034)
+bones/3/rotation = Quaternion(0.998558, 2.98492e-10, 9.48715e-10, -0.0536764)
+bones/4/rotation = Quaternion(-0.0333006, 0.00162595, 0.0115622, 0.999377)
+bones/5/rotation = Quaternion(-0.106935, -3.87374e-05, 0.0514698, 0.992933)
+bones/6/rotation = Quaternion(-0.0386007, -0.000618814, 0.004187, 0.999246)
+bones/7/rotation = Quaternion(0.0474902, 0.00641582, -0.0462473, 0.99778)
+bones/10/rotation = Quaternion(-0.243314, -0.028005, -0.0411368, 0.96867)
+bones/12/rotation = Quaternion(0.184946, 0.0427768, -0.0343198, 0.981217)
+bones/15/rotation = Quaternion(-0.107644, -0.441658, 0.526157, 0.718686)
+bones/19/rotation = Quaternion(-0.108229, 0.442312, -0.5332, 0.712983)
+bones/24/rotation = Quaternion(-0.167369, -0.0360405, 0.0393931, 0.984447)
+bones/30/rotation = Quaternion(-0.45741, -0.524443, 0.541215, -0.47204)
+bones/33/rotation = Quaternion(-0.0105432, 0.996383, 0.0842945, -0.00188679)
+bones/34/rotation = Quaternion(-0.408397, 0.00646189, -0.00840191, 0.912743)
+bones/36/position = Vector3(0.00494004, 0.879747, -0.460449)
+bones/36/rotation = Quaternion(0.595835, 5.93122e-09, 4.12026e-08, 0.803107)
+
+[node name="BakeSimSource_0_257" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="0"]
+transform = Transform3D(-0.477709, 0.521614, -0.706904, 0.685879, 0.724252, 0.0709147, 0.548966, -0.450974, -0.703746, -0.6082, -1.4171, -0.750589)
+
+[node name="BakeSimSource_1_258" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="1"]
+transform = Transform3D(-0.160841, 0.0440498, -0.985997, -0.0969882, 0.993463, 0.0602046, 0.982203, 0.105313, -0.155518, -0.855468, -1.75841, 0.345644)
+
+[node name="BakeSimSource_10_259" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="2"]
+transform = Transform3D(0.340192, -0.189515, -0.921061, 0.331431, 0.940792, -0.071161, 0.880013, -0.28106, 0.382861, 0.223195, -1.6542, -0.741315)
+
+[node name="BakeSimSource_11_260" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="3"]
+transform = Transform3D(0.515467, 0.272462, 0.81244, -0.464733, 0.885448, -0.0020878, -0.719943, -0.376492, 0.583041, -1.03691, -1.83137, -2.30363)
+
+[node name="BakeSimSource_12_261" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="4"]
+transform = Transform3D(0.862192, -0.500905, 0.0756182, 0.502936, 0.864273, -0.00936843, -0.0606621, 0.0461085, 0.997093, 1.6571, -0.670117, -2.31618)
+
+[node name="BakeSimSource_13_262" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="5"]
+transform = Transform3D(0.663435, -0.328987, 0.672028, 0.380766, 0.921603, 0.0752677, -0.644105, 0.20595, 0.73669, 1.18399, -1.59751, -1.25946)
+
+[node name="BakeSimSource_14_263" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="6"]
+transform = Transform3D(-0.18237, 0.0144501, -0.983124, 0.208201, 0.977785, -0.0242496, 0.960934, -0.209109, -0.181327, 0.583163, -3.54622, -1.24152)
+
+[node name="BakeSimSource_15_264" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="7"]
+transform = Transform3D(0.235885, -0.223913, 0.945633, 0.675298, 0.737519, 0.00618356, -0.698806, 0.637125, 0.325178, -0.298161, -0.442204, -2.81394)
+
+[node name="BakeSimSource_16_265" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="8"]
+transform = Transform3D(0.865937, 0.175472, 0.468361, -0.236866, 0.968641, 0.0750307, -0.440508, -0.175911, 0.880346, 1.84573, -2.88206, -2.19177)
+
+[node name="BakeSimSource_17_266" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="9"]
+transform = Transform3D(-0.731929, -0.039273, 0.680248, -0.0824727, 0.996104, -0.03123, -0.676372, -0.07896, -0.732316, -1.41033, -0.771125, -1.75206)
+
+[node name="BakeSimSource_18_267" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="10"]
+transform = Transform3D(-0.256175, 0.0897336, 0.962456, 0.555351, 0.828617, 0.0705611, -0.791176, 0.552577, -0.262104, 0.50776, -2.52475, -2.35565)
+
+[node name="BakeSimSource_19_268" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="11"]
+transform = Transform3D(-0.0948504, 0.128576, -0.987153, 0.818793, 0.574076, -0.0039008, 0.5662, -0.808644, -0.159728, -0.534786, -2.43413, -2.08152)
+
+[node name="BakeSimSource_2_269" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="12"]
+transform = Transform3D(-0.368762, 0.138164, -0.919198, 0.386746, 0.922037, -0.0165637, 0.845247, -0.361605, -0.393446, -0.570933, -0.751979, -2.08942)
+
+[node name="BakeSimSource_20_270" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="13"]
+transform = Transform3D(0.175586, -0.0156353, 0.98434, 0.285009, 0.957863, -0.0356251, -0.942305, 0.286801, 0.172644, -0.12423, -1.57745, -1.95097)
+
+[node name="BakeSimSource_21_271" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="14"]
+transform = Transform3D(-0.587971, 0.665424, 0.459892, 0.750228, 0.661175, 0.00250162, -0.302404, 0.346495, -0.887971, 0.913668, -1.67999, -2.48302)
+
+[node name="BakeSimSource_22_272" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="15"]
+transform = Transform3D(0.118664, -0.733511, 0.669239, 0.974267, 0.216091, 0.0640947, -0.191631, 0.644412, 0.740278, 0.863093, -0.646155, 0.103462)
+
+[node name="BakeSimSource_23_273" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="16"]
+transform = Transform3D(0.903383, -0.135021, -0.407023, 0.124458, 0.990837, -0.0524532, 0.410376, -0.00327206, 0.911911, 1.72587, -1.69813, -0.309337)
+
+[node name="BakeSimSource_24_274" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="17"]
+transform = Transform3D(-0.145951, -0.0251112, -0.988973, -0.0419659, 0.998935, -0.0191708, 0.988401, 0.0387052, -0.14685, 0.292646, -3.59634, -0.462061)
+
+[node name="BakeSimSource_25_275" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="18"]
+transform = Transform3D(-0.240749, 0.591734, 0.769344, 0.945324, 0.322628, 0.0476716, -0.220003, 0.738757, -0.637053, 0.285827, -0.459495, -1.73276)
+
+[node name="BakeSimSource_26_276" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="19"]
+transform = Transform3D(0.510836, -0.288535, -0.809811, 0.540263, 0.84048, 0.0413401, 0.668702, -0.458629, 0.585233, 0.747065, -2.78882, 0.483739)
+
+[node name="BakeSimSource_27_277" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="20"]
+transform = Transform3D(0.658581, -0.588449, 0.46904, 0.664498, 0.747277, 0.00449483, -0.353148, 0.308716, 0.883166, 0.651929, -0.737317, -2.63602)
+
+[node name="BakeSimSource_28_278" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="21"]
+transform = Transform3D(0.900534, 0.434072, -0.0248918, -0.433911, 0.900878, 0.0117967, 0.0275452, 0.00017748, 0.999621, 1.83241, -2.7286, -0.75243)
+
+[node name="BakeSimSource_29_279" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="22"]
+transform = Transform3D(0.747528, -0.212692, -0.629257, 0.300357, 0.953198, 0.0346241, 0.592442, -0.214884, 0.776426, 0.817751, -2.53192, -1.62996)
+
+[node name="BakeSimSource_3_280" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="23"]
+transform = Transform3D(-0.452336, 0.494346, -0.742303, 0.74825, 0.663264, -0.0142519, 0.485298, -0.561875, -0.669912, -1.4209, -1.34705, -1.73252)
+
+[node name="BakeSimSource_30_281" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="24"]
+transform = Transform3D(0.79609, -0.564146, 0.219043, 0.567578, 0.821598, 0.0532232, -0.209991, 0.0819535, 0.974262, 0.365929, -1.57803, -1.36727)
+
+[node name="BakeSimSource_31_282" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="25"]
+transform = Transform3D(0.989552, 0.133512, 0.0544145, -0.133005, 0.991032, -0.0128379, -0.0556405, 0.0054664, 0.998436, 1.38626, -1.88051, -2.4417)
+
+[node name="BakeSimSource_32_283" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="26"]
+transform = Transform3D(0.47175, -0.0633975, -0.879451, 0.10287, 0.994558, -0.0165143, 0.875711, -0.0826788, 0.475704, 1.47734, -3.2789, 0.242896)
+
+[node name="BakeSimSource_33_284" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="27"]
+transform = Transform3D(0.889656, -0.447042, -0.093094, 0.446423, 0.894367, -0.0285318, 0.0960151, -0.0161758, 0.995248, 1.10484, -2.42051, -1.08536)
+
+[node name="BakeSimSource_34_285" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="28"]
+transform = Transform3D(0.282116, -0.890505, 0.356948, 0.949189, 0.313167, 0.0310861, -0.139467, 0.330042, 0.933607, 0.656255, -0.419517, -0.968054)
+
+[node name="BakeSimSource_35_286" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="29"]
+transform = Transform3D(-0.409993, -0.258974, -0.874551, -0.522019, 0.852898, -0.00783797, 0.747932, 0.453318, -0.484871, -0.469073, -3.62096, 0.561141)
+
+[node name="BakeSimSource_36_287" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="30"]
+transform = Transform3D(0.333111, -0.524229, -0.783722, 0.831483, 0.555259, -0.0180001, 0.444605, -0.645655, 0.620851, 1.68255, -1.09544, 0.0197722)
+
+[node name="BakeSimSource_37_288" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="31"]
+transform = Transform3D(-0.641515, -0.656983, -0.39602, -0.707451, 0.706294, -0.0257144, 0.296601, 0.263669, -0.917882, -1.407, -3.49406, -0.439046)
+
+[node name="BakeSimSource_38_289" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="32"]
+transform = Transform3D(-0.510178, -0.0994549, -0.854299, -0.247498, 0.968253, 0.0350818, 0.823689, 0.229335, -0.518596, 0.402443, -1.6174, -0.039978)
+
+[node name="BakeSimSource_39_290" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="33"]
+transform = Transform3D(0.486248, -0.871508, -0.0635371, 0.873397, 0.48699, 0.00429124, 0.0272021, -0.0575797, 0.99797, -0.427606, -1.427, -0.00793281)
+
+[node name="BakeSimSource_4_291" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="34"]
+transform = Transform3D(0.22531, 0.106557, -0.968443, -0.419804, 0.907612, 0.00219524, 0.879204, 0.406061, 0.249227, 0.00204207, -3.65682, -1.42191)
+
+[node name="BakeSimSource_40_292" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="35"]
+transform = Transform3D(0.826175, -0.563288, 0.0118636, 0.563105, 0.826237, 0.0156736, -0.0186309, -0.00626868, 0.999807, 0.00350192, -2.44833, -0.544381)
+
+[node name="BakeSimSource_41_293" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="36"]
+transform = Transform3D(-0.0857638, 0.0472569, -0.995194, 0.538414, 0.842656, -0.00638586, 0.838305, -0.536374, -0.0977132, -1.16518, -2.31094, -0.0536193)
+
+[node name="BakeSimSource_42_294" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="37"]
+transform = Transform3D(0.288433, 0.00379035, 0.957492, 0.0339765, 0.999322, -0.014191, -0.956897, 0.0366254, 0.288109, 1.3513, -3.29474, -0.548385)
+
+[node name="BakeSimSource_43_295" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="38"]
+transform = Transform3D(-0.462028, 0.107561, 0.880318, 0.211624, 0.977315, -0.00834366, -0.861246, 0.182442, -0.47431, -0.363391, -3.49412, -2.0236)
+
+[node name="BakeSimSource_44_296" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="39"]
+transform = Transform3D(0.678453, -0.413751, 0.607052, 0.531553, 0.846857, -0.0168772, -0.507103, 0.33413, 0.794483, 1.74052, -2.14024, -1.63989)
+
+[node name="BakeSimSource_45_297" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="40"]
+transform = Transform3D(-0.398971, 0.272535, 0.875527, 0.542046, 0.840223, -0.0145393, -0.739601, 0.468775, -0.482951, -1.36859, -2.13935, -0.733863)
+
+[node name="BakeSimSource_46_298" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="41"]
+transform = Transform3D(0.717796, -0.137954, 0.682449, 0.212811, 0.976737, -0.0263903, -0.662933, 0.164176, 0.730456, 1.04454, -2.58087, -2.69101)
+
+[node name="BakeSimSource_47_299" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="42"]
+transform = Transform3D(-0.108307, 0.00436209, -0.994108, -0.00808356, 0.999953, 0.00526843, 0.994085, 0.00860654, -0.108267, -1.11756, -2.44807, 0.534251)
+
+[node name="BakeSimSource_48_300" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="43"]
+transform = Transform3D(0.804548, -0.00196085, 0.593884, -0.00655417, 0.999904, 0.0121805, -0.593851, -0.0136922, 0.804459, 0.860839, -3.60051, -1.56618)
+
+[node name="BakeSimSource_49_301" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="44"]
+transform = Transform3D(0.353582, -0.000136336, -0.935403, 0.0624431, 0.997773, 0.023458, 0.933317, -0.0667038, 0.352803, 0.675127, -2.62858, -0.339836)
+
+[node name="BakeSimSource_5_302" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="45"]
+transform = Transform3D(0.279223, -0.198908, 0.939399, 0.66572, 0.745124, -0.0401039, -0.691991, 0.636574, 0.340472, -0.0140259, -0.53389, -0.746352)
+
+[node name="BakeSimSource_50_303" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="46"]
+transform = Transform3D(-0.524384, 0.703728, 0.479362, 0.798737, 0.601606, -0.00943495, -0.295027, 0.377936, -0.877567, -0.382118, -2.02835, -0.887271)
+
+[node name="BakeSimSource_51_304" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="47"]
+transform = Transform3D(0.711814, -0.648687, -0.269307, 0.672076, 0.740448, -0.00715107, 0.204047, -0.175904, 0.963028, -0.0054789, -3.00361, 0.206295)
+
+[node name="BakeSimSource_52_305" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="48"]
+transform = Transform3D(-0.945885, 0.0209316, 0.323825, 0.0151923, 0.99968, -0.0202416, -0.324145, -0.0142266, -0.9459, -1.20133, -3.28889, -2.34558)
+
+[node name="BakeSimSource_53_306" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="49"]
+transform = Transform3D(0.0786859, 0.019618, -0.996706, -0.0167993, 0.99969, 0.0183505, 0.996758, 0.0153001, 0.0789911, -0.306679, -1.98667, -0.194332)
+
+[node name="BakeSimSource_54_307" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="50"]
+transform = Transform3D(0.511721, -0.0256415, 0.858769, 0.0338343, 0.999381, 0.0096789, -0.858485, 0.0241029, 0.512272, 1.70014, -1.91228, -0.798084)
+
+[node name="BakeSimSource_55_308" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="51"]
+transform = Transform3D(0.185824, -0.784416, -0.591744, 0.972856, 0.231409, -0.00125244, 0.137917, -0.575448, 0.806125, -1.25385, -0.442296, -1.62023)
+
+[node name="BakeSimSource_56_309" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="52"]
+transform = Transform3D(0.575775, 0.0318878, -0.816986, -0.0631981, 0.997985, -0.00558684, 0.815162, 0.0548487, 0.576631, 1.03603, -1.04049, 0.440174)
+
+[node name="BakeSimSource_57_310" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="53"]
+transform = Transform3D(0.0269616, -0.038787, 0.998884, 0.768305, 0.64007, 0.00411624, -0.639516, 0.767337, 0.0470576, -1.07888, -1.38484, -2.67601)
+
+[node name="BakeSimSource_58_311" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="54"]
+transform = Transform3D(0.512189, 0.163911, -0.843087, -0.297797, 0.954618, 0.00467786, 0.805592, 0.248673, 0.537757, 0.752024, -1.08161, -0.664581)
+
+[node name="BakeSimSource_59_312" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="55"]
+transform = Transform3D(0.972522, 0.161774, 0.167423, -0.166794, 0.985857, 0.016274, -0.162422, -0.0437519, 0.985751, 0.793956, -0.999023, -1.78083)
+
+[node name="BakeSimSource_6_313" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="56"]
+transform = Transform3D(0.339553, 0.102848, 0.934947, -0.300411, 0.953801, 0.0041815, -0.891323, -0.282289, 0.354762, -0.283831, -2.97516, -2.86029)
+
+[node name="BakeSimSource_60_314" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="57"]
+transform = Transform3D(-0.268752, 0.292637, -0.91768, 0.696035, 0.717573, 0.0249842, 0.665813, -0.632023, -0.396535, -0.341343, -1.43448, -1.3142)
+
+[node name="BakeSimSource_61_315" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="58"]
+transform = Transform3D(0.819505, 0.0337644, 0.572076, -0.0538502, 0.998383, 0.0182156, -0.570536, -0.0457342, 0.819998, 0.00980201, -1.22532, -2.47647)
+
+[node name="BakeSimSource_7_316" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="59"]
+transform = Transform3D(0.0560017, -0.00758088, -0.998402, 0.327319, 0.944848, 0.0111855, 0.943253, -0.327422, 0.0553945, -0.221801, -0.779161, 0.596691)
+
+[node name="BakeSimSource_8_317" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="60"]
+transform = Transform3D(-0.577163, -0.241757, 0.780023, -0.475709, 0.87591, -0.0805162, -0.663764, -0.417535, -0.620549, -1.52306, -2.76746, -1.46632)
+
+[node name="BakeSimSource_9_318" parent="Sketchfab_model/root/GLTF_SceneRootNode/Fish_319" index="61"]
+transform = Transform3D(-0.657979, -0.30434, -0.688797, -0.400804, 0.915904, -0.0218149, 0.637511, 0.261719, -0.724626, -0.548839, -2.78349, -0.283659)
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "Animation"

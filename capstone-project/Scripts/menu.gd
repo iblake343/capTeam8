@@ -1,15 +1,13 @@
 extends CanvasLayer
-@onready var animation_player = $Background/SharkObject/Sketchfab_Scene/AnimationPlayer
-
+var background_scene = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	animation_player.play("Animation", -1, 1.0)  # Play the animation
-	animation_player.animation_finished.connect(_on_animation_finished)
+	if background_scene == null:
+		background_scene = load("res://Scenes/PersistentBackground.tscn").instantiate()
+		call_deferred("add_background_scene")
 
-func _on_animation_finished(anim_name):
-	if anim_name == "Animation":
-		animation_player.play("Animation")  # Restart when finished
-
+func add_background_scene():
+	get_tree().root.add_child(background_scene)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -17,4 +15,4 @@ func _process(delta: float) -> void:
 
 
 func _on_start_btn_pressed() -> void:
-	get_tree().change_scene_to_file("res://select_net_ai.tscn")
+	get_tree().change_scene_to_file("res://Scenes/select_net_ai.tscn")

@@ -1,6 +1,5 @@
-[gd_scene load_steps=18 format=3 uid="uid://dypm60rngwoqn"]
+[gd_scene load_steps=17 format=3 uid="uid://dypm60rngwoqn"]
 
-[ext_resource type="PackedScene" uid="uid://dy8tqjiwws4ts" path="res://Scenes/SharkAnimation2.tscn" id="2_1ecx8"]
 [ext_resource type="Script" path="res://Scripts/menu.gd" id="2_4tmug"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="2_c3pgp"]
 
@@ -49,8 +48,6 @@ environment = SubResource("Environment_2a37o")
 camera_attributes = SubResource("CameraAttributesPractical_ke15x")
 
 [node name="Background" type="Node3D" parent="."]
-
-[node name="SharkObject" parent="Background" instance=ExtResource("2_1ecx8")]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Background"]
 anchors_preset = 15
