@@ -59,7 +59,7 @@ func spawn_new_instance():
 	new_tile.global_position = Vector2(152, 502)  
 	new_tile.scale = Vector2(0.43, 0.43)
 	get_parent().add_child(new_tile)  
-	var new_script = load("res://Scenes/pra.gd")  
+	var new_script = load("res://Scripts/pra.gd")  
 	new_tile.set_script(new_script)  
 
 	instance_count += 1  # Increase the counter
