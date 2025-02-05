@@ -1,5 +1,5 @@
 extends CanvasLayer
-@onready var animation_player = $Background/Sketchfab_Scene/AnimationPlayer
+@onready var animation_player = $Background/SharkObject/Sketchfab_Scene/AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -8,7 +8,6 @@ func _ready():
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Animation":
-		animation_player.seek(2)
 		animation_player.play("Animation")  # Restart when finished
 
 

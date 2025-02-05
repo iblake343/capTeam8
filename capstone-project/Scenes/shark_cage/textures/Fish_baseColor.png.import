@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csk57l7uesfwe"
-path.s3tc="res://.godot/imported/Skybox_baseColor.jpeg-c7bbcbdc807ab2d1293218d8a4ba3976.s3tc.ctex"
+uid="uid://wnil45kmr2iy"
+path.s3tc="res://.godot/imported/Fish_baseColor.png-e1f880bc7d83da79f09f27828965cf3e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://shark_cage/textures/Skybox_baseColor.jpeg"
-dest_files=["res://.godot/imported/Skybox_baseColor.jpeg-c7bbcbdc807ab2d1293218d8a4ba3976.s3tc.ctex"]
+source_file="res://Scenes/shark_cage/textures/Fish_baseColor.png"
+dest_files=["res://.godot/imported/Fish_baseColor.png-e1f880bc7d83da79f09f27828965cf3e.s3tc.ctex"]
 
 [params]
 

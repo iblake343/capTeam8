@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxpgcrmx7uc6f"]
 
-[ext_resource type="PackedScene" uid="uid://c4jq5ru4i6lmy" path="res://pra.tscn" id="1_oie8s"]
-[ext_resource type="Script" path="res://thing.gd" id="2_mlq03"]
+[ext_resource type="PackedScene" uid="uid://c4jq5ru4i6lmy" path="res://Scenes/pra.tscn" id="1_oie8s"]
+[ext_resource type="Script" path="res://Scripts/thing.gd" id="2_mlq03"]
 
 [node name="PlaceTile" type="Node2D"]
 

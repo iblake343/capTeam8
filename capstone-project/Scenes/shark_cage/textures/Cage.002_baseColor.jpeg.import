@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t2wnhbur1fcg"
-path.s3tc="res://.godot/imported/WSHARK_baseColor.jpeg-fa55bd7e26f9695f5cc61eec951805ea.s3tc.ctex"
+uid="uid://yfk050akyboy"
+path.s3tc="res://.godot/imported/Cage.002_baseColor.jpeg-ce8b2461a739199aa2ddc7104d6caa1a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://shark_cage/textures/WSHARK_baseColor.jpeg"
-dest_files=["res://.godot/imported/WSHARK_baseColor.jpeg-fa55bd7e26f9695f5cc61eec951805ea.s3tc.ctex"]
+source_file="res://Scenes/shark_cage/textures/Cage.002_baseColor.jpeg"
+dest_files=["res://.godot/imported/Cage.002_baseColor.jpeg-ce8b2461a739199aa2ddc7104d6caa1a.s3tc.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bex5bnhdahama"
-path.s3tc="res://.godot/imported/Rope.002_baseColor.jpeg-f5645889d49b6b3a6ee2fbdbc868eb23.s3tc.ctex"
+uid="uid://d3fxrmytpdjav"
+path.s3tc="res://.godot/imported/Material.002_baseColor.png-b3392494a064d3dc757c907005607b99.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://shark_cage/textures/Rope.002_baseColor.jpeg"
-dest_files=["res://.godot/imported/Rope.002_baseColor.jpeg-f5645889d49b6b3a6ee2fbdbc868eb23.s3tc.ctex"]
+source_file="res://Scenes/shark_cage/textures/Material.002_baseColor.png"
+dest_files=["res://.godot/imported/Material.002_baseColor.png-b3392494a064d3dc757c907005607b99.s3tc.ctex"]
 
 [params]
 
