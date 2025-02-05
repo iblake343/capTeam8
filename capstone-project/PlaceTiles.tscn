@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxpgcrmx7uc6f"]
+
+[ext_resource type="PackedScene" uid="uid://c4jq5ru4i6lmy" path="res://pra.tscn" id="1_oie8s"]
+[ext_resource type="Script" path="res://thing.gd" id="2_mlq03"]
+
+[node name="PlaceTile" type="Node2D"]
+
+[node name="BackGrid" type="Node2D" parent="."]
+script = ExtResource("2_mlq03")
+
+[node name="Node2D" parent="." instance=ExtResource("1_oie8s")]
+position = Vector2(2.38419e-07, -3.05176e-05)
+scale = Vector2(0.43, 0.43)

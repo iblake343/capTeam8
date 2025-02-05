@@ -1,0 +1,145 @@
+[gd_scene load_steps=15 format=3 uid="uid://dypm60rngwoqn"]
+
+[ext_resource type="PackedScene" uid="uid://bdeytk76duffb" path="res://menuSharksSwim.tscn" id="1_xllrc"]
+[ext_resource type="Script" path="res://menu.gd" id="2_4tmug"]
+[ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="2_c3pgp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qhpf1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jghrc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_77jec"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3jndu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oontr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vfs88"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_as5h2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u2k6x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i6eu4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_88f1u"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x7wps"]
+
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("2_4tmug")
+
+[node name="Background" type="Node3D" parent="."]
+
+[node name="Sketchfab_Scene" parent="Background" instance=ExtResource("1_xllrc")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46707, 2.9323, -7.97626)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_c3pgp")
+theme_override_font_sizes/font_size = 150
+text = "Atlantic  Attrition"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="StartBtn" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_fonts/font = ExtResource("2_c3pgp")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
+text = "Start Game"
+
+[node name="SettingsBtn" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_fonts/font = ExtResource("2_c3pgp")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
+text = "Settings"
+
+[node name="QuitBtn" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_fonts/font = ExtResource("2_c3pgp")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
+text = "Quit"
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/StartBtn" to="." method="_on_start_btn_pressed"]
