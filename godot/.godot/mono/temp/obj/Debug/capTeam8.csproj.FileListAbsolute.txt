@@ -1,0 +1,17 @@
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\bin\Debug\capTeam8.deps.json
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\bin\Debug\capTeam8.runtimeconfig.json
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\bin\Debug\capTeam8.dll
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\bin\Debug\capTeam8.pdb
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\capTeam8.csproj.AssemblyReference.cache
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\capTeam8.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\capTeam8.AssemblyInfoInputs.cache
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\capTeam8.AssemblyInfo.cs
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\capTeam8.csproj.CoreCompileInputs.cache
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\capTeam8.csproj.Up2Date
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\capTeam8.dll
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\refint\capTeam8.dll
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\capTeam8.pdb
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\capTeam8.genruntimeconfig.cache
+C:\Users\addad\Documents\capTeam8\godot\.godot\mono\temp\obj\Debug\ref\capTeam8.dll

@@ -1,0 +1,11 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1739454807
+::res://assets/::1739285411
+icon.svg::CompressedTexture2D::932433043805262415::1739199230::1739285411::1::::<><>::
+::res://scenes/::1739303759
+app.tscn::PackedScene::2644124655890803612::1739303759::0::1::::<><>::res://scripts/core/app.gd<>res://scripts/core/Board.cs
+::res://scripts/::1739287645
+::res://scripts/core/::1739303752
+app.gd::GDScript::-1::1739303752::0::1::::<>Node<>::
+Board.cs::CSharpScript::-1::1739296408::0::1::::<>Node<>::
+Cell.cs::CSharpScript::-1::1739303056::0::1::::<>Node<>::
