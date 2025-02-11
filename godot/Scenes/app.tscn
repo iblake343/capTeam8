@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdw3l14qw2odg"]
+
+[ext_resource type="Script" path="res://scripts/core/app.gd" id="1_3ly6d"]
+[ext_resource type="Script" path="res://scripts/core/Board.cs" id="2_sllnp"]
+
+[node name="App" type="Node"]
+script = ExtResource("1_3ly6d")
+
+[node name="Board" type="Node" parent="."]
+script = ExtResource("2_sllnp")
