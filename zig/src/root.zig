@@ -1,3 +1,17 @@
+
+pub const Turn = union {
+    place_hexes: struct {Location, Direction},
+    place_tokens: Location,
+    move_tokens: struct {Location, Location, Count},
+}
+
+pub const PlaceHexesError = error { oob, collision };
+pub const PlaceTokensError = error { oob, invalid_location };
+pub const MoveTokensError = error { oob, not_enough_tokens, collision, invalid_direction, too_short, };
+pub const TurnError = PlaceHexesError || PlaceTokensError || MoveTurnsError;
+
+// maybe this actually should represent a game?
+// or the turn logic can be handled by caller
 pub const Board = struct {
     origin: struct { x: u31, y: u31 },
     cells: [size * size]Cell,
@@ -17,7 +31,7 @@ pub const Board = struct {
         b.at(orig.move(dir, 1).move(dir.right(), 1)).* = .empty;
     }
 
-    pub fn at(b: *Board, loc: Location) *Cell {
+    fn at(b: *Board, loc: Location) *Cell {
         return &b.cells[@intCast(size * (loc.y + b.origin.y) + loc.x + b.origin.x)];
     }
 
@@ -74,6 +88,20 @@ pub const Board = struct {
     };
 };
 
+pub const Color = enum { red, blue };
+
+pub const Direction = enum {
+    nw,
+    ne,
+    e,
+    se,
+    sw,
+    w,
+    pub fn right(dir: Direction) Direction {
+        return @enumFromInt((@intFromEnum(dir) + 1) % 6);
+    }
+};
+
 fn v(x: i32, y: i32) Board.Location {
     return .{ .x = x, .y = y };
 }
@@ -89,19 +117,5 @@ export fn BoardSize() i32 {
 export fn xAt(b: *Board, x: i32, y: i32) u8 {
     return b.at(v(x, y)).toByte();
 }
-
-pub const Color = enum { red, blue };
-
-pub const Direction = enum {
-    nw,
-    ne,
-    e,
-    se,
-    sw,
-    w,
-    pub fn right(dir: Direction) Direction {
-        return @enumFromInt((@intFromEnum(dir) + 1) % 6);
-    }
-};
 
 const std = @import("std");
