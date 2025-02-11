@@ -29,9 +29,10 @@ pub const Board = struct {
         illegal,
         empty,
         stack: Stack,
+
         fn toByte(cell: Cell) u8 {
             return switch (cell) {
-                .illegal => 255,
+                .illegal => 1,
                 .empty => 0,
                 .stack => |s| 1 + s.size + @as(u8, switch (s.color) {
                     .red => 100,
@@ -85,7 +86,7 @@ export fn BoardSize() i32 {
     return @truncate(@sizeOf(Board));
 }
 
-export fn xAt(b: *Board, x: i32, y: i32) i32 {
+export fn xAt(b: *Board, x: i32, y: i32) u8 {
     return b.at(v(x, y)).toByte();
 }
 
