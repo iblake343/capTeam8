@@ -67,11 +67,12 @@ pub const Board = struct {
     done_resizing: bool = false,
     origin: Location = .{ 0, 0 },
     size: @Vector(2, u31) = .{ 1, 1 },
+    out_of_moves: PArray = PArray.initFill(false),
 
+    const PArray = std.EnumArray(Player, bool);
     pub const max_size = 30;
     pub const count_players = std.meta.fields(Player).len;
     pub const max_hexes = 16 * count_players;
-    // for 2 players, 32
     pub const poi_buf_len = max_hexes;
 
     fn splat(scalar: i32) Location {
@@ -90,25 +91,11 @@ pub const Board = struct {
     }
 
     fn addHex(b: *Board, loc: Location) void {
-        std.debug.print("adding tile at {any}\n", .{loc});
         b.size += delta(loc, b.origin);
         b.origin -= delta(loc, b.origin);
         b.size += delta(b.origin + b.size, loc + splat(1));
         b.at(loc).* = .empty;
-        std.debug.print("new frame: {any} {any}\n", .{ b.origin, b.size });
     }
-
-    // pub fn locFromUnsignedCoords(b: *const Board, x: usize, y: usize) Location {
-    //     const ix: i32 = @intCast(x);
-    //     const iy: i32 = @intCast(y);
-    //     return .{ .x = ix - b.origin.x, .y = iy - b.origin.y };
-    // }
-
-    // pub fn locFromIndex(b: *const Board, ix: usize) Location {
-    //     const y = ix / size;
-    //     const x = ix % size;
-    //     return b.locFromUnsignedCoords(x, y);
-    // }
 
     fn elem(as: []Location, a: Location) bool {
         for (as) |x| if (std.meta.eql(a, x)) return true;
@@ -123,7 +110,7 @@ pub const Board = struct {
     pub fn pointsOfInterest(b: *const Board, buf: *[poi_buf_len]Location) []Location {
         var fba = std.heap.FixedBufferAllocator.init(ptrCast(buf));
         var list = std.ArrayList(Location).initCapacity(fba.allocator(), buf.len) catch unreachable;
-        const next_move = b.nextExpectedMove();
+        const next_move = b.nextExpectedMove() orelse return buf[0..0];
         switch (next_move) {
             .place_hexes => {
                 // find all .empty cells adjacent to a .illegal cell;
@@ -154,8 +141,6 @@ pub const Board = struct {
                 }) else unreachable;
                 list.appendAssumeCapacity(start);
 
-                std.debug.print("{any} start\n", .{start});
-
                 var dir: Direction = .ne;
                 var loc: Location = start;
                 while (!std.meta.eql(start, b: {
@@ -175,27 +160,130 @@ pub const Board = struct {
                 }
             },
             .move_tokens => {
-                // find all stacks of current_player with count > "1" (> 0)
-                const w, const h = b.size;
-                for (0..h) |dy| for (0..w) |dx| {
-                    const loc = b.location(dx, dy);
-
-                    if (b.get(loc) != .stack) continue;
-                    if (b.get(loc).stack.color != b.current_player) continue;
-                    if (b.get(loc).stack.count == 0) continue;
-
-                    // TODO (QOL) verify that the stack has valid moves
-
-                    list.appendAssumeCapacity(loc);
-                };
+                findPoiMoveTokens(b, &list, b.current_player);
             },
         }
         return list.items;
     }
 
-    pub fn nextExpectedMove(b: *const Board) std.meta.FieldEnum(Turn) {
+    fn findPoiMoveTokens(b: *const Board, list: *std.ArrayList(Location), player: Player) void {
+        // find all stacks of current_player with count > "1" (> 0)
+        const w, const h = b.size;
+        for (0..h) |dy| for (0..w) |dx| {
+            const loc = b.location(dx, dy);
+
+            if (b.get(loc) != .stack) continue;
+            if (b.get(loc).stack.color != player) continue;
+            if (b.get(loc).stack.count == 0) continue;
+
+            if (b.get(loc + Direction.vector(.nw)) != .empty and
+                b.get(loc + Direction.vector(.ne)) != .empty and
+                b.get(loc + Direction.vector(.sw)) != .empty and
+                b.get(loc + Direction.vector(.se)) != .empty and
+                b.get(loc + Direction.vector(.w)) != .empty and
+                b.get(loc + Direction.vector(.e)) != .empty)
+                continue;
+
+            list.appendAssumeCapacity(loc);
+        };
+    }
+
+    pub fn winner(b: *const Board) ?Player {
+        var scores: [count_players]Score = undefined;
+        for (&scores, 0..) |*score, ix|
+            score.* = b.scorePlayer(@enumFromInt(ix));
+        return indexOfUniqueMaxPlayer(&scores);
+    }
+
+    fn indexOfUniqueMaxPlayer(xs: []const Score) ?Player {
+        var max: Score = 0;
+        var ix_max: ?usize = null;
+
+        for (xs, 0..) |x, ix| {
+            if (x > max) {
+                max = x;
+                ix_max = ix;
+            } else if (x == max) {
+                ix_max = null;
+            }
+        }
+
+        if (ix_max) |ix| return @enumFromInt(ix);
+        return null;
+    }
+
+    const Score = u16;
+    fn scorePlayer(b: *const Board, player: Player) Score {
+        var count_stacks: Score = 0;
+        var max_count_contiguous: Score = 0;
+
+        var breadcrumbs = breadcrumbsWithOrigin(b.origin);
+        const w, const h = b.size;
+        for (0..h) |dy| for (0..w) |dx| {
+            const loc = b.location(dx, dy);
+            if (breadcrumbs.guard(loc)) continue;
+            if (b.get(loc) != .stack) continue;
+            if (b.get(loc).stack.color != player) continue;
+
+            // DFS the region, counting stacks
+            // this DFS is modified to ensure that the stack cannot possibly be longer than 16 items
+            var count_contiguous: Score = 0;
+
+            var loc_buf: [16]Location = undefined;
+            var fba = std.heap.FixedBufferAllocator.init(ptrCast(&loc_buf));
+            var stack = std.ArrayList(Location).initCapacity(fba.allocator(), 16) catch unreachable;
+
+            stack.appendAssumeCapacity(loc);
+            while (stack.popOrNull()) |node| {
+                count_contiguous += 1;
+                for (0..std.meta.fields(Direction).len) |ix_dir| {
+                    const next = node + Direction.vector(@enumFromInt(ix_dir));
+                    if (breadcrumbs.guard(next)) continue;
+                    if (b.get(next) != .stack) continue;
+                    if (b.get(next).stack.color != player) continue;
+
+                    stack.appendAssumeCapacity(next);
+                }
+            }
+
+            count_stacks += count_contiguous;
+            if (count_contiguous > max_count_contiguous)
+                max_count_contiguous = count_contiguous;
+        };
+
+        return count_stacks * 16 + max_count_contiguous;
+    }
+
+    fn breadcrumbsWithOrigin(origin: Location) struct {
+        const Breadcrumbs = @This();
+        origin: Location,
+        data: [max_size][max_size]bool = [1][max_size]bool{.{false} ** max_size} ** max_size,
+
+        fn at(b: *Breadcrumbs, loc: Location) *bool {
+            const ix, const iy = loc - b.origin;
+            const x: usize = @intCast(ix);
+            const y: usize = @intCast(iy);
+            return &b.data[x][y];
+        }
+        fn get(b: *const Breadcrumbs, loc: Location) bool {
+            return @constCast(b).at(loc).*;
+        }
+        fn set(b: *Breadcrumbs, loc: Location) void {
+            b.at(loc).* = true;
+        }
+        fn guard(b: *Breadcrumbs, loc: Location) bool {
+            if (@reduce(.Min, loc - b.origin) < 0) return false;
+            defer b.set(loc);
+            return b.get(loc);
+        }
+    } {
+        return .{ .origin = origin };
+    }
+
+    pub fn nextExpectedMove(b: *const Board) ?std.meta.FieldEnum(Turn) {
         if (b.hexes_count < max_hexes) return .place_hexes;
         if (b.initial_stack_count < count_players) return .place_tokens;
+        if (b.out_of_moves.get(b.current_player)) return null;
         return .move_tokens;
     }
 
@@ -203,9 +291,25 @@ pub const Board = struct {
         switch (turn) {
             .place_hexes => |pl| try b.placeHexes(pl[0], pl[1], pl[2]),
             .place_tokens => |loc| try b.placeTokens(loc),
-            .move_tokens => |pl| try b.moveTokens(pl[0], pl[1], pl[2]),
+            .move_tokens => |pl| {
+                try b.moveTokens(pl[0], pl[1], pl[2]);
+
+                inline for (std.meta.fields(Player)) |f| {
+                    const player: Player = @enumFromInt(f.value);
+                    var poi: [poi_buf_len]Location = undefined;
+                    var fba = std.heap.FixedBufferAllocator.init(ptrCast(&poi));
+                    var list = std.ArrayList(Location).initCapacity(fba.allocator(), poi_buf_len) catch unreachable;
+
+                    findPoiMoveTokens(b, &list, player);
+                    if (list.items.len == 0) b.out_of_moves.set(player, true);
+                }
+            },
         }
         b.current_player = b.current_player.next();
+        for (0..count_players) |_|
+            if (b.out_of_moves.get(b.current_player)) {
+                b.current_player = b.current_player.next();
+            } else break;
     }
 
     fn placeHexes(

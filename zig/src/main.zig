@@ -19,7 +19,14 @@ pub fn main() !void {
             maybe_err = null;
         }
 
-        const kind = board.nextExpectedMove();
+        const kind = board.nextExpectedMove() orelse {
+            if (board.winner()) |player| {
+                try stdout.print("player {s} wins!\n", .{@tagName(player)});
+            } else {
+                try stdout.print("It's a tie game!\n", .{});
+            }
+            break;
+        };
         const player = board.current_player;
 
         try stdout.print("{s} {s}> ", .{ @tagName(player), @tagName(kind) });
