@@ -5,9 +5,9 @@ pub fn main() !void {
     var line_buf: [30]u8 = undefined;
 
     // the most poi we could have are the border tiles when placing
-    var poi_buf: [Board.poi_buf_len]Index = undefined;
+    var poi_buf: [Board.poi_buf_len]Location = undefined;
 
-    var board = Board.empty;
+    var board: Board = .{};
 
     var maybe_err: ?anyerror = null;
     while (true) {
@@ -30,7 +30,7 @@ pub fn main() !void {
         var tokens = std.mem.tokenizeAny(u8, line, " \t\r");
         if (std.ascii.eqlIgnoreCase(tokens.next() orelse "", "quit")) break;
 
-        const turn = Turn.parse(kind, line, poi, &board) catch |err| {
+        const turn = Turn.parse(kind, line, poi) catch |err| {
             maybe_err = err;
             continue;
         };
@@ -47,35 +47,40 @@ pub fn main() !void {
     }
 }
 
-pub fn drawBoard(board: Board, poi_list: []Index, writer: anytype, color: std.io.tty.Config) !void {
-    for (0..Board.size) |y| {
-        try writer.writeByteNTimes(' ', y);
-        for (0..Board.size) |x| {
-            const loc = board.locFromUnsignedCoords(x, y);
-            const ix = board.indexOfLoc(loc) catch unreachable;
+fn ixOf(as: []Location, a: Location) ?usize {
+    for (as, 0..) |x, ix| if (std.meta.eql(x, a)) return ix;
+    return null;
+}
 
-            switch (try board.get(loc)) {
+pub fn drawBoard(board: Board, poi_list: []Location, writer: anytype, color: std.io.tty.Config) !void {
+    const w, const h = board.size;
+    for (0..h) |dy| {
+        try writer.writeByteNTimes(' ', dy);
+        for (0..w) |dx| {
+            const loc = board.location(dx, dy);
+
+            switch (board.get(loc)) {
                 .illegal => {
                     try color.setColor(writer, .dim);
-                    if (std.mem.indexOfScalar(Index, poi_list, ix)) |pix| {
+                    if (ixOf(poi_list, loc)) |ix| {
                         try writer.writeByte(' ');
-                        try writer.writeByte(poiChar(pix));
+                        try writer.writeByte(poiChar(ix));
                     } else {
                         try writer.writeAll(" .");
                     }
                 },
                 .empty => {
-                    if (std.mem.indexOfScalar(Index, poi_list, ix)) |pix| {
+                    if (ixOf(poi_list, loc)) |ix| {
                         try writer.writeByte(' ');
-                        try writer.writeByte(poiChar(pix));
+                        try writer.writeByte(poiChar(ix));
                     } else {
                         try writer.writeAll(" O");
                     }
                 },
                 .stack => |stack| {
-                    if (std.mem.indexOfScalar(Index, poi_list, ix)) |pix| {
+                    if (ixOf(poi_list, loc)) |ix| {
                         try color.setColor(writer, .dim);
-                        try writer.writeByte(poiChar(pix));
+                        try writer.writeByte(poiChar(ix));
                     } else {
                         try writer.writeByte(' ');
                     }
@@ -133,7 +138,6 @@ fn SliceIterator(T: type) type {
 const std = @import("std");
 const lib = @import("prototype_lib");
 const Board = lib.Board;
-const Index = Board.Index;
 const Location = lib.Location;
 const Cell = lib.Cell;
 const Turn = lib.Turn;

@@ -4,14 +4,14 @@ pub const Turn = union(enum) {
     move_tokens: struct { Location, Direction, Count },
 
     pub const Kind = std.meta.FieldEnum(Turn);
-    pub fn parse(kind: Kind, src: []const u8, poi: []Board.Index, b: *const Board) !Turn {
+    pub fn parse(kind: Kind, src: []const u8, poi: []Location) !Turn {
         var tokens = std.mem.tokenizeAny(u8, src, " \r\t");
 
         const src_loc = tokens.next() orelse return error.expected_location;
         if (src_loc.len != 1) return error.expected_location;
         const ix = indexFromPoiChar(src_loc[0]) catch return error.invalid_location;
         if (ix >= poi.len) return error.invalid_location;
-        const loc = b.locFromIndex(poi[ix]);
+        const loc = poi[ix];
 
         if (kind == .place_tokens) return .{ .place_tokens = loc };
 
@@ -36,7 +36,7 @@ pub const Turn = union(enum) {
     }
 };
 
-fn indexFromPoiChar(char: u8) !Board.Index {
+fn indexFromPoiChar(char: u8) !usize {
     return switch (char) {
         'a'...'z' => char - 'a',
         'A'...'Z' => char - 'A' + 26,
@@ -60,78 +60,99 @@ pub const MoveTokensError = error{
 pub const TurnError = PlaceHexesError || PlaceTokensError || MoveTokensError;
 
 pub const Board = struct {
-    origin: struct { x: u31, y: u31 },
-    cells: [size * size]Cell,
-    current_player: Player,
-    hexes_count: usize,
+    cells: [max_size][max_size]Cell = [1][max_size]Cell{.{.illegal} ** max_size} ** max_size,
+    current_player: Player = @enumFromInt(0),
+    hexes_count: usize = 0,
     initial_stack_count: usize = 0,
+    done_resizing: bool = false,
+    origin: Location = .{ 0, 0 },
+    size: @Vector(2, u31) = .{ 1, 1 },
 
-    pub const Index = std.math.IntFittingRange(0, size * size - 1);
-    pub const size = 30;
+    pub const max_size = 30;
     pub const count_players = std.meta.fields(Player).len;
     pub const max_hexes = 16 * count_players;
     // for 2 players, 32
     pub const poi_buf_len = max_hexes;
 
-    pub fn locFromUnsignedCoords(b: *const Board, x: usize, y: usize) Location {
-        const ix: i32 = @intCast(x);
-        const iy: i32 = @intCast(y);
-        return .{ .x = ix - b.origin.x, .y = iy - b.origin.y };
+    fn splat(scalar: i32) Location {
+        return @splat(scalar);
     }
 
-    pub fn locFromIndex(b: *const Board, ix: usize) Location {
-        const y = ix / size;
-        const x = ix % size;
-        return b.locFromUnsignedCoords(x, y);
+    /// computes @min(b - a, 0) but adjusts the type
+    fn delta(a: Location, b: Location) @Vector(2, u31) {
+        return @intCast(@max(b - a, splat(0)));
     }
 
-    pub const empty: Board = .{
-        .origin = .{ .x = @divFloor(size, 2), .y = @divFloor(size, 2) },
-        .cells = [1]Cell{.illegal} ** (size * size),
-        .current_player = .blue,
-        .hexes_count = 0,
-    };
+    pub fn location(b: *const Board, dx: usize, dy: usize) Location {
+        const idx: i32 = @intCast(dx);
+        const idy: i32 = @intCast(dy);
+        return b.origin + Location{ idx, idy };
+    }
 
-    fn ptrCast(ixs: []Index) []u8 {
+    fn addHex(b: *Board, loc: Location) void {
+        std.debug.print("adding tile at {any}\n", .{loc});
+        b.size += delta(loc, b.origin);
+        b.origin -= delta(loc, b.origin);
+        b.size += delta(b.origin + b.size, loc + splat(1));
+        b.at(loc).* = .empty;
+        std.debug.print("new frame: {any} {any}\n", .{ b.origin, b.size });
+    }
+
+    // pub fn locFromUnsignedCoords(b: *const Board, x: usize, y: usize) Location {
+    //     const ix: i32 = @intCast(x);
+    //     const iy: i32 = @intCast(y);
+    //     return .{ .x = ix - b.origin.x, .y = iy - b.origin.y };
+    // }
+
+    // pub fn locFromIndex(b: *const Board, ix: usize) Location {
+    //     const y = ix / size;
+    //     const x = ix % size;
+    //     return b.locFromUnsignedCoords(x, y);
+    // }
+
+    fn elem(as: []Location, a: Location) bool {
+        for (as) |x| if (std.meta.eql(a, x)) return true;
+        return false;
+    }
+
+    fn ptrCast(ixs: []Location) []u8 {
         const bytes: [*]u8 = @ptrCast(ixs.ptr);
-        return bytes[0 .. ixs.len * @sizeOf(Index)];
+        return bytes[0 .. ixs.len * @sizeOf(Location)];
     }
 
-    pub fn pointsOfInterest(b: *const Board, buf: *[poi_buf_len]Index) []Index {
+    pub fn pointsOfInterest(b: *const Board, buf: *[poi_buf_len]Location) []Location {
         var fba = std.heap.FixedBufferAllocator.init(ptrCast(buf));
-        var list = std.ArrayList(Index).initCapacity(fba.allocator(), buf.len) catch unreachable;
+        var list = std.ArrayList(Location).initCapacity(fba.allocator(), buf.len) catch unreachable;
         const next_move = b.nextExpectedMove();
         switch (next_move) {
             .place_hexes => {
                 // find all .empty cells adjacent to a .illegal cell;
-                for (b.cells, 0..) |cell, ix| {
-                    if (cell != .empty) continue;
-                    const loc = b.locFromIndex(ix);
-                    if ((b.get(loc.move(.nw)) catch .empty) == .illegal or
-                        (b.get(loc.move(.ne)) catch .empty) == .illegal or
-                        (b.get(loc.move(.sw)) catch .empty) == .illegal or
-                        (b.get(loc.move(.se)) catch .empty) == .illegal or
-                        (b.get(loc.move(.w)) catch .empty) == .illegal or
-                        (b.get(loc.move(.e)) catch .empty) == .illegal)
+                const w, const h = b.size;
+                for (0..h) |dy| for (0..w) |dx| {
+                    const loc = b.location(dx, dy);
+                    if (b.get(loc) != .empty) continue;
+                    if (b.get(loc + Direction.vector(.nw)) == .illegal or
+                        b.get(loc + Direction.vector(.ne)) == .illegal or
+                        b.get(loc + Direction.vector(.sw)) == .illegal or
+                        b.get(loc + Direction.vector(.se)) == .illegal or
+                        b.get(loc + Direction.vector(.w)) == .illegal or
+                        b.get(loc + Direction.vector(.e)) == .illegal)
                     {
-                        list.appendAssumeCapacity(@truncate(ix));
+                        list.appendAssumeCapacity(loc);
                     }
-                }
+                };
                 // if no empty cells exist, return just 0, 0
-                if (list.items.len == 0)
-                    list.appendAssumeCapacity(
-                        @truncate(b.indexOfLoc(.{ .x = 0, .y = 0 }) catch unreachable),
-                    );
+                if (list.items.len == 0) list.appendAssumeCapacity(.{ 0, 0 });
             },
             .place_tokens => {
                 // find all .empty cells on the outside;
                 // find first .empty cell on board; circle island until back to start
-                const start = b: for (0..size) |y| (for (0..size) |x| {
-                    const loc = b.locFromUnsignedCoords(x, y);
-                    if (b.get(loc) catch unreachable == .empty)
-                        break :b loc;
+                const w, const h = b.size;
+                const start = b: for (0..h) |dy| (for (0..w) |dx| {
+                    const loc = b.location(dx, dy);
+                    if (b.get(loc) == .empty) break :b loc;
                 }) else unreachable;
-                list.appendAssumeCapacity(b.indexOfLoc(start) catch unreachable);
+                list.appendAssumeCapacity(start);
 
                 std.debug.print("{any} start\n", .{start});
 
@@ -141,29 +162,31 @@ pub const Board = struct {
                     // find next cell
                     for (0..6) |_| {
                         dir = dir.right();
-                        if ((b.get(loc.move(dir)) catch .illegal) != .illegal) {
-                            loc = loc.move(dir);
+                        if (b.get(loc + dir.vector()) != .illegal) {
+                            loc += dir.vector();
                             dir = dir.back();
                             break :b loc;
                         }
                     } else unreachable;
                 })) {
-                    const ix = b.indexOfLoc(loc) catch unreachable;
-                    if (b.cells[ix] == .empty and std.mem.indexOfScalar(Index, list.items, ix) == null)
-                        list.appendAssumeCapacity(ix);
+                    if (b.get(loc) == .empty and
+                        !elem(list.items, loc))
+                        list.appendAssumeCapacity(loc);
                 }
             },
             .move_tokens => {
                 // find all stacks of current_player with count > "1" (> 0)
-                for (0..size) |y| for (0..size) |x| {
-                    const loc = b.locFromUnsignedCoords(x, y);
-                    const ix = b.indexOfLoc(loc) catch unreachable;
+                const w, const h = b.size;
+                for (0..h) |dy| for (0..w) |dx| {
+                    const loc = b.location(dx, dy);
 
-                    if (b.cells[ix] != .stack) continue;
-                    if (b.cells[ix].stack.color != b.current_player) continue;
-                    if (b.cells[ix].stack.count == 0) continue;
+                    if (b.get(loc) != .stack) continue;
+                    if (b.get(loc).stack.color != b.current_player) continue;
+                    if (b.get(loc).stack.count == 0) continue;
 
-                    list.appendAssumeCapacity(ix);
+                    // TODO (QOL) verify that the stack has valid moves
+
+                    list.appendAssumeCapacity(loc);
                 };
             },
         }
@@ -193,31 +216,27 @@ pub const Board = struct {
     ) PlaceHexesError!void {
         const orig, const dir = reifyTileOrientation(cell, dir_orient, orient);
 
-        const rgt = dir.right();
-        const loc2 = orig.move(dir);
-        const xa = try board.at(orig);
-        const xb = try board.at(loc2);
-        const xc = try board.at(orig.move(rgt));
-        const xd = try board.at(loc2.move(rgt));
+        const v = dir.vector();
+        const w = dir.right().vector();
+        const loc1 = orig;
+        const loc2 = orig + v;
+        const loc3 = orig + w;
+        const loc4 = loc2 + w;
 
-        for ([4]*Cell{ xa, xb, xc, xd }) |ptr| {
-            if (ptr.* != .illegal) return error.collision;
+        for ([4]Location{ loc1, loc2, loc3, loc4 }) |loc| {
+            if (board.get(loc) != .illegal) return error.collision;
         }
 
-        for ([4]*Cell{ xa, xb, xc, xd }) |ptr| {
-            ptr.* = .empty;
+        for ([4]Location{ loc1, loc2, loc3, loc4 }) |loc| {
+            board.addHex(loc);
         }
 
         board.hexes_count += 4;
     }
 
-    /// ensures that the placing location is valid
-    ///
-    /// `valid` means that the piece is on an external edge of the board,
-    /// i.e. there is a path from the piece to the bounds of our space
-    /// that only crosses one non-illegal tile (the one at `loc`)
+    // TODO does this fn need to do validation?
     fn placeTokens(b: *Board, loc: Location) PlaceTokensError!void {
-        (try b.at(loc)).* = .{ .stack = .{ .color = b.current_player, .count = 15 } };
+        b.at(loc).* = .{ .stack = .{ .color = b.current_player, .count = 15 } };
         b.initial_stack_count += 1;
     }
 
@@ -227,7 +246,7 @@ pub const Board = struct {
         // that matches the current_player
         // and has at least count + 1 tokens
         {
-            const cell = try b.get(start);
+            const cell = b.get(start);
             if (cell != .stack) return error.cell_is_not_stack;
             if (cell.stack.color != b.current_player) return error.wrong_color;
             if (cell.stack.count < count) return error.not_enough_tokens;
@@ -235,35 +254,26 @@ pub const Board = struct {
 
         // find dest by moving start by dir until not .empty
         // ensure that dest != start
-        var x = start;
-        const dest = b: while (b.get(x.move(dir))) |cell| {
-            if (cell != .empty) break :b x;
-            x = x.move(dir);
-        } else |err| switch (err) {
-            error.oob => x,
-        };
-
-        if (std.meta.eql(dest, start)) return error.invalid_direction;
+        const dest = b: for (1..max_size) |udist| {
+            const dist: i32 = @intCast(udist);
+            if (b.get(start + dir.vector() * splat(dist)) == .empty) continue;
+            if (dist == 1) return error.invalid_direction;
+            break :b start + dir.vector() * splat(dist - 1);
+        } else unreachable;
 
         // do the moving
-        (try b.at(start)).stack.count -= count;
-        (try b.at(dest)).* = .{
+        b.at(start).stack.count -= count;
+        b.at(dest).* = .{
             .stack = .{ .color = b.current_player, .count = count - 1 },
         };
     }
 
-    pub fn indexOfLoc(b: *const Board, loc: Location) error{oob}!Index {
-        if (!inRange(0, loc.x + b.origin.x, size) or !inRange(0, loc.y + b.origin.y, size))
-            return error.oob;
-        return @intCast(size * (loc.y + b.origin.y) + loc.x + b.origin.x);
+    fn at(b: *Board, loc: Location) *Cell {
+        return &b.cells[@intCast(@mod(loc[0], max_size))][@intCast(@mod(loc[1], max_size))];
     }
 
-    fn at(b: *Board, loc: Location) error{oob}!*Cell {
-        return &b.cells[try b.indexOfLoc(loc)];
-    }
-
-    pub fn get(b: *const Board, loc: Location) error{oob}!Cell {
-        return (try @constCast(b).at(loc)).*;
+    pub fn get(b: *const Board, loc: Location) Cell {
+        return @constCast(b).at(loc).*;
     }
 };
 
@@ -273,11 +283,11 @@ pub fn reifyTileOrientation(
     orientation: Orientation,
 ) struct { Location, Direction } {
     return switch (orientation) {
-        .flat => .{ cell.move(face).move(face.left()), face.right() },
-        .ur => .{ cell.move(face), face },
-        .ul => .{ cell.move(face), face.left() },
-        .r => .{ cell.move(face), face.right() },
-        .l => .{ cell.move(face), face.left().left() },
+        .flat => .{ cell + face.vector() + face.left().vector(), face.right() },
+        .ur => .{ cell + face.vector(), face },
+        .ul => .{ cell + face.vector(), face.left() },
+        .r => .{ cell + face.vector(), face.right() },
+        .l => .{ cell + face.vector(), face.left().left() },
     };
 }
 
@@ -314,32 +324,8 @@ pub const Stack = struct {
     count: Count,
 };
 
-pub const Location = struct {
-    x: i32,
-    y: i32,
-
-    pub fn move(loc: Location, dir: Direction) Location {
-        return loc.moveDist(dir, 1);
-    }
-    pub fn moveDist(loc: Location, dir: Direction, dist: i32) Location {
-        var loc2 = loc;
-        switch (dir) {
-            .e => loc2.x += dist,
-            .w => loc2.x -= dist,
-            .se => loc2.y += dist,
-            .nw => loc2.y -= dist,
-            .sw => {
-                loc2.x -= dist;
-                loc2.y += dist;
-            },
-            .ne => {
-                loc2.x += dist;
-                loc2.y -= dist;
-            },
-        }
-        return loc2;
-    }
-};
+pub const Location = @Vector(2, i32);
+const Loc = Location;
 
 pub const Player = enum {
     red,
@@ -365,18 +351,24 @@ pub const Direction = enum(u8) {
     pub fn back(dir: Direction) Direction {
         return @enumFromInt((@intFromEnum(dir) + 3) % 6);
     }
+    pub fn vector(dir: Direction) Location {
+        return switch (dir) {
+            .e => .{ 1, 0 },
+            .w => .{ -1, 0 },
+            .se => .{ 0, 1 },
+            .nw => .{ 0, -1 },
+            .ne => .{ 1, -1 },
+            .sw => .{ -1, 1 },
+        };
+    }
 };
 
-fn v(x: i32, y: i32) Location {
-    return .{ .x = x, .y = y };
-}
-
-fn inRange(a: anytype, x: anytype, b: anytype) bool {
-    return a <= x and x < b;
-}
+// fn inRange(a: anytype, x: anytype, b: anytype) bool {
+//     return a <= x and x < b;
+// }
 
 export fn InitBoard(b: *Board) void {
-    b.* = Board.empty;
+    b.* = .{};
 }
 
 export fn BoardSize() i32 {
@@ -384,9 +376,7 @@ export fn BoardSize() i32 {
 }
 
 export fn xAt(b: *Board, x: i32, y: i32) u8 {
-    return (b.at(v(x, y)) catch {
-        return 2;
-    }).toByte();
+    return b.at(.{ x, y }).toByte();
 }
 
 const std = @import("std");
