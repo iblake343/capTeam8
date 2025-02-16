@@ -52,6 +52,9 @@ pub fn main() !void {
             continue;
         };
     }
+
+    try stdout.print("press ENTER to close the program.\n", .{});
+    _ = try stdin.readUntilDelimiterOrEof(&line_buf, '\n');
 }
 
 fn ixOf(as: []Location, a: Location) ?usize {
@@ -111,7 +114,7 @@ pub fn drawBoard(board: Board, poi_list: []Location, writer: anytype, color: std
 fn poiChar(ix: usize) u8 {
     return switch (ix) {
         0...25 => @truncate('a' + ix),
-        26...51 => @truncate('A' + ix),
+        26...51 => @truncate('A' + ix - 26),
         else => @panic("rendering poi, ix too large"),
     };
 }

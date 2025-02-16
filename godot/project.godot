@@ -10,10 +10,6 @@ config_version=5
 
 [application]
 
-config/name="Atlantic Attrition"
-run/main_scene="res://Scenes/menu.tscn"
-config/features=PackedStringArray("4.3", "C#", "Forward Plus")
-config/icon="res://icon.svg"
 config/name="capTeam8"
 run/main_scene="res://scenes/app.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
@@ -24,6 +20,10 @@ config/icon="res://assets/icon.svg"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+
+[dotnet]
+
+project/assembly_name="capTeam8"
 
 [input]
 
@@ -47,7 +47,3 @@ Zoom_DOWN={
 
 environment/defaults/default_clear_color=Color(0.252027, 0.252028, 0.252028, 1)
 textures/defaults/default_clear_color=Color(0.241723, 0.273137, 4.81308e-08, 1)
-
-[dotnet]
-
-project/assembly_name="capTeam8"
