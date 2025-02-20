@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://df7xyev6nyntb"]
 
 [ext_resource type="Texture2D" uid="uid://ey7gos4ky7ok" path="res://Tiles2-removebg-preview.png" id="1_3nhnq"]
-[ext_resource type="Script" path="res://tilemap.gd" id="1_jf3qn"]
-[ext_resource type="Script" path="res://camera_2d.gd" id="3_7sfai"]
+[ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_jf3qn"]
+[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_7sfai"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://Water one.png" id="4_6p8kl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_71buy"]
