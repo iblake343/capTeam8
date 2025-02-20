@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://0iaiu2m3sj6n"]
+
+[ext_resource type="Texture2D" uid="uid://ilekrhb26f3p" path="res://Beach-2D-Backgrounds/foundation_tiles/5-foundation_water.png" id="2_hy4q5"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("2_hy4q5")
