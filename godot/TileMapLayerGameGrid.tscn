@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://df7xyev6nyntb"]
+[gd_scene load_steps=8 format=3 uid="uid://df7xyev6nyntb"]
 
 [ext_resource type="Texture2D" uid="uid://ey7gos4ky7ok" path="res://Tiles2-removebg-preview.png" id="1_3nhnq"]
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_jf3qn"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_7sfai"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://Water one.png" id="4_6p8kl"]
+[ext_resource type="Script" path="res://Game.cs" id="5_er0hd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_71buy"]
 texture = ExtResource("1_3nhnq")
@@ -28,3 +29,6 @@ script = ExtResource("3_7sfai")
 
 [node name="WaterOne" type="Sprite2D" parent="."]
 texture = ExtResource("4_6p8kl")
+
+[node name="Game" type="Node" parent="."]
+script = ExtResource("5_er0hd")

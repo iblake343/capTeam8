@@ -1,10 +1,12 @@
 extends Node2D
 
 @onready var tilemaplayer: TileMapLayer = $TileMapLayer
+@onready var game = $Game
 var tracker = false
 var is_right_click_held = false  # Track if the right-click is held down
 var hovered_tile: Vector2i = Vector2i(-1, -1)  # Track previously hovered tile
 var original_tiles: Dictionary = {}  # Stores original tile states
+var wantsToPlaceTile = false
 
 # Hex grid offsets for even and odd column parities (existing offsets)
 var pattern_offsets_even_original: Array = [
@@ -51,11 +53,13 @@ var pattern_offsets_odd_flipped: Array = [
 
 var pattern_state: int = 0  # Default is the original pattern
 
-func _ready() -> void: pass
+func _ready() -> void:
+	game.registerPlayer1(self)
+	game.startGame()
 
 func _process(delta):
 	# Only update hover if right-click is not held
-	if is_right_click_held:
+	if is_right_click_held or !wantsToPlaceTile:
 		return  # Skip hover effect if right-click is held
 
 	var mouse_pos = tilemaplayer.get_local_mouse_position()
@@ -81,12 +85,15 @@ func _process(delta):
 		hovered_tile = tile_pos
 
 func _input(event):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and wantsToPlaceTile == true:
+		wantsToPlaceTile = false
 		var mouse_pos = tilemaplayer.get_local_mouse_position()
 		var tile_pos = tilemaplayer.local_to_map(mouse_pos)
 
 		# Select the correct offset pattern based on column parity and current state
 		var pattern_offsets = get_pattern_offsets(tile_pos)
+
+		game.TilePlaced.emit();
 
 		# Make the clicked pattern stay changed
 		for offset in pattern_offsets:
@@ -133,3 +140,15 @@ func cycle_pattern() -> void:
 	pattern_state = (pattern_state + 1) % 3  # Cycle through 0, 1, 2
 	print("Pattern switched to state: ", pattern_state)
 	tracker = true
+
+func place_tile() -> void:
+	wantsToPlaceTile = true
+
+func place_initial_stack():
+	pass # TODO implement; when done, emit game.InitialStackPlaced signal.
+
+func move_tokens():
+	pass # TODO implement; when done, emit game.TokensMoved signal.
+
+func declare_winner():
+	pass # TODO implement
