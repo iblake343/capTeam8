@@ -1,12 +1,12 @@
 [gd_scene load_steps=19 format=3 uid="uid://coawf4r6b0ni3"]
 
-[ext_resource type="Script" path="res://character.gd" id="1_3omp4"]
-[ext_resource type="Texture2D" uid="uid://by7nwbgl1g23c" path="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg" id="1_k7m45"]
-[ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="2_hvrsn"]
-[ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_nxj3l"]
-[ext_resource type="Texture2D" uid="uid://qtaxa6w0sylj" path="res://assets/Clownfish1.png" id="3_y3wos"]
-[ext_resource type="Texture2D" uid="uid://mppe6pdlfd6h" path="res://assets/Crab0.png" id="4_cp6hm"]
-[ext_resource type="Texture2D" uid="uid://bk80y4ooxit5f" path="res://assets/Octopus0.png" id="5_4m4ik"]
+[ext_resource type="Script" path="res://Scripts/character.gd" id="1_ofyqm"]
+[ext_resource type="Texture2D" uid="uid://by7nwbgl1g23c" path="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg" id="2_vr5pl"]
+[ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_2irgd"]
+[ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="4_o48re"]
+[ext_resource type="Texture2D" uid="uid://qtaxa6w0sylj" path="res://assets/Clownfish1.png" id="5_5drpt"]
+[ext_resource type="Texture2D" uid="uid://mppe6pdlfd6h" path="res://assets/Crab0.png" id="6_4lbnn"]
+[ext_resource type="Texture2D" uid="uid://bk80y4ooxit5f" path="res://assets/Octopus0.png" id="7_nkq03"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfkqx"]
 
@@ -31,12 +31,12 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tlkh7"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_3omp4")
+script = ExtResource("1_ofyqm")
 
 [node name="Coral-reef-background-wnbdw3Mzqnjgwlzz" type="Sprite2D" parent="."]
 position = Vector2(639.5, 359.5)
 scale = Vector2(0.666146, 0.665741)
-texture = ExtResource("1_k7m45")
+texture = ExtResource("2_vr5pl")
 
 [node name="Label" type="Label" parent="Coral-reef-background-wnbdw3Mzqnjgwlzz"]
 offset_left = -850.414
@@ -45,7 +45,7 @@ offset_right = 306.586
 offset_bottom = -257.933
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_nxj3l")
+theme_override_fonts/font = ExtResource("3_2irgd")
 theme_override_font_sizes/font_size = 150
 text = "Choose Your Character
 "
@@ -53,17 +53,17 @@ text = "Choose Your Character
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="."]
 position = Vector2(213, 377)
 scale = Vector2(0.159, 0.396667)
-texture = ExtResource("2_hvrsn")
+texture = ExtResource("4_o48re")
 
 [node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="."]
 position = Vector2(1036, 363)
 scale = Vector2(0.159, 0.396667)
-texture = ExtResource("2_hvrsn")
+texture = ExtResource("4_o48re")
 
 [node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="."]
 position = Vector2(616, 369)
 scale = Vector2(0.159, 0.396667)
-texture = ExtResource("2_hvrsn")
+texture = ExtResource("4_o48re")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 73.0
@@ -82,7 +82,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
-icon = ExtResource("3_y3wos")
+icon = ExtResource("5_5drpt")
 
 [node name="Button2" type="Button" parent="."]
 offset_left = 481.0
@@ -101,7 +101,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
-icon = ExtResource("4_cp6hm")
+icon = ExtResource("6_4lbnn")
 
 [node name="Button3" type="Button" parent="."]
 offset_left = 905.0
@@ -120,7 +120,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
-icon = ExtResource("5_4m4ik")
+icon = ExtResource("7_nkq03")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

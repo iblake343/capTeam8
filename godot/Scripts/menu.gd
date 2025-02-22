@@ -75,3 +75,15 @@ func _on_single_player_pressed() -> void:
 
 func _on_settings_btn_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/settings.tscn")
+
+
+func _on_quit_btn_pressed() -> void:
+	get_tree().quit()
+
+
+func _on_two_player_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/choose_characterScene.tscn")
+
+
+func _on_online_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/character.tscn")
