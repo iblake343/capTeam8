@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2p54gtg4e6kl"
-path="res://.godot/imported/Tiles2.png-9027d5bbce4036a86484e72e2f624c73.ctex"
+uid="uid://cwaw8q7fb2pja"
+path="res://.godot/imported/crabTile (1).png-7a1a14019134379d894320bd79201eb1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tiles2.png"
-dest_files=["res://.godot/imported/Tiles2.png-9027d5bbce4036a86484e72e2f624c73.ctex"]
+source_file="res://assets/crabTile (1).png"
+dest_files=["res://.godot/imported/crabTile (1).png-7a1a14019134379d894320bd79201eb1.ctex"]
 
 [params]
 
