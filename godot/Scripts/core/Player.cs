@@ -3,15 +3,20 @@ using System;
 using System.Threading.Tasks;
 
 public interface Player {
-	Task<(Vector2I loc, TileOrientation orient)> PlaceTile();
-	Task<Vector2I> PlaceInitialStack();
-	Task<(Vector2I loc, MoveDirection dir, byte count)> MoveTokens();
+	(Vector2I a, Vector2I b, Vector2I c, Vector2I d) PlaceTile(Board board);
+	Vector2I PlaceInitialStack(Board board);
+	(Vector2I src, Vector2I dest, ushort count) MoveTokens(Board board);
 }
 
 public enum TileOrientation : ushort {
 	Flat,
 	DownRight,
 	DownLeft,
+}
+
+public enum Color : ushort {
+	Red,
+	Blue,
 }
 
 public enum MoveDirection : ushort {

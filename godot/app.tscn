@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/core/app.gd" id="1_ouome"]
 [ext_resource type="Script" path="res://Scripts/core/Board.cs" id="2_mq0xf"]
 [ext_resource type="Script" path="res://Game.cs" id="3_a4aig"]
-[ext_resource type="Script" path="res://AppPlayer.cs" id="4_nh6uq"]
+[ext_resource type="Script" path="res://Scripts/core/UIPlayer.cs" id="4_nh6uq"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_ouome")

@@ -24,7 +24,7 @@ public partial class Game : Node
 			return;
 		}
 		
-		(Vector2I loc, TileOrientation orient) = await player1.PlaceTile();
+		var locations = await player1.PlaceTile();
 		GD.Print($"got a tile placed at {loc} with orientation {orient}");
 	}
 }

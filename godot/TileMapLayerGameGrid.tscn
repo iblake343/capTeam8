@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_jf3qn"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_7sfai"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://Water one.png" id="4_6p8kl"]
-[ext_resource type="Script" path="res://Game.cs" id="5_er0hd"]
+[ext_resource type="Script" path="res://Scripts/core/Game.cs" id="5_tuufj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_71buy"]
 texture = ExtResource("1_3nhnq")
@@ -31,4 +31,4 @@ script = ExtResource("3_7sfai")
 texture = ExtResource("4_6p8kl")
 
 [node name="Game" type="Node" parent="."]
-script = ExtResource("5_er0hd")
+script = ExtResource("5_tuufj")
