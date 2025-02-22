@@ -1,34 +1,65 @@
-[gd_scene load_steps=8 format=3 uid="uid://df7xyev6nyntb"]
+[gd_scene load_steps=16 format=3 uid="uid://df7xyev6nyntb"]
 
-[ext_resource type="Texture2D" uid="uid://ey7gos4ky7ok" path="res://Tiles2-removebg-preview.png" id="1_3nhnq"]
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_jf3qn"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_7sfai"]
-[ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://Water one.png" id="4_6p8kl"]
+[ext_resource type="Texture2D" uid="uid://byyrmxcvwua5x" path="res://assets/Tiles1.png" id="4_6crbj"]
+[ext_resource type="Texture2D" uid="uid://rlu8ecytgr3s" path="res://assets/Background1.png" id="5_4c61q"]
 [ext_resource type="Script" path="res://Game.cs" id="5_er0hd"]
+[ext_resource type="Texture2D" uid="uid://dc0frbdqh4tp3" path="res://assets/Tiles3.png" id="5_kwhup"]
+[ext_resource type="Texture2D" uid="uid://cspt0b2ade8bf" path="res://assets/Tiles4.png" id="6_jvh01"]
+[ext_resource type="Texture2D" uid="uid://cb7oftst6mnpx" path="res://assets/Tiles5.png" id="7_jqyse"]
+[ext_resource type="Texture2D" uid="uid://b8nybsk7m7mff" path="res://assets/Tiles2 (1).png" id="7_tsqlx"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_71buy"]
-texture = ExtResource("1_3nhnq")
-texture_region_size = Vector2i(537, 465)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nwn4b"]
+texture = ExtResource("4_6crbj")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h8bru"]
+texture = ExtResource("5_kwhup")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mcp2k"]
+texture = ExtResource("6_jvh01")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tw140"]
+texture = ExtResource("7_jqyse")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8iyoh"]
+texture = ExtResource("7_tsqlx")
+texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_a4y5v"]
 tile_shape = 3
 tile_offset_axis = 1
-tile_size = Vector2i(537, 465)
-sources/0 = SubResource("TileSetAtlasSource_71buy")
+tile_size = Vector2i(600, 520)
+sources/1 = SubResource("TileSetAtlasSource_nwn4b")
+sources/2 = SubResource("TileSetAtlasSource_h8bru")
+sources/3 = SubResource("TileSetAtlasSource_mcp2k")
+sources/4 = SubResource("TileSetAtlasSource_tw140")
+sources/5 = SubResource("TileSetAtlasSource_8iyoh")
 
 [node name="TileMapGrid" type="Node2D"]
 script = ExtResource("1_jf3qn")
+
+[node name="Background1" type="Sprite2D" parent="."]
+position = Vector2(6.10352e-05, -1.52588e-05)
+scale = Vector2(0.619025, 0.551883)
+texture = ExtResource("5_4c61q")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 scale = Vector2(0.3, 0.3)
 tile_set = SubResource("TileSet_a4y5v")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.75, 0.75)
 script = ExtResource("3_7sfai")
-
-[node name="WaterOne" type="Sprite2D" parent="."]
-texture = ExtResource("4_6p8kl")
 
 [node name="Game" type="Node" parent="."]
 script = ExtResource("5_er0hd")

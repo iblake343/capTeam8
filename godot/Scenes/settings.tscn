@@ -1,21 +1,22 @@
-[gd_scene load_steps=17 format=3 uid="uid://7bri14cfy1xv"]
+[gd_scene load_steps=18 format=3 uid="uid://7bri14cfy1xv"]
 
-[ext_resource type="Script" path="res://Scripts/settings.gd" id="1_l26uk"]
-[ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="1_wsle7"]
+[ext_resource type="Script" path="res://Scripts/settings.gd" id="1_f8vdq"]
+[ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="1_xvcih"]
+[ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="2_bd4b0"]
 
-[sub_resource type="Environment" id="Environment_jvtrm"]
+[sub_resource type="Environment" id="Environment_2a37o"]
 background_mode = 4
 background_energy_multiplier = 16.0
 ambient_light_source = 2
 ambient_light_energy = 16.0
 ssr_enabled = true
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_xcg1c"]
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ke15x"]
 auto_exposure_enabled = true
 auto_exposure_min_sensitivity = 1600.0
 auto_exposure_max_sensitivity = 1000.0
 
-[sub_resource type="Environment" id="Environment_47qq8"]
+[sub_resource type="Environment" id="Environment_gpej2"]
 ambient_light_energy = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qhpf1"]
@@ -40,12 +41,12 @@ ambient_light_energy = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x7wps"]
 
-[node name="Settings" type="CanvasLayer"]
-script = ExtResource("1_l26uk")
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_f8vdq")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_jvtrm")
-camera_attributes = SubResource("CameraAttributesPractical_xcg1c")
+environment = SubResource("Environment_2a37o")
+camera_attributes = SubResource("CameraAttributesPractical_ke15x")
 
 [node name="Background" type="Node3D" parent="."]
 
@@ -61,45 +62,57 @@ handle_input_locally = false
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="Camera3D2" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
 transform = Transform3D(0.0728205, 0, 0.997345, 0, 1, 0, -0.997345, 0, 0.0728205, 0.0683151, 1.37408, -0.0589334)
-environment = SubResource("Environment_47qq8")
+environment = SubResource("Environment_gpej2")
 fov = 60.0
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 53.0
+offset_top = 67.0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_xvcih")
+theme_override_font_sizes/font_size = 150
+text = "Atlantic  Attrition"
+
+[node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="VBoxContainer"]
+position = Vector2(120, 196)
+scale = Vector2(0.123333, 0.0956667)
+texture = ExtResource("2_bd4b0")
+
+[node name="StartGameBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967798"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2570.0
+offset_top = -1742.0
+offset_right = -543.0
+offset_bottom = -1257.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 64
-theme_override_constants/margin_bottom = 80
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 2
-
-[node name="NetworkBtn" type="Button" parent="Control/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
-theme_override_fonts/font = ExtResource("1_wsle7")
-theme_override_font_sizes/font_size = 150
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_xvcih")
+theme_override_font_sizes/font_size = 500
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
@@ -111,15 +124,39 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "Tutorial"
+text = "tutorial"
 
-[node name="AIBtn" type="Button" parent="Control/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
+[node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="VBoxContainer"]
+position = Vector2(118, 294)
+scale = Vector2(0.123333, 0.0956667)
+texture = ExtResource("2_bd4b0")
+
+[node name="SettingsBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967799"]
+anchors_preset = -1
+anchor_left = 0.501
+anchor_top = 0.5
+anchor_right = 0.501
+anchor_bottom = 0.5
+offset_left = -2484.08
+offset_top = -1824.04
+offset_right = -514.081
+offset_bottom = -1176.04
+size_flags_horizontal = 0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
-theme_override_fonts/font = ExtResource("1_wsle7")
-theme_override_font_sizes/font_size = 150
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_xvcih")
+theme_override_font_sizes/font_size = 500
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
@@ -131,18 +168,24 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "Credits
-"
+text = "Credits"
 
-[node name="BackBtn" type="Button" parent="Control"]
-layout_mode = 2
-offset_right = 109.0
-offset_bottom = 59.0
+[node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="VBoxContainer"]
+position = Vector2(117, 389)
+scale = Vector2(0.123333, 0.0956667)
+texture = ExtResource("2_bd4b0")
+
+[node name="QuitBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967800"]
+offset_left = -1045.95
+offset_top = -282.23
+offset_right = 940.054
+offset_bottom = 229.77
 size_flags_horizontal = 0
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
-theme_override_fonts/font = ExtResource("1_wsle7")
-theme_override_font_sizes/font_size = 60
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_xvcih")
+theme_override_font_sizes/font_size = 500
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
@@ -156,6 +199,4 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Back"
 
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/NetworkBtn" to="." method="_on_network_btn_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/AIBtn" to="." method="_on_ai_btn_pressed"]
-[connection signal="pressed" from="Control/BackBtn" to="." method="_on_back_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967800/QuitBtn" to="." method="_on_quit_btn_pressed"]
