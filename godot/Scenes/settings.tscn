@@ -56,6 +56,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
 handle_input_locally = false
@@ -199,4 +200,6 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Back"
 
+[connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967798/StartGameBtn" to="." method="_on_start_game_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967799/SettingsBtn" to="." method="_on_settings_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967800/QuitBtn" to="." method="_on_quit_btn_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://df7xyev6nyntb"]
+[gd_scene load_steps=28 format=3 uid="uid://df7xyev6nyntb"]
 
 [ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_jf3qn"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_7sfai"]
@@ -101,12 +101,12 @@ texture = ExtResource("5_4c61q")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 scale = Vector2(0.3, 0.3)
-tile_map_data = PackedByteArray("AAD//wAABQAAAAAAAAAAAAEABQAAAAAAAAAAAAAABQAAAAAAAAABAAAABQAAAAAAAAA=")
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_a4y5v")
 
 [node name="ChipLayer" type="TileMapLayer" parent="."]
 scale = Vector2(0.3, 0.3)
-tile_map_data = PackedByteArray("AAAAAAAABAAAAAAAAAABAAAABAAAAAAAAAD//wAAAAAAAAAAAAAAAAEABQAAAAAAAAABAAEABQAAAAAAAAACAAEABQAAAAAAAAACAAAABQAAAAAAAAABAP//BQAAAAAAAAD//wEABgAAAAAAAAAAAAIABgAAAAAAAAACAAIABgAAAAAAAAADAAAABgAAAAAAAAADAAEABgAAAAAAAAAEAAAABgAAAAAAAAADAP//BgAAAAAAAAA=")
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_tuf7u")
 
 [node name="Camera2D" type="Camera2D" parent="."]
