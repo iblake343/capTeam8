@@ -1,0 +1,55 @@
+[gd_scene load_steps=14 format=3 uid="uid://bvkeb6sq5gutb"]
+
+[ext_resource type="Script" path="res://Scripts/place_tiles.gd" id="1_fkhse"]
+[ext_resource type="Texture2D" uid="uid://dtshb5mmnfr50" path="res://assets/OctoTileCircle (1).png" id="4_m53f5"]
+[ext_resource type="Texture2D" uid="uid://cevyudkvl6te3" path="res://assets/octoSingleTile.png" id="5_w4tov"]
+[ext_resource type="Texture2D" uid="uid://q17i3ojighpk" path="res://assets/Crab0 (1).png" id="6_3dj2q"]
+[ext_resource type="Texture2D" uid="uid://b12xrjumdxrwi" path="res://assets/crabTileCircle (1).png" id="6_dams5"]
+[ext_resource type="Texture2D" uid="uid://b4nrely43ckcv" path="res://assets/Clownfish1 (1).png" id="7_kfybc"]
+[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="7_r1xy3"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4p2wa"]
+texture = ExtResource("6_dams5")
+texture_region_size = Vector2i(444, 444)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3mftk"]
+texture = ExtResource("4_m53f5")
+texture_region_size = Vector2i(444, 444)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3jbk4"]
+texture = ExtResource("5_w4tov")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b87l1"]
+texture = ExtResource("6_3dj2q")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r8c3i"]
+texture = ExtResource("7_kfybc")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_qnt7o"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(600, 520)
+sources/0 = SubResource("TileSetAtlasSource_4p2wa")
+sources/1 = SubResource("TileSetAtlasSource_3mftk")
+sources/4 = SubResource("TileSetAtlasSource_3jbk4")
+sources/5 = SubResource("TileSetAtlasSource_b87l1")
+sources/6 = SubResource("TileSetAtlasSource_r8c3i")
+
+[node name="PlaceTiles" type="Node2D"]
+script = ExtResource("1_fkhse")
+
+[node name="ChipLayer" type="TileMapLayer" parent="."]
+scale = Vector2(0.3, 0.3)
+tile_set = SubResource("TileSet_qnt7o")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.75, 0.75)
+script = ExtResource("7_r1xy3")

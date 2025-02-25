@@ -7,7 +7,7 @@ var is_right_click_held = false  # Track if the right-click is held down
 var hovered_tile: Vector2i = Vector2i(-1, -1)  # Track previously hovered tile
 var original_tiles: Dictionary = {}  # Stores original tile states
 var wantsToPlaceTile = false
-
+var count = 0 #will delete when andrew implement when to go to next state
 
 # Hex grid offsets for even and odd column parities (existing offsets)
 var pattern_offsets_even_original: Array = [
@@ -90,6 +90,7 @@ func _input(event):
 		wantsToPlaceTile = false
 		var mouse_pos = tilemaplayer.get_local_mouse_position()
 		var tile_pos = tilemaplayer.local_to_map(mouse_pos)
+		
 
 		# Select the correct offset pattern based on column parity and current state
 		var pattern_offsets = get_pattern_offsets(tile_pos)
@@ -103,6 +104,9 @@ func _input(event):
 			# Will pass to game core to validate placement
 			tilemaplayer.set_cell(target_tile, randi_range(1,5), Vector2i(0, 0))  # Set permanent change
 		print("Pattern clicked!")
+		count += 1
+		if count == 8:
+			place_initial_stack()
 
 	# Check if the "R" key is pressed to switch the pattern
 	if event is InputEventKey and event.pressed and event.keycode == Key.KEY_R:
@@ -145,9 +149,10 @@ func cycle_pattern() -> void:
 func place_tile() -> void:
 	wantsToPlaceTile = true
 
+#calling myself at the moment, will have Andrew pass me when to go
 func place_initial_stack():
-	pass # TODO implement; when done, emit game.InitialStackPlaced signal.
-
+	get_tree().change_scene_to_file("res://Scenes/place_tiles.tscn")
+	
 func move_tokens():
 	pass # TODO implement; when done, emit game.TokensMoved signal.
 
