@@ -10,27 +10,27 @@
 [ext_resource type="Texture2D" uid="uid://cb7oftst6mnpx" path="res://assets/Tiles5.png" id="7_jqyse"]
 [ext_resource type="Texture2D" uid="uid://b8nybsk7m7mff" path="res://assets/Tiles2 (1).png" id="7_tsqlx"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1owtr"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hhuw7"]
 texture = ExtResource("4_6crbj")
 texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uawes"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6q0jk"]
 texture = ExtResource("5_kwhup")
 texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i3d1u"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fdebf"]
 texture = ExtResource("6_jvh01")
 texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fkpvw"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qkjgq"]
 texture = ExtResource("7_jqyse")
 texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kmbfg"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vmxpx"]
 texture = ExtResource("7_tsqlx")
 texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
@@ -39,11 +39,11 @@ texture_region_size = Vector2i(600, 520)
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(600, 520)
-sources/1 = SubResource("TileSetAtlasSource_1owtr")
-sources/2 = SubResource("TileSetAtlasSource_uawes")
-sources/3 = SubResource("TileSetAtlasSource_i3d1u")
-sources/4 = SubResource("TileSetAtlasSource_fkpvw")
-sources/5 = SubResource("TileSetAtlasSource_kmbfg")
+sources/1 = SubResource("TileSetAtlasSource_hhuw7")
+sources/2 = SubResource("TileSetAtlasSource_6q0jk")
+sources/3 = SubResource("TileSetAtlasSource_fdebf")
+sources/4 = SubResource("TileSetAtlasSource_qkjgq")
+sources/5 = SubResource("TileSetAtlasSource_vmxpx")
 
 [node name="TileMapGrid" type="Node2D"]
 script = ExtResource("1_jf3qn")
