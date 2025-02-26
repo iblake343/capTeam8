@@ -1,19 +1,17 @@
-[gd_scene load_steps=33 format=4 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=29 format=4 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/place_tiles.gd" id="1_fkhse"]
 [ext_resource type="Texture2D" uid="uid://rlu8ecytgr3s" path="res://assets/Background1.png" id="2_flr6g"]
-[ext_resource type="Texture2D" uid="uid://dtshb5mmnfr50" path="res://assets/OctoTileCircle (1).png" id="4_m53f5"]
-[ext_resource type="Texture2D" uid="uid://cevyudkvl6te3" path="res://assets/octoSingleTile.png" id="5_w4tov"]
-[ext_resource type="Texture2D" uid="uid://q17i3ojighpk" path="res://assets/Crab0 (1).png" id="6_3dj2q"]
-[ext_resource type="Texture2D" uid="uid://b12xrjumdxrwi" path="res://assets/crabTileCircle (1).png" id="6_dams5"]
-[ext_resource type="Texture2D" uid="uid://b4nrely43ckcv" path="res://assets/Clownfish1 (1).png" id="7_kfybc"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="7_r1xy3"]
+[ext_resource type="Texture2D" uid="uid://maisrery10qr" path="res://assets/Crab Disk0 (1).png" id="8_1iydu"]
 [ext_resource type="Texture2D" uid="uid://byyrmxcvwua5x" path="res://assets/Tiles1.png" id="8_ve3fe"]
+[ext_resource type="Texture2D" uid="uid://yu42skovw4q2" path="res://assets/Octopus Disk0 (1).png" id="9_0hhr7"]
 [ext_resource type="Texture2D" uid="uid://dc0frbdqh4tp3" path="res://assets/Tiles3.png" id="9_2hl44"]
+[ext_resource type="Texture2D" uid="uid://bepqvktbctpk3" path="res://assets/Shark disk1 (1).png" id="10_08nf6"]
 [ext_resource type="Texture2D" uid="uid://cspt0b2ade8bf" path="res://assets/Tiles4.png" id="10_hpkv8"]
 [ext_resource type="Texture2D" uid="uid://cb7oftst6mnpx" path="res://assets/Tiles5.png" id="11_e62nw"]
+[ext_resource type="Texture2D" uid="uid://d2ans6o8phhs" path="res://assets/Clownfish disk1 (1).png" id="11_mxy4o"]
 [ext_resource type="Texture2D" uid="uid://b8nybsk7m7mff" path="res://assets/Tiles2 (1).png" id="12_ajhbh"]
-[ext_resource type="Texture2D" uid="uid://djd6vko0ev0tt" path="res://assets/white disk (1) (1).png" id="14_dlj25"]
 [ext_resource type="Texture2D" uid="uid://cp1eiwexvbi6" path="res://assets/number1__1_-removebg-preview.png" id="14_py1ho"]
 [ext_resource type="Texture2D" uid="uid://4s0xhqxx3ff3" path="res://assets/Shark1 (1) (1).png" id="15_ar5fu"]
 
@@ -52,47 +50,34 @@ sources/3 = SubResource("TileSetAtlasSource_uuja2")
 sources/4 = SubResource("TileSetAtlasSource_12er8")
 sources/5 = SubResource("TileSetAtlasSource_vld0a")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4p2wa"]
-texture = ExtResource("6_dams5")
-texture_region_size = Vector2i(444, 444)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocjaf"]
+texture = ExtResource("11_mxy4o")
+texture_region_size = Vector2i(400, 400)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3mftk"]
-texture = ExtResource("4_m53f5")
-texture_region_size = Vector2i(444, 444)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n7iet"]
+texture = ExtResource("8_1iydu")
+texture_region_size = Vector2i(400, 400)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gpje5"]
-texture = ExtResource("14_dlj25")
-margins = Vector2i(20, 0)
-texture_region_size = Vector2i(460, 430)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k8bq1"]
+texture = ExtResource("9_0hhr7")
+texture_region_size = Vector2i(400, 400)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3jbk4"]
-texture = ExtResource("5_w4tov")
-texture_region_size = Vector2i(600, 520)
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b87l1"]
-texture = ExtResource("6_3dj2q")
-texture_region_size = Vector2i(600, 520)
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r8c3i"]
-texture = ExtResource("7_kfybc")
-texture_region_size = Vector2i(600, 520)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7tbx5"]
+texture = ExtResource("10_08nf6")
+texture_region_size = Vector2i(400, 400)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_qnt7o"]
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(600, 520)
-sources/0 = SubResource("TileSetAtlasSource_4p2wa")
-sources/1 = SubResource("TileSetAtlasSource_3mftk")
-sources/4 = SubResource("TileSetAtlasSource_3jbk4")
-sources/5 = SubResource("TileSetAtlasSource_b87l1")
-sources/6 = SubResource("TileSetAtlasSource_r8c3i")
-sources/2 = SubResource("TileSetAtlasSource_gpje5")
+sources/0 = SubResource("TileSetAtlasSource_ocjaf")
+sources/1 = SubResource("TileSetAtlasSource_n7iet")
+sources/2 = SubResource("TileSetAtlasSource_k8bq1")
+sources/3 = SubResource("TileSetAtlasSource_7tbx5")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kckud"]
 texture = ExtResource("14_py1ho")
