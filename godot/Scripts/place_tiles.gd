@@ -11,6 +11,7 @@ func _input(event):
 		var mouse_pos = tilemaplayer.get_local_mouse_position()
 		var tile_pos = tilemaplayer.local_to_map(mouse_pos)
 		#Will need to be told what user to place
-		tilemaplayer.set_cell(tile_pos, 0, Vector2i(0, 0))  # Set permanent change
+		tilemaplayer.set_cell(tile_pos, randi_range(0,1), Vector2i(0, 0))  # Set permanent change
+		
 		#tilemapcount.set_cell(tile_pos, 1, Vector2i(0, 0))
 		
