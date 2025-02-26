@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdw3l14qw2odg"]
+[gd_scene load_steps=4 format=3 uid="uid://bdw3l14qw2odg"]
 
 [ext_resource type="Script" path="res://Scripts/core/app.gd" id="1_ouome"]
 [ext_resource type="Script" path="res://Scripts/core/Board.cs" id="2_mq0xf"]
-[ext_resource type="Script" path="res://Game.cs" id="3_a4aig"]
-[ext_resource type="Script" path="res://Scripts/core/UIPlayer.cs" id="4_nh6uq"]
+[ext_resource type="Script" path="res://Scripts/core/Game.cs" id="3_ehmet"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_ouome")
@@ -12,7 +11,19 @@ script = ExtResource("1_ouome")
 script = ExtResource("2_mq0xf")
 
 [node name="Game" type="Node" parent="."]
-script = ExtResource("3_a4aig")
+script = ExtResource("3_ehmet")
 
 [node name="Player" type="Node" parent="."]
-script = ExtResource("4_nh6uq")
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 372.0
+offset_bottom = 246.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Container"]
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 158.0
+bbcode_enabled = true
+text = "potato [color=blue]soup[/color]"

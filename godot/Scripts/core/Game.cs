@@ -6,6 +6,7 @@ public partial class Game : Node
 {
 	private Player player1;
 	private Player player2;
+	private Board board;
 	
 	public void registerPlayer1(Node p1) {
 		this.player1 = p1 as Player;

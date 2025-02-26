@@ -4,7 +4,8 @@ extends Node
 @onready var wrapper = $Player
 
 func _ready() -> void:
-	game.registerPlayer1(wrapper)
+	game.player1 = $Player
+	game.board = $Board
 	game.startGame()
 
 func place_tile():

@@ -18,32 +18,17 @@ public partial class Board : Node {
 
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static int xAt(byte[] data, int x, int y);
-	
-	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
-	private extern static int xCountTilePlacements(byte[] data);
-	
-	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
-	private extern static int xGetTilePlacements(byte[] data, (Vector2I a, Vector2I b, Vector2I c, Vector2I d)[] locs);
-
-	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
-	private extern static int xCountTilePlacements(byte[] data);
 
 	private byte[] data;
 	public override void _Ready() {
-		GD.Print($"Size of a board (in bytes) is {BoardSize()}");
 		var size = BoardSize();
 		data = new byte[size];
-		GD.Print("Allocated byte array");
 		InitBoard(data);
-		GD.Print("Initialized Board struct as byte array");
-		GD.Print($"Board[3, 4] = {xAt(data, 3, 4)}");
 	}
 	
 	public (Vector2I a, Vector2I b, Vector2I c, Vector2I d)[] GetLegalTilePlacements() {
-		var count = xCountTilePlacements(data);
-		var placements = new (Vector2I a, Vector2I b, Vector2I c, Vector2I d)[count];
-		xGetTilePlacements(data, placements);
-		return placements;
+		var placements = new ArrayList();
+		return placements.ToArray();
 	}
 	
 	public Vector2I[] GetLegalHexLocations() {
@@ -60,10 +45,10 @@ public partial class Board : Node {
 		return locs;
 	}
 	
-	public (Vector2I src, Vector2I dest, ushort count)[] GetLegalMoves() {
-		var count = xCountMoves(data);
+	public (Vector2I src, Vector2I dest)[] GetLegalMoveStarts() {
+		var count = xCountMoveStarts(data);
 		var moves = new Vector2I[count];
-		xGetMoves(data, moves);
+		xGetMoveStarts(data, moves);
 		return moves;
 	}
 	
