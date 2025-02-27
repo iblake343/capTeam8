@@ -13,7 +13,10 @@ pub const Turn = union(enum) {
         if (ix >= poi.len) return error.invalid_location;
         const loc = poi[ix];
 
-        if (kind == .place_tokens) return .{ .place_tokens = loc };
+        if (kind == .place_tokens) {
+            if (tokens.next()) |_| return error.unexpected_extra;
+            return .{ .place_tokens = loc };
+        }
 
         const src_dir = tokens.next() orelse return error.expected_direction;
         const dir = std.meta.stringToEnum(Direction, src_dir) orelse return error.invalid_direction;
@@ -23,12 +26,14 @@ pub const Turn = union(enum) {
                 const src_orient = tokens.next() orelse return error.expected_orientation;
                 const orient = std.meta.stringToEnum(Orientation, src_orient) orelse return error.invalid_orientation;
 
+                if (tokens.next()) |_| return error.unexpected_extra;
                 return .{ .place_hexes = .{ loc, dir, orient } };
             },
             .move_tokens => {
                 const src_count = tokens.next() orelse return error.expected_count;
                 const count = std.fmt.parseInt(Count, src_count, 10) catch return error.invalid_count;
 
+                if (tokens.next()) |_| return error.unexpected_extra;
                 return .{ .move_tokens = .{ loc, dir, count } };
             },
             .place_tokens => unreachable,
@@ -484,12 +489,11 @@ export fn xAt(b: *Board, x: i32, y: i32) u8 {
 }
 
 /// This function ignores errors
-export fn xTuiPlaceTile(board: *Board) void {
-    tuiPlaceTile(board) catch unreachable;
+export fn xTuiDoTurn(board: *Board) void {
+    tuiDoTurn(board) catch unreachable;
 }
-fn tuiPlaceTile(board: *Board) !void {
+fn tuiDoTurn(board: *Board) !void {
     const stdout = std.io.getStdOut().writer();
-    const config = std.io.tty.detectConfig(std.io.getStdOut());
     const stdin = std.io.getStdIn().reader();
     var line_buf: [30]u8 = undefined;
 
@@ -499,8 +503,6 @@ fn tuiPlaceTile(board: *Board) !void {
     var maybe_err: ?anyerror = null;
     while (true) {
         const poi = board.pointsOfInterest(&poi_buf);
-        try drawBoard(board, poi, stdout, config);
-
         if (maybe_err) |err| {
             try stdout.print("error: {s}\n", .{@errorName(err)});
             maybe_err = null;
@@ -531,9 +533,6 @@ fn tuiPlaceTile(board: *Board) !void {
             continue;
         };
 
-        try stdout.print("delta:\n", .{});
-        try drawBoard(board, poi, stdout, config);
-        try stdout.print("-----\n", .{});
         break;
     }
 }
@@ -592,12 +591,31 @@ pub fn drawBoard(board: *const Board, poi_list: []Location, writer: anytype, col
     }
 }
 
+export fn xDrawBoard(board: *const Board) void {
+    const stdout = std.io.getStdOut().writer();
+    const config = std.io.tty.detectConfig(std.io.getStdOut());
+    var poi_buf: [Board.poi_buf_len]Location = undefined;
+    const poi = board.pointsOfInterest(&poi_buf);
+    drawBoard(board, poi, stdout, config) catch unreachable;
+}
+
 fn poiChar(ix: usize) u8 {
     return switch (ix) {
         0...25 => @truncate('a' + ix),
         26...51 => @truncate('A' + ix - 26),
         else => @panic("rendering poi, ix too large"),
     };
+}
+
+const int = i32;
+export fn xCurrentPlayer(board: *const Board) int {
+    return @intCast(@intFromEnum(board.current_player));
+}
+export fn xWinner(b: *const Board) int {
+    return @intCast(@intFromEnum(b.winner() orelse return -1));
+}
+export fn xExpectedMoveKind(b: *const Board) int {
+    return @intCast(@intFromEnum(b.nextExpectedMove() orelse return -1));
 }
 
 const std = @import("std");

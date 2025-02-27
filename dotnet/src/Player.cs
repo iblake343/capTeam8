@@ -16,13 +16,17 @@ public class EmptyPlayer : Player {
 
 public class TuiPlayer : Player {
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
-	private extern static void xTuiPlaceTile(byte[] data);
+	private extern static void xTuiDoTurn(byte[] data);
 
 	public void PlaceTile(Board board) {
-		xTuiPlaceTile(board.data);
+		xTuiDoTurn(board.data);
 	}
-    public void PlaceInitialStack(Board _board) {}
-    public void MoveTokens(Board _board) {}
+    public void PlaceInitialStack(Board board) {
+		xTuiDoTurn(board.data);
+	}
+    public void MoveTokens(Board board) {
+		xTuiDoTurn(board.data);
+	}
 }
 
 public enum TileOrientation : ushort {
