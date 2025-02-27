@@ -52,7 +52,7 @@ fn indexFromPoiChar(char: u8) !usize {
 
 pub const Orientation = enum { ur, ul, flat, r, l };
 
-pub const PlaceHexesError = error{ oob, collision };
+pub const PlaceHexesError = error{ oob, collision, not_adjacent_to_land };
 pub const PlaceTokensError = error{ oob, invalid_location };
 pub const MoveTokensError = error{
     oob,
@@ -80,10 +80,6 @@ pub const Board = struct {
     pub const max_hexes = 16 * count_players;
     pub const poi_buf_len = max_hexes;
 
-    fn splat(scalar: i32) Location {
-        return @splat(scalar);
-    }
-
     /// computes @min(b - a, 0) but adjusts the type
     fn delta(a: Location, b: Location) @Vector(2, u31) {
         return @intCast(@max(b - a, splat(0)));
@@ -105,11 +101,6 @@ pub const Board = struct {
     fn elem(as: []Location, a: Location) bool {
         for (as) |x| if (std.meta.eql(a, x)) return true;
         return false;
-    }
-
-    fn ptrCast(ixs: []Location) []u8 {
-        const bytes: [*]u8 = @ptrCast(ixs.ptr);
-        return bytes[0 .. ixs.len * @sizeOf(Location)];
     }
 
     pub fn pointsOfInterest(b: *const Board, buf: *[poi_buf_len]Location) []Location {
@@ -294,7 +285,10 @@ pub const Board = struct {
 
     pub fn doTurn(b: *Board, turn: Turn) TurnError!void {
         switch (turn) {
-            .place_hexes => |pl| try b.placeHexes(pl[0], pl[1], pl[2]),
+            .place_hexes => |pl| {
+                const orig, const dir = reifyTileOrientation(pl[0], pl[1], pl[2]);
+                try b.placeHexes(orig, dir);
+            },
             .place_tokens => |loc| try b.placeTokens(loc),
             .move_tokens => |pl| {
                 try b.moveTokens(pl[0], pl[1], pl[2]);
@@ -319,12 +313,9 @@ pub const Board = struct {
 
     fn placeHexes(
         board: *Board,
-        cell: Location,
-        dir_orient: Direction,
-        orient: Orientation,
+        orig: Location,
+        dir: Direction,
     ) PlaceHexesError!void {
-        const orig, const dir = reifyTileOrientation(cell, dir_orient, orient);
-
         const v = dir.vector();
         const w = dir.right().vector();
         const loc1 = orig;
@@ -332,9 +323,23 @@ pub const Board = struct {
         const loc3 = orig + w;
         const loc4 = loc2 + w;
 
+        // detect plaing tile on top of other tile
         for ([4]Location{ loc1, loc2, loc3, loc4 }) |loc| {
             if (board.get(loc) != .illegal) return error.collision;
         }
+
+        // make sure that the tile is adjacent to land
+        // this check is skipped if the tile is the first on the board
+        if (board.hexes_count != 0) inline for (.{
+            // all the spaces adjacent to the tile
+            orig - w,                orig - v,
+            orig + v - w,            orig + w - v,
+            orig + splat(2) * v - w, orig + splat(2) * w - v,
+            orig + splat(2) * v,     orig + splat(2) * w,
+            orig + splat(2) * v - w, orig + splat(2) * w - v,
+        }) |loc| {
+            if (board.get(loc) == .empty) break;
+        } else return error.not_adjacent_to_land;
 
         for ([4]Location{ loc1, loc2, loc3, loc4 }) |loc| {
             board.addHex(loc);
@@ -386,13 +391,35 @@ pub const Board = struct {
     }
 };
 
+fn ModMatrix(comptime n: comptime_int, comptime T: type) type {
+    return struct {
+        const Mat = @This();
+        const size = n;
+        data: [n][n]T,
+        fn fill(value: T) Mat {
+            return .{ .data = .{.{value} ** n} ** n };
+        }
+
+        fn at(b: *Mat, loc: Location) *T {
+            return &b.data[@intCast(@mod(loc[0], n))][@intCast(@mod(loc[1], n))];
+        }
+
+        pub fn get(b: *const Mat, loc: Location) T {
+            return @constCast(b).at(loc).*;
+        }
+    };
+}
+
 pub fn reifyTileOrientation(
     cell: Location,
     face: Direction,
     orientation: Orientation,
 ) struct { Location, Direction } {
     return switch (orientation) {
-        .flat => .{ cell + face.vector() + face.left().vector(), face.right() },
+        .flat => .{
+            cell + face.vector() + face.left().vector(),
+            face.right(),
+        },
         .ur => .{ cell + face.vector(), face },
         .ul => .{ cell + face.vector(), face.left() },
         .r => .{ cell + face.vector(), face.right() },
@@ -435,6 +462,31 @@ pub const Stack = struct {
 
 pub const Location = @Vector(2, i32);
 const Loc = Location;
+fn splat(scalar: i32) Location {
+    return @splat(scalar);
+}
+
+fn adjacentN(comptime N: comptime_int, orig: Location) [N * 6]Location {
+    var locs: [N * 6]Location = undefined;
+    inline for (0..6) |i| {
+        const dir: Direction = @enumFromInt(i);
+        const dir2 = dir.back().left();
+        inline for (0..N) |x|
+            locs[i * N + x] = orig + dir.vector() * splat(N) + dir2.vector() * splat(x);
+    }
+    return locs;
+}
+
+test adjacentN {
+    try std.testing.expectEqual(adjacentN(3, .{ 0, 0 }), .{
+        .{ 3, 0 },  .{ 2, 1 },   .{ 1, 2 },
+        .{ 0, 3 },  .{ -1, 3 },  .{ -2, 3 },
+        .{ -3, 3 }, .{ -3, -2 }, .{ -3, -1 },
+        .{ -3, 0 }, .{ -2, -1 }, .{ -1, -2 },
+        .{ 0, -3 }, .{ 1, -3 },  .{ 2, -3 },
+        .{ 3, -3 }, .{ 3, -2 },  .{ 3, -1 },
+    });
+}
 
 pub const Player = enum {
     red,
@@ -616,6 +668,166 @@ export fn xWinner(b: *const Board) int {
 }
 export fn xExpectedMoveKind(b: *const Board) int {
     return @intCast(@intFromEnum(b.nextExpectedMove() orelse return -1));
+}
+
+const Check = enum { sea, coast, land };
+fn maxWith(dest: *Check, src: Check) void {
+    dest.* = @enumFromInt(@max(
+        @intFromEnum(dest.*),
+        @intFromEnum(src),
+    ));
+}
+
+fn legalTileLocations(
+    comptime action: enum { count, get },
+    board: *const Board,
+    dest: ?[*][2]int,
+) switch (action) {
+    .count => usize,
+    .get => void,
+} {
+    const L = Location;
+    var checks = ModMatrix(Board.max_size, Check).fill(.coast);
+    const w, const h = board.size;
+    for (0..h) |dy| for (0..w) |dx| {
+        const loc = board.location(dx, dy);
+        if (board.get(loc) == .illegal) continue;
+
+        maxWith(checks.at(loc), .land);
+        for (adjacentN(1, loc)) |loc3| maxWith(checks.at(loc3), .coast);
+        for (adjacentN(2, loc)) |loc2| maxWith(checks.at(loc2), .coast);
+        for (adjacentN(3, loc)) |loc1| maxWith(checks.at(loc1), .coast);
+    };
+
+    var count: usize = 0;
+    for (0..h + 6) |dy| for (0..w + 6) |dx| {
+        const loc = board.location(dx, dy) - L{ 3, 3 };
+        if (checks.get(loc) == .coast) {
+            if (action == .get) {
+                dest.?[count] = loc;
+            }
+            count += 1;
+        }
+    };
+
+    return switch (action) {
+        .count => count,
+        .get => {},
+    };
+}
+
+export fn xCountLegalTileLocations(board: *const Board) int {
+    return @intCast(legalTileLocations(.count, board, null));
+}
+export fn xGetLegalTileLocations(board: *const Board, options: [*][2]int) void {
+    legalTileLocations(.get, board, options);
+}
+
+export fn xPlaceTile(board: *Board, x: int, y: int, dir_i: int) bool {
+    const orig: Location = .{ x, y };
+    const dir: Direction = @enumFromInt(dir_i);
+    if (board.placeHexes(orig, dir)) |_| {} else |err| {
+        return err catch false;
+    }
+    board.current_player = board.current_player.next();
+    return true;
+}
+
+export fn xCountLegalInitialStackLocations(board: *const Board) int {
+    var buf: [Board.poi_buf_len]Location = undefined;
+    const locs = board.pointsOfInterest(&buf);
+    return @intCast(locs.len);
+}
+
+export fn xGetLegalInitialStackLocations(board: *const Board, options: [*][2]int) void {
+    var buf: [Board.poi_buf_len]Location = undefined;
+    const locs = board.pointsOfInterest(&buf);
+    for (locs, options) |loc, *dest| {
+        dest.* = .{ loc[0], loc[1] };
+    }
+}
+
+export fn xPlaceInitialStack(board: *Board, x: int, y: int) bool {
+    return if (board.doTurn(.{
+        .place_tokens = .{ x, y },
+    })) |_| true else |err| err catch false;
+}
+
+export fn xCountLegalStartStacks(board: *Board) int {
+    var buf: [16]Location = undefined;
+    var fba = std.heap.FixedBufferAllocator.init(ptrCast(&buf));
+    var list = std.ArrayList(Location).initCapacity(fba.allocator(), 16) catch unreachable;
+    board.findPoiMoveTokens(&list, board.current_player);
+    return @intCast(list.items.len);
+}
+export fn xGetLegalStartStacks(board: *Board, coords: [*][2]int) void {
+    var buf: [16]Location = undefined;
+    var fba = std.heap.FixedBufferAllocator.init(ptrCast(&buf));
+    var list = std.ArrayList(Location).initCapacity(fba.allocator(), 16) catch unreachable;
+    board.findPoiMoveTokens(&list, board.current_player);
+    for (list.items, coords) |loc, *dest| {
+        dest.* = .{ loc[0], loc[1] };
+    }
+}
+
+export fn xCountLegalDestLocations(board: *const Board, x: int, y: int) int {
+    var count: int = 0;
+    const start: Location = .{ x, y };
+    for (0..6) |diri| {
+        if (board.get(start + Direction.vector(@enumFromInt(diri))) == .empty) count += 1;
+    }
+    return count;
+}
+
+export fn xGetLegalDestLocations(board: *const Board, x: int, y: int, coords: [*][2]int) void {
+    const start: Location = .{ x, y };
+    var count: usize = 0;
+    for (0..6) |diri| {
+        const dir: Direction = @enumFromInt(diri);
+        const dest = b: for (1..Board.max_size) |udist| {
+            const dist: i32 = @intCast(udist);
+            if (board.get(start + dir.vector() * splat(dist)) == .empty) continue;
+            if (dist == 1) continue;
+            break :b start + dir.vector() * splat(dist - 1);
+        } else unreachable;
+
+        coords[count] = .{ dest[0], dest[1] };
+        count += 1;
+    }
+}
+
+export fn xMoveTokens(board: *Board, x1: int, y1: int, x2: int, y2: int, amt: int) bool {
+    return if (board.doTurn(.{
+        .move_tokens = .{
+            .{ x1, y1 },
+            factorDirection(.{ x1, y1 }, .{ x2, y2 }) orelse return false,
+            @intCast(amt),
+        },
+    })) |_| true else |err| err catch false;
+}
+
+fn factorDirection(a: Location, b: Location) ?Direction {
+    const ds = b - a;
+    if (ds[0] == 0 or ds[1] == 0 or ds[0] == -ds[1]) {} else return null;
+    if (ds[0] == 0) {
+        if (ds[1] < 0) return .nw;
+        if (ds[1] > 0) return .se;
+        unreachable;
+    } else if (ds[0] < 0) {
+        if (ds[1] < 0) unreachable;
+        if (ds[1] > 0) return .sw;
+        return .w;
+    } else {
+        if (ds[1] < 0) return .ne;
+        if (ds[1] > 0) unreachable;
+        return .e;
+    }
+    unreachable;
+}
+
+fn ptrCast(ixs: []Location) []u8 {
+    const bytes: [*]u8 = @ptrCast(ixs.ptr);
+    return bytes[0 .. ixs.len * @sizeOf(Location)];
 }
 
 const std = @import("std");

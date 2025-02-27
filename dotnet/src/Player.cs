@@ -8,12 +8,6 @@ public interface Player {
     void MoveTokens(Board board);
 }
 
-public class EmptyPlayer : Player {
-	public void PlaceTile(Board _board) {}
-    public void PlaceInitialStack(Board _board) {}
-    public void MoveTokens(Board _board) {}
-}
-
 public class TuiPlayer : Player {
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static void xTuiDoTurn(byte[] data);
@@ -40,11 +34,34 @@ public enum Color : ushort {
 	Blue,
 }
 
-public enum MoveDirection : ushort {
+public enum Direction : ushort {
 	NW,
 	NE,
 	E,
 	SE,
 	SW,
 	W,
+}
+
+public static class DirectionExtensions {
+	public static string Name(this Direction dir) {
+		if (dir == Direction.NW) return "northwest";
+		if (dir == Direction.NE) return "northeast";
+		if (dir == Direction.E) return "east";
+		if (dir == Direction.SE) return "southeast";
+		if (dir == Direction.SW) return "southwest";
+		if (dir == Direction.W) return "west";
+		Console.WriteLine("error in Direction.Name: out of bounds");
+		return "error";
+	}
+	public static Vector2I Vector(this Direction dir) {
+		if (dir == Direction.NW) return new(0, -1);
+		if (dir == Direction.NE) return new(1, -1);
+		if (dir == Direction.E) return new(1, 0);
+		if (dir == Direction.SE) return new(0, 1);
+		if (dir == Direction.SW) return new(-1, 1);
+		if (dir == Direction.W) return new(-1, 0);
+		Console.WriteLine("error in Direction.Vector: out of bounds");
+		return new(42, 42);
+	}
 }
