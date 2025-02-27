@@ -2,6 +2,8 @@
 **/.jj
 **/.zig-cache
 **/zig-out
+**/obj
+**/bin
 
 **/.godot/
 **/.import/
