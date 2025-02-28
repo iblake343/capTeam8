@@ -35,12 +35,12 @@ public enum Color : ushort {
 }
 
 public enum Direction : ushort {
-	NW,
-	NE,
-	E,
-	SE,
-	SW,
-	W,
+	NW = 0,
+	NE = 1,
+	E = 2,
+	SE = 3,
+	SW = 4,
+	W = 5,
 }
 
 public static class DirectionExtensions {

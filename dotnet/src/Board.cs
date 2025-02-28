@@ -57,6 +57,20 @@ public partial class Board {
 		return vectors;
 	}
 
+	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
+	private extern static int xCountLegalTileArrangements(byte[] data);
+	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
+	private extern static void xGetLegalTileArrangements(byte[] data, int[] options);
+	public TileArrangement[] LegalTileArrangements() {
+		var size = xCountLegalTileArrangements(data);
+		var coords = new int[size * 3];
+		var tiles = new TileArrangement[size];
+		xGetLegalTileArrangements(data, coords);
+		for (int i = 0; i < size; ++i) {
+			tiles[i] = new TileArrangement( new Vector2I(coords[i*3], coords[i*3+1]), (Direction) coords[i*3+2]);
+		}
+		return tiles;
+	}
 
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static bool xPlaceTile(byte[] data, int x, int y, int dir);
@@ -81,7 +95,6 @@ public partial class Board {
 		}
 		return vectors;
 	}
-
 	public bool PlaceInitialStack(Vector2I loc) {
 		return xPlaceInitialStack(data, loc.x, loc.y);
 	}
@@ -113,8 +126,8 @@ public partial class Board {
 	public Vector2I[] LegalDestLocations(Vector2I src) {
 		var size = xCountLegalDestLocations(data, src.x, src.y);
 		var coords = new int[size * 2];
-		var vectors = new Vector2I[size];
 		xGetLegalDestLocations(data, src.x, src.y, coords);
+		var vectors = new Vector2I[size];
 		for (int i = 0; i < size; ++i) {
 			vectors[i] = new(coords[i*2], coords[i*2+1]);
 		}
@@ -143,5 +156,14 @@ public class Cell {
 	public Cell (Color color, int count) {
 		this.color = color;
 		this.count = count;
+	}
+}
+
+public class TileArrangement {
+	public Vector2I origin;
+	public Direction orientation;
+	public TileArrangement (Vector2I origin, Direction orientation) {
+		this.origin = origin;
+		this.orientation = orientation;
 	}
 }

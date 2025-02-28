@@ -348,6 +348,40 @@ pub const Board = struct {
         board.hexes_count += 4;
     }
 
+    fn canPlaceHexes(
+        board: *const Board,
+        orig: Location,
+        dir: Direction,
+        ignore_floating: bool,
+    ) bool {
+        const v = dir.vector();
+        const w = dir.right().vector();
+        const loc1 = orig;
+        const loc2 = orig + v;
+        const loc3 = orig + w;
+        const loc4 = loc2 + w;
+
+        // detect plaing tile on top of other tile
+        for ([4]Location{ loc1, loc2, loc3, loc4 }) |loc| {
+            if (board.get(loc) != .illegal) return false;
+        }
+
+        // make sure that the tile is adjacent to land
+        // this check is skipped if the tile is the first on the board
+        if (board.hexes_count != 0 or ignore_floating) inline for (.{
+            // all the spaces adjacent to the tile
+            orig - w,                orig - v,
+            orig + v - w,            orig + w - v,
+            orig + splat(2) * v - w, orig + splat(2) * w - v,
+            orig + splat(2) * v,     orig + splat(2) * w,
+            orig + splat(2) * v - w, orig + splat(2) * w - v,
+        }) |loc| {
+            if (board.get(loc) == .empty) break;
+        } else return false;
+
+        return true;
+    }
+
     // TODO does this fn need to do validation?
     fn placeTokens(b: *Board, loc: Location) PlaceTokensError!void {
         b.at(loc).* = .{ .stack = .{ .color = b.current_player, .count = 15 } };
@@ -432,18 +466,18 @@ pub const Cell = union(enum) {
     empty,
     stack: Stack,
 
-    fn toByte(cell: Cell) u8 {
+    fn toInt(cell: Cell) int {
         return switch (cell) {
             .illegal => 1,
             .empty => 0,
-            .stack => |s| 1 + s.count + @as(u8, switch (s.color) {
+            .stack => |s| 1 + @as(int, s.count) + @as(int, switch (s.color) {
                 .red => 100,
                 .blue => 200,
             }),
         };
     }
 
-    fn fromByte(byte: u8) error{illegalByte}!Cell {
+    fn fromInt(byte: int) error{illegalByte}!Cell {
         return switch (byte) {
             0 => .empty,
             1 => .illegal,
@@ -528,20 +562,23 @@ pub const Direction = enum(u8) {
 //     return a <= x and x < b;
 // }
 
-export fn InitBoard(b: *Board) void {
+export fn InitBoard(b: *Board) callconv(.C) void {
     b.* = .{};
 }
 
-export fn BoardSize() i32 {
+export fn BoardSize() callconv(.C) i32 {
     return @truncate(@sizeOf(Board));
 }
 
-export fn xAt(b: *Board, x: i32, y: i32) u8 {
-    return b.at(.{ x, y }).toByte();
+export fn xAt(b: *Board, x: i32, y: i32) callconv(.C) int {
+    std.debug.print("xAt({d}, {d})\n", .{ x, y });
+    const a = b.at(.{ x, y });
+    std.debug.print("... = {any}\n", .{a});
+    return a.toInt();
 }
 
 /// This function ignores errors
-export fn xTuiDoTurn(board: *Board) void {
+export fn xTuiDoTurn(board: *Board) callconv(.C) void {
     tuiDoTurn(board) catch unreachable;
 }
 fn tuiDoTurn(board: *Board) !void {
@@ -601,6 +638,8 @@ pub fn drawBoard(board: *const Board, poi_list: []Location, writer: anytype, col
         for (0..w) |dx| {
             const loc = board.location(dx, dy);
 
+            const bold = std.meta.eql(loc, .{ 0, 0 });
+
             switch (board.get(loc)) {
                 .illegal => {
                     try color.setColor(writer, .dim);
@@ -612,6 +651,8 @@ pub fn drawBoard(board: *const Board, poi_list: []Location, writer: anytype, col
                     }
                 },
                 .empty => {
+                    if (bold)
+                        try color.setColor(writer, .yellow);
                     if (ixOf(poi_list, loc)) |ix| {
                         try writer.writeByte(' ');
                         try writer.writeByte(poiChar(ix));
@@ -626,9 +667,10 @@ pub fn drawBoard(board: *const Board, poi_list: []Location, writer: anytype, col
                     } else {
                         try writer.writeByte(' ');
                     }
+                    try color.setColor(writer, .reset);
                     try color.setColor(writer, switch (stack.color) {
-                        .red => .red,
-                        .blue => .blue,
+                        .red => if (bold) .bright_red else .red,
+                        .blue => if (bold) .bright_blue else .blue,
                     });
                     try writer.writeByte(switch (stack.count) {
                         0...8 => '1' + @as(u8, stack.count),
@@ -643,7 +685,7 @@ pub fn drawBoard(board: *const Board, poi_list: []Location, writer: anytype, col
     }
 }
 
-export fn xDrawBoard(board: *const Board) void {
+export fn xDrawBoard(board: *const Board) callconv(.C) void {
     const stdout = std.io.getStdOut().writer();
     const config = std.io.tty.detectConfig(std.io.getStdOut());
     var poi_buf: [Board.poi_buf_len]Location = undefined;
@@ -660,13 +702,13 @@ fn poiChar(ix: usize) u8 {
 }
 
 const int = i32;
-export fn xCurrentPlayer(board: *const Board) int {
+export fn xCurrentPlayer(board: *const Board) callconv(.C) int {
     return @intCast(@intFromEnum(board.current_player));
 }
-export fn xWinner(b: *const Board) int {
+export fn xWinner(b: *const Board) callconv(.C) int {
     return @intCast(@intFromEnum(b.winner() orelse return -1));
 }
-export fn xExpectedMoveKind(b: *const Board) int {
+export fn xExpectedMoveKind(b: *const Board) callconv(.C) int {
     return @intCast(@intFromEnum(b.nextExpectedMove() orelse return -1));
 }
 
@@ -716,14 +758,14 @@ fn legalTileLocations(
     };
 }
 
-export fn xCountLegalTileLocations(board: *const Board) int {
+export fn xCountLegalTileLocations(board: *const Board) callconv(.C) int {
     return @intCast(legalTileLocations(.count, board, null));
 }
-export fn xGetLegalTileLocations(board: *const Board, options: [*][2]int) void {
+export fn xGetLegalTileLocations(board: *const Board, options: [*][2]int) callconv(.C) void {
     legalTileLocations(.get, board, options);
 }
 
-export fn xPlaceTile(board: *Board, x: int, y: int, dir_i: int) bool {
+export fn xPlaceTile(board: *Board, x: int, y: int, dir_i: int) callconv(.C) bool {
     const orig: Location = .{ x, y };
     const dir: Direction = @enumFromInt(dir_i);
     if (board.placeHexes(orig, dir)) |_| {} else |err| {
@@ -733,13 +775,13 @@ export fn xPlaceTile(board: *Board, x: int, y: int, dir_i: int) bool {
     return true;
 }
 
-export fn xCountLegalInitialStackLocations(board: *const Board) int {
+export fn xCountLegalInitialStackLocations(board: *const Board) callconv(.C) int {
     var buf: [Board.poi_buf_len]Location = undefined;
     const locs = board.pointsOfInterest(&buf);
     return @intCast(locs.len);
 }
 
-export fn xGetLegalInitialStackLocations(board: *const Board, options: [*][2]int) void {
+export fn xGetLegalInitialStackLocations(board: *const Board, options: [*][2]int) callconv(.C) void {
     var buf: [Board.poi_buf_len]Location = undefined;
     const locs = board.pointsOfInterest(&buf);
     for (locs, options) |loc, *dest| {
@@ -747,20 +789,58 @@ export fn xGetLegalInitialStackLocations(board: *const Board, options: [*][2]int
     }
 }
 
-export fn xPlaceInitialStack(board: *Board, x: int, y: int) bool {
+export fn xPlaceInitialStack(board: *Board, x: int, y: int) callconv(.C) bool {
     return if (board.doTurn(.{
         .place_tokens = .{ x, y },
     })) |_| true else |err| err catch false;
 }
 
-export fn xCountLegalStartStacks(board: *Board) int {
+fn legalTileArrangements(comptime action: enum { count, get }, b: *const Board, options: ?[*][3]int) switch (action) {
+    .count => usize,
+    .get => void,
+} {
+    var count: usize = 0;
+
+    const w, const h = b.size;
+    for (0..h + 6) |dy| for (0..w + 6) |dx| {
+        const loc = b.location(dx, dy) - splat(3);
+        if (b.get(loc) != .illegal) continue;
+        for (0..3) |diri| {
+            const dir: Direction = @enumFromInt(diri);
+            if (b.canPlaceHexes(loc, dir, true)) {
+                if (action == .get)
+                    options.?[count] = .{ loc[0], loc[1], @intCast(diri) };
+                count += 1;
+            }
+        }
+    };
+
+    switch (action) {
+        .count => return @max(count, 6),
+        .get => {
+            if (count == 0) for (0..6) |diri| {
+                options.?[diri] = .{ 0, 0, @intCast(diri) };
+            };
+        },
+    }
+}
+
+export fn xCountLegalTileArrangements(board: *const Board) callconv(.C) int {
+    return @intCast(legalTileArrangements(.count, board, null));
+}
+
+export fn xGetLegalTileArrangements(board: *const Board, options: [*][3]int) callconv(.C) void {
+    legalTileArrangements(.get, board, options);
+}
+
+export fn xCountLegalStartStacks(board: *Board) callconv(.C) int {
     var buf: [16]Location = undefined;
     var fba = std.heap.FixedBufferAllocator.init(ptrCast(&buf));
     var list = std.ArrayList(Location).initCapacity(fba.allocator(), 16) catch unreachable;
     board.findPoiMoveTokens(&list, board.current_player);
     return @intCast(list.items.len);
 }
-export fn xGetLegalStartStacks(board: *Board, coords: [*][2]int) void {
+export fn xGetLegalStartStacks(board: *Board, coords: [*][2]int) callconv(.C) void {
     var buf: [16]Location = undefined;
     var fba = std.heap.FixedBufferAllocator.init(ptrCast(&buf));
     var list = std.ArrayList(Location).initCapacity(fba.allocator(), 16) catch unreachable;
@@ -770,7 +850,7 @@ export fn xGetLegalStartStacks(board: *Board, coords: [*][2]int) void {
     }
 }
 
-export fn xCountLegalDestLocations(board: *const Board, x: int, y: int) int {
+export fn xCountLegalDestLocations(board: *const Board, x: int, y: int) callconv(.C) int {
     var count: int = 0;
     const start: Location = .{ x, y };
     for (0..6) |diri| {
@@ -779,15 +859,15 @@ export fn xCountLegalDestLocations(board: *const Board, x: int, y: int) int {
     return count;
 }
 
-export fn xGetLegalDestLocations(board: *const Board, x: int, y: int, coords: [*][2]int) void {
+export fn xGetLegalDestLocations(board: *const Board, x: int, y: int, coords: [*][2]int) callconv(.C) void {
     const start: Location = .{ x, y };
     var count: usize = 0;
-    for (0..6) |diri| {
+    outer: for (0..6) |diri| {
         const dir: Direction = @enumFromInt(diri);
         const dest = b: for (1..Board.max_size) |udist| {
             const dist: i32 = @intCast(udist);
             if (board.get(start + dir.vector() * splat(dist)) == .empty) continue;
-            if (dist == 1) continue;
+            if (dist == 1) continue :outer;
             break :b start + dir.vector() * splat(dist - 1);
         } else unreachable;
 
@@ -796,7 +876,11 @@ export fn xGetLegalDestLocations(board: *const Board, x: int, y: int, coords: [*
     }
 }
 
-export fn xMoveTokens(board: *Board, x1: int, y1: int, x2: int, y2: int, amt: int) bool {
+export fn xMoveTokens(board: *Board, x1: int, y1: int, x2: int, y2: int, amt: int) callconv(.C) bool {
+    std.debug.print(
+        "attempting to move {} tokens from ({}, {}) to ({}, {})\n",
+        .{ amt, x1, y1, x2, y2 },
+    );
     return if (board.doTurn(.{
         .move_tokens = .{
             .{ x1, y1 },
@@ -807,22 +891,28 @@ export fn xMoveTokens(board: *Board, x1: int, y1: int, x2: int, y2: int, amt: in
 }
 
 fn factorDirection(a: Location, b: Location) ?Direction {
+    const dx = std.math.order(b[0], a[0]);
+    const dy = std.math.order(b[1], a[1]);
     const ds = b - a;
-    if (ds[0] == 0 or ds[1] == 0 or ds[0] == -ds[1]) {} else return null;
-    if (ds[0] == 0) {
-        if (ds[1] < 0) return .nw;
-        if (ds[1] > 0) return .se;
-        unreachable;
-    } else if (ds[0] < 0) {
-        if (ds[1] < 0) unreachable;
-        if (ds[1] > 0) return .sw;
-        return .w;
-    } else {
-        if (ds[1] < 0) return .ne;
-        if (ds[1] > 0) unreachable;
-        return .e;
-    }
-    unreachable;
+
+    if (ds[0] != 0 and ds[1] != 0 and ds[0] != -ds[1]) return null;
+    return switch (dx) {
+        .eq => switch (dy) {
+            .eq => null,
+            .lt => .nw,
+            .gt => .se,
+        },
+        .lt => switch (dy) {
+            .eq => .w,
+            .gt => .sw,
+            .lt => null,
+        },
+        .gt => switch (dy) {
+            .eq => .e,
+            .gt => null,
+            .lt => .ne,
+        },
+    };
 }
 
 fn ptrCast(ixs: []Location) []u8 {
