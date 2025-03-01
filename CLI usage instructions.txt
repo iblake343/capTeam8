@@ -1,0 +1,55 @@
+CLI usage instructions
+
+TURNS
+As a human player, each turn is one of four possible commands:
+- initial tile placement: determined by an askew direction
+- noninitial tile placement: anchor location, facing direction, and tile orientation
+- initial stack placement: location,
+- token movement: starting location, movement direction, and amount
+The meaning of these commands are expanded below, after the data is explained.
+
+DATA
+There are four types of data to enter in the prompt that make up a command:
+- Direction: a direction in line with the axes.
+  specified by the strings n, ne, nw, s, se, or sw
+
+          NORTH
+    NORTH-  __  NORTH-
+     WEST  /  \  EAST
+    SOUTH- \__/ SOUTH-
+     WEST        EAST
+          SOUTH
+
+- Askew Direction: a direction between the axes along which a tile is oriented.
+  specified by the strings e, ne, se, w, nw, or sw.
+
+ NORTHWEST   NORTHEAST
+          \ /
+    WEST --O-- EAST
+          / \
+ SOUTHWEST   SOUTHEAST
+
+- Tile Orientation: The direction a tile faces relative to the face against which it is placed.
+  specified by the strings r, l, ur, ul, or flat.
+  The diagrams here are against tile a's north face. reflect for right and up right.
+    __            __         __
+ __/  \__      __/  \__     /  \__
+/  \__/  \    /  \__/  \    \__/  \
+\__/  \__/    \__/  \__/    /  \__/
+   \__/          \__/a \    \__/  \
+   /a \             \__/       \__/
+   \__/                        /a \
+                               \__/
+ FLAT            LEFT        UP LEFT
+
+- Location: a reference to a specific tile.
+  All 'interesting' tiles are identified by the CLI with a single character.
+  Input the character corresponding to the tile you want.
+    __
+   /b \__
+   \__/d \
+   /a \__/
+   \__/c \
+      \__/
+
+- Amount: just a decimal number 1 through 15.
