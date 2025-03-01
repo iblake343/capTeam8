@@ -8,7 +8,7 @@ public class RandPlayer : Player {
 		Vector2I loc = option.origin;
 		Direction dir = option.orientation;
 	    board.PlaceTile(loc, dir);
-		Console.WriteLine($"[{ix}] Placed tile at ({loc.x}, {loc.y}) in direction {dir.Name()}");
+		Console.WriteLine($"Placed tile at ({loc.x}, {loc.y}) in the {dir.NameNorthMajorAskew()} direction");
 	}
 	
     public void PlaceInitialStack(Board board) {
@@ -21,7 +21,6 @@ public class RandPlayer : Player {
 	
     public void MoveTokens(Board board) {
 		var options = board.LegalStartStacks();
-		Console.WriteLine($"len of array is {options.Length}");
 		var loc = options[Random.Shared.Next(options.Length)];
 		
 		var dest_options = board.LegalDestLocations(loc);

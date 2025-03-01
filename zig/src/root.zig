@@ -1,5 +1,14 @@
+fn parseFirstTurn(src: []const u8) !Turn {
+    var tokens = std.mem.tokenizeAny(u8, src, " \r\t");
+    const dir_src = tokens.next() orelse return error.expected_direction;
+
+    const dir = std.meta.stringToEnum(Direction, dir_src) orelse return error.invalid_direction;
+
+    return .{ .place_hexes = .{ .{ 0, 0 }, dir.right() } };
+}
+
 pub const Turn = union(enum) {
-    place_hexes: struct { Location, Direction, Orientation },
+    place_hexes: struct { Location, Direction },
     place_tokens: Location,
     move_tokens: struct { Location, Direction, Count },
 
@@ -18,8 +27,10 @@ pub const Turn = union(enum) {
             return .{ .place_tokens = loc };
         }
 
+        const DirectionNorthMajor = enum { sw, nw, n, ne, se, s };
         const src_dir = tokens.next() orelse return error.expected_direction;
-        const dir = std.meta.stringToEnum(Direction, src_dir) orelse return error.invalid_direction;
+        const dir_north_major = std.meta.stringToEnum(DirectionNorthMajor, src_dir) orelse return error.invalid_direction;
+        const dir: Direction = @enumFromInt(@intFromEnum(dir_north_major));
 
         switch (kind) {
             .place_hexes => {
@@ -27,7 +38,8 @@ pub const Turn = union(enum) {
                 const orient = std.meta.stringToEnum(Orientation, src_orient) orelse return error.invalid_orientation;
 
                 if (tokens.next()) |_| return error.unexpected_extra;
-                return .{ .place_hexes = .{ loc, dir, orient } };
+
+                return .{ .place_hexes = reifyTileOrientation(loc, dir, orient) };
             },
             .move_tokens => {
                 const src_count = tokens.next() orelse return error.expected_count;
@@ -124,8 +136,6 @@ pub const Board = struct {
                         list.appendAssumeCapacity(loc);
                     }
                 };
-                // if no empty cells exist, return just 0, 0
-                if (list.items.len == 0) list.appendAssumeCapacity(.{ 0, 0 });
             },
             .place_tokens => {
                 // find all .empty cells on the outside;
@@ -286,8 +296,7 @@ pub const Board = struct {
     pub fn doTurn(b: *Board, turn: Turn) TurnError!void {
         switch (turn) {
             .place_hexes => |pl| {
-                const orig, const dir = reifyTileOrientation(pl[0], pl[1], pl[2]);
-                try b.placeHexes(orig, dir);
+                try b.placeHexes(pl[0], pl[1]);
             },
             .place_tokens => |loc| try b.placeTokens(loc),
             .move_tokens => |pl| {
@@ -571,10 +580,7 @@ export fn BoardSize() callconv(.C) i32 {
 }
 
 export fn xAt(b: *Board, x: i32, y: i32) callconv(.C) int {
-    std.debug.print("xAt({d}, {d})\n", .{ x, y });
-    const a = b.at(.{ x, y });
-    std.debug.print("... = {any}\n", .{a});
-    return a.toInt();
+    return b.at(.{ x, y }).toInt();
 }
 
 /// This function ignores errors
@@ -586,7 +592,6 @@ fn tuiDoTurn(board: *Board) !void {
     const stdin = std.io.getStdIn().reader();
     var line_buf: [30]u8 = undefined;
 
-    // the most poi we could have are the border tiles when placing
     var poi_buf: [Board.poi_buf_len]Location = undefined;
 
     var maybe_err: ?anyerror = null;
@@ -597,22 +602,24 @@ fn tuiDoTurn(board: *Board) !void {
             maybe_err = null;
         }
 
-        const kind = board.nextExpectedMove() orelse {
-            if (board.winner()) |player| {
-                try stdout.print("player {s} wins!\n", .{@tagName(player)});
-            } else {
-                try stdout.print("It's a tie game!\n", .{});
-            }
-            break;
-        };
-        const player = board.current_player;
+        const kind = board.nextExpectedMove() orelse unreachable;
 
-        try stdout.print("{s} {s}> ", .{ @tagName(player), @tagName(kind) });
+        try stdout.print("{s}> ", .{switch (kind) {
+            .place_hexes => if (board.hexes_count == 0)
+                "first_tile_direction"
+            else
+                "anchor, face, orientation",
+            .place_tokens => "start_location",
+            .move_tokens => "stack, direction, count",
+        }});
         const line = (try stdin.readUntilDelimiterOrEof(&line_buf, '\n')) orelse {
             break;
         };
 
-        const turn = Turn.parse(kind, line, poi) catch |err| {
+        const turn = (if (board.hexes_count == 0)
+            parseFirstTurn(line)
+        else
+            Turn.parse(kind, line, poi)) catch |err| {
             maybe_err = err;
             continue;
         };
@@ -633,56 +640,83 @@ fn ixOf(as: []Location, a: Location) ?usize {
 
 pub fn drawBoard(board: *const Board, poi_list: []Location, writer: anytype, color: std.io.tty.Config) !void {
     const w, const h = board.size;
-    for (0..h) |dy| {
-        try writer.writeByteNTimes(' ', dy);
-        for (0..w) |dx| {
-            const loc = board.location(dx, dy);
-
-            const bold = std.meta.eql(loc, .{ 0, 0 });
-
-            switch (board.get(loc)) {
-                .illegal => {
-                    try color.setColor(writer, .dim);
-                    if (ixOf(poi_list, loc)) |ix| {
-                        try writer.writeByte(' ');
-                        try writer.writeByte(poiChar(ix));
-                    } else {
-                        try writer.writeAll(" .");
-                    }
-                },
-                .empty => {
-                    if (bold)
-                        try color.setColor(writer, .yellow);
-                    if (ixOf(poi_list, loc)) |ix| {
-                        try writer.writeByte(' ');
-                        try writer.writeByte(poiChar(ix));
-                    } else {
-                        try writer.writeAll(" O");
-                    }
-                },
-                .stack => |stack| {
-                    if (ixOf(poi_list, loc)) |ix| {
+    const max_row = 2 * w + h;
+    for (0..max_row) |row| {
+        var row_flag = false;
+        for (0..(3 * h) + 1) |col| {
+            const line = "/  \\__";
+            const ix = ((max_row - row) * 3 + col) % 6;
+            const loc = locFromTuiRowCol(board, row, col);
+            switch (ix) {
+                1 => {
+                    if (ixOf(poi_list, loc)) |ix_poi| {
                         try color.setColor(writer, .dim);
-                        try writer.writeByte(poiChar(ix));
-                    } else {
+                        try writer.writeByte(poiChar(ix_poi));
+                        try color.setColor(writer, .reset);
+                    } else if (board.get(loc) == .empty)
+                        try writer.writeByte('.')
+                    else
                         try writer.writeByte(' ');
-                    }
-                    try color.setColor(writer, .reset);
-                    try color.setColor(writer, switch (stack.color) {
-                        .red => if (bold) .bright_red else .red,
-                        .blue => if (bold) .bright_blue else .blue,
-                    });
-                    try writer.writeByte(switch (stack.count) {
-                        0...8 => '1' + @as(u8, stack.count),
-                        9...14 => 'A' + @as(u8, stack.count) - 9,
-                        15 => 'X',
-                    });
                 },
+                2 => {
+                    switch (board.get(loc)) {
+                        .illegal => try writer.writeByte(' '),
+                        .empty => try writer.writeByte('.'),
+                        .stack => |stack| {
+                            try color.setColor(writer, switch (stack.color) {
+                                .red => .red,
+                                .blue => .blue,
+                            });
+                            try writer.writeByte(switch (stack.count) {
+                                0...8 => '1' + @as(u8, stack.count),
+                                9...14 => 'A' + @as(u8, stack.count) - 9,
+                                15 => 'X',
+                            });
+                            try color.setColor(writer, .reset);
+                        },
+                    }
+                },
+                0, 3...5 => {
+                    const adj = switch (ix) {
+                        0, 3 => locFromTuiRowCol(board, row, col -| 1),
+                        4, 5 => locFromTuiRowCol(board, row + 1, col),
+                        else => unreachable,
+                    };
+
+                    if (board.get(loc) == .illegal and board.get(adj) == .illegal) {
+                        try writer.writeByte(' ');
+                    } else {
+                        row_flag = true;
+                        if (eql(loc, .{ 0, 0 }) or eql(adj, .{ 0, 0 })) {
+                            try color.setColor(writer, .yellow);
+                            try writer.writeByte(line[ix]);
+                            try color.setColor(writer, .reset);
+                        } else {
+                            try writer.writeByte(line[ix]);
+                        }
+                    }
+                },
+                else => unreachable,
             }
-            try color.setColor(writer, .reset);
         }
-        try writer.writeByte('\n');
+        if (row_flag)
+            try writer.writeByte('\n')
+        else
+            try writer.writeByte('\r');
     }
+    try writer.writeByte('\n');
+}
+
+fn locFromTuiRowCol(
+    board: *const Board,
+    row: usize,
+    col: usize,
+) Location {
+    const w, const h = board.size;
+    const max_row = 2 * w + h - 1;
+    const dy: i32 = @intCast(col / 3);
+    const dx: i32 = @divFloor(@as(i32, @intCast(max_row -| row)) - dy, 2);
+    return board.origin + Location{ dx, dy };
 }
 
 export fn xDrawBoard(board: *const Board) callconv(.C) void {
@@ -877,10 +911,6 @@ export fn xGetLegalDestLocations(board: *const Board, x: int, y: int, coords: [*
 }
 
 export fn xMoveTokens(board: *Board, x1: int, y1: int, x2: int, y2: int, amt: int) callconv(.C) bool {
-    std.debug.print(
-        "attempting to move {} tokens from ({}, {}) to ({}, {})\n",
-        .{ amt, x1, y1, x2, y2 },
-    );
     return if (board.doTurn(.{
         .move_tokens = .{
             .{ x1, y1 },
@@ -921,3 +951,4 @@ fn ptrCast(ixs: []Location) []u8 {
 }
 
 const std = @import("std");
+const eql = std.meta.eql;

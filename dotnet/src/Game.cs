@@ -31,7 +31,7 @@ public partial class Game {
 				return;
 			}
 
-			Console.WriteLine($"Player no {names[ix_player]}'s turn");
+			Console.WriteLine($"{names[ix_player]}'s turn");
 			MoveKind j = (MoveKind) k;
 			if (j == MoveKind.PlaceTile)
 			    player.PlaceTile(board);

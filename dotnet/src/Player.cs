@@ -54,6 +54,16 @@ public static class DirectionExtensions {
 		Console.WriteLine("error in Direction.Name: out of bounds");
 		return "error";
 	}
+	public static string NameNorthMajorAskew(this Direction dir) {
+		if (dir == Direction.NW) return "west";
+		if (dir == Direction.NE) return "northwest";
+		if (dir == Direction.E) return "northeast";
+		if (dir == Direction.SE) return "east";
+		if (dir == Direction.SW) return "southeast";
+		if (dir == Direction.W) return "southwest";
+		Console.WriteLine("error in Direction.Name: out of bounds");
+		return "error";
+	}
 	public static Vector2I Vector(this Direction dir) {
 		if (dir == Direction.NW) return new(0, -1);
 		if (dir == Direction.NE) return new(1, -1);
