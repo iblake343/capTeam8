@@ -153,8 +153,3 @@ func place_tile() -> void:
 func place_initial_stack():
 	get_tree().change_scene_to_file("res://Scenes/place_tiles.tscn")
 	
-func move_tokens():
-	pass # TODO implement; when done, emit game.TokensMoved signal.
-
-func declare_winner():
-	pass # TODO implement
