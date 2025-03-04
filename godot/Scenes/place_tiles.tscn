@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=27 format=4 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/place_tiles.gd" id="1_fkhse"]
 [ext_resource type="Texture2D" uid="uid://rlu8ecytgr3s" path="res://assets/Background1.png" id="2_flr6g"]
@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://d2ans6o8phhs" path="res://assets/Clownfish disk1 (1).png" id="11_mxy4o"]
 [ext_resource type="Texture2D" uid="uid://b8nybsk7m7mff" path="res://assets/Tiles2 (1).png" id="12_ajhbh"]
 [ext_resource type="Texture2D" uid="uid://cp1eiwexvbi6" path="res://assets/number1__1_-removebg-preview.png" id="14_py1ho"]
-[ext_resource type="Texture2D" uid="uid://4s0xhqxx3ff3" path="res://assets/Shark1 (1) (1).png" id="15_ar5fu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3fgpc"]
 texture = ExtResource("8_ve3fe")
@@ -84,17 +83,11 @@ texture = ExtResource("14_py1ho")
 texture_region_size = Vector2i(537, 465)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fkp87"]
-texture = ExtResource("15_ar5fu")
-texture_region_size = Vector2i(300, 300)
-0:0/0 = 0
-
 [sub_resource type="TileSet" id="TileSet_il8kw"]
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(600, 520)
 sources/0 = SubResource("TileSetAtlasSource_kckud")
-sources/1 = SubResource("TileSetAtlasSource_fkp87")
 
 [node name="PlaceTiles" type="Node2D"]
 script = ExtResource("1_fkhse")
