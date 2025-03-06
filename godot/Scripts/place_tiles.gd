@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var tilemaplayer: TileMapLayer = $ChipLayer  # Ensure this exists in your scene
 @onready var tilemapcount: TileMapLayer = $ChipLayer2
+@onready var tilemaphighlight: TileMapLayer = $TileMapHighlight
 @onready var placing_tile = true
 @onready var selecting_tile = false
 @onready var first_click_position = null
@@ -40,6 +41,7 @@ func _input(event):
 			temp_mouse_pos = tilemaplayer.get_local_mouse_position()
 			temp_tile_pos = tilemaplayer.local_to_map(temp_mouse_pos)
 			temp_id = tilemapcount.get_cell_source_id(temp_tile_pos)
+			tilemaphighlight.set_cell(temp_tile_pos, tilePlayer, Vector2i(0,0))
 			tileNumber = 0
 			playing_faze = false
 		elif selecting_tile:
@@ -54,6 +56,7 @@ func _input(event):
 
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
 		playing_faze = true
+		tilemaphighlight.clear()
 		if !begin:
 			tilemapcount.set_cell(temp_tile_pos, temp_id - tileNumber, Vector2i(0,0))
 		else:
@@ -70,6 +73,7 @@ func move_tile(from_pos, to_pos):
 	#tileNumber will be edit to have a max of how many tiles there are in starting stack
 	if tileNumber < temp_id - 1:
 		tileNumber += 1
+		begin = false
 	else:
 		tileNumber = 0
 		begin = true

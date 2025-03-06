@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=60 format=4 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/place_tiles.gd" id="1_fkhse"]
 [ext_resource type="Texture2D" uid="uid://rlu8ecytgr3s" path="res://assets/Background1.png" id="2_flr6g"]
@@ -11,22 +11,24 @@
 [ext_resource type="Texture2D" uid="uid://cspt0b2ade8bf" path="res://assets/Tiles4.png" id="10_hpkv8"]
 [ext_resource type="Texture2D" uid="uid://cb7oftst6mnpx" path="res://assets/Tiles5.png" id="11_e62nw"]
 [ext_resource type="Texture2D" uid="uid://d2ans6o8phhs" path="res://assets/Clownfish disk1 (1).png" id="11_mxy4o"]
+[ext_resource type="Texture2D" uid="uid://bosm7elmv62ed" path="res://assets/HighlightCrabChip.png" id="12_04suf"]
 [ext_resource type="Texture2D" uid="uid://b8nybsk7m7mff" path="res://assets/Tiles2 (1).png" id="12_ajhbh"]
-[ext_resource type="Texture2D" uid="uid://cwgohkycb474x" path="res://assets/1.png" id="12_mg8ni"]
-[ext_resource type="Texture2D" uid="uid://ds7eq0sq3sxjr" path="res://assets/2.png" id="13_c7iom"]
-[ext_resource type="Texture2D" uid="uid://cinlk52iguwce" path="res://assets/11.png" id="14_5f13s"]
-[ext_resource type="Texture2D" uid="uid://dd8rpf36i14pv" path="res://assets/3.png" id="14_owyvf"]
-[ext_resource type="Texture2D" uid="uid://4bw2a6k07yd5" path="res://assets/4.png" id="15_aqa3l"]
-[ext_resource type="Texture2D" uid="uid://dh2gxngcwkclm" path="res://assets/12.png" id="15_uo1ox"]
-[ext_resource type="Texture2D" uid="uid://catbaw14inwwe" path="res://assets/5.png" id="16_lj3p5"]
-[ext_resource type="Texture2D" uid="uid://b0m17r1mf6yt" path="res://assets/13.png" id="16_oa7y5"]
-[ext_resource type="Texture2D" uid="uid://b3htdyhraee8a" path="res://assets/6.png" id="17_aam7g"]
-[ext_resource type="Texture2D" uid="uid://ce10uiu0es4qg" path="res://assets/14.png" id="17_bhll3"]
-[ext_resource type="Texture2D" uid="uid://hj8jcd7l7iig" path="res://assets/7.png" id="18_4h0d8"]
-[ext_resource type="Texture2D" uid="uid://844v0l1n3xcu" path="res://assets/15.png" id="18_6pqrv"]
-[ext_resource type="Texture2D" uid="uid://dxafy1fey7wtv" path="res://assets/8.png" id="19_7s5pr"]
-[ext_resource type="Texture2D" uid="uid://bey8mn0g4kwr8" path="res://assets/9.png" id="20_6kn1k"]
-[ext_resource type="Texture2D" uid="uid://cb83e1v5j0yxw" path="res://assets/10.png" id="21_5neno"]
+[ext_resource type="Texture2D" uid="uid://cwgohkycb474x" path="res://assets/Numbers/1.png" id="12_mg8ni"]
+[ext_resource type="Texture2D" uid="uid://ds7eq0sq3sxjr" path="res://assets/Numbers/2.png" id="13_c7iom"]
+[ext_resource type="Texture2D" uid="uid://dfn84s2wt5lj" path="res://assets/ClownFishHighlight.png" id="13_cra7t"]
+[ext_resource type="Texture2D" uid="uid://cinlk52iguwce" path="res://assets/Numbers/11.png" id="14_5f13s"]
+[ext_resource type="Texture2D" uid="uid://dd8rpf36i14pv" path="res://assets/Numbers/3.png" id="14_owyvf"]
+[ext_resource type="Texture2D" uid="uid://4bw2a6k07yd5" path="res://assets/Numbers/4.png" id="15_aqa3l"]
+[ext_resource type="Texture2D" uid="uid://dh2gxngcwkclm" path="res://assets/Numbers/12.png" id="15_uo1ox"]
+[ext_resource type="Texture2D" uid="uid://catbaw14inwwe" path="res://assets/Numbers/5.png" id="16_lj3p5"]
+[ext_resource type="Texture2D" uid="uid://b0m17r1mf6yt" path="res://assets/Numbers/13.png" id="16_oa7y5"]
+[ext_resource type="Texture2D" uid="uid://b3htdyhraee8a" path="res://assets/Numbers/6.png" id="17_aam7g"]
+[ext_resource type="Texture2D" uid="uid://ce10uiu0es4qg" path="res://assets/Numbers/14.png" id="17_bhll3"]
+[ext_resource type="Texture2D" uid="uid://hj8jcd7l7iig" path="res://assets/Numbers/7.png" id="18_4h0d8"]
+[ext_resource type="Texture2D" uid="uid://844v0l1n3xcu" path="res://assets/Numbers/15.png" id="18_6pqrv"]
+[ext_resource type="Texture2D" uid="uid://dxafy1fey7wtv" path="res://assets/Numbers/8.png" id="19_7s5pr"]
+[ext_resource type="Texture2D" uid="uid://bey8mn0g4kwr8" path="res://assets/Numbers/9.png" id="20_6kn1k"]
+[ext_resource type="Texture2D" uid="uid://cb83e1v5j0yxw" path="res://assets/Numbers/10.png" id="21_5neno"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3fgpc"]
 texture = ExtResource("8_ve3fe")
@@ -92,7 +94,24 @@ sources/1 = SubResource("TileSetAtlasSource_n7iet")
 sources/2 = SubResource("TileSetAtlasSource_k8bq1")
 sources/3 = SubResource("TileSetAtlasSource_7tbx5")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gp72"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mtoun"]
+texture = ExtResource("13_cra7t")
+texture_region_size = Vector2i(400, 400)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xq4io"]
+texture = ExtResource("12_04suf")
+texture_region_size = Vector2i(400, 400)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_472io"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(600, 520)
+sources/1 = SubResource("TileSetAtlasSource_xq4io")
+sources/0 = SubResource("TileSetAtlasSource_mtoun")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_givid"]
 texture = ExtResource("12_mg8ni")
 texture_region_size = Vector2i(114, 300)
 0:0/0 = 0
@@ -144,22 +163,22 @@ texture_region_size = Vector2i(224, 300)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_70ah7"]
 texture = ExtResource("17_aam7g")
-texture_region_size = Vector2i(224, 300)
+texture_region_size = Vector2i(229, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o4xno"]
 texture = ExtResource("18_4h0d8")
-texture_region_size = Vector2i(224, 300)
+texture_region_size = Vector2i(228, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cjvgr"]
 texture = ExtResource("19_7s5pr")
-texture_region_size = Vector2i(224, 300)
+texture_region_size = Vector2i(235, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cxglc"]
 texture = ExtResource("20_6kn1k")
-texture_region_size = Vector2i(224, 300)
+texture_region_size = Vector2i(228, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jurln"]
@@ -171,21 +190,21 @@ texture_region_size = Vector2i(273, 200)
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(600, 520)
-sources/0 = SubResource("TileSetAtlasSource_6gp72")
-sources/1 = SubResource("TileSetAtlasSource_k8vjh")
-sources/2 = SubResource("TileSetAtlasSource_rn4y6")
-sources/3 = SubResource("TileSetAtlasSource_q2fk3")
-sources/4 = SubResource("TileSetAtlasSource_vmefu")
-sources/5 = SubResource("TileSetAtlasSource_70ah7")
-sources/6 = SubResource("TileSetAtlasSource_o4xno")
-sources/7 = SubResource("TileSetAtlasSource_cjvgr")
-sources/8 = SubResource("TileSetAtlasSource_cxglc")
-sources/9 = SubResource("TileSetAtlasSource_jurln")
-sources/11 = SubResource("TileSetAtlasSource_gy6po")
-sources/12 = SubResource("TileSetAtlasSource_q6adg")
-sources/13 = SubResource("TileSetAtlasSource_351ob")
+sources/0 = SubResource("TileSetAtlasSource_givid")
 sources/14 = SubResource("TileSetAtlasSource_16svn")
+sources/13 = SubResource("TileSetAtlasSource_351ob")
+sources/12 = SubResource("TileSetAtlasSource_q6adg")
+sources/11 = SubResource("TileSetAtlasSource_gy6po")
 sources/10 = SubResource("TileSetAtlasSource_76jmi")
+sources/9 = SubResource("TileSetAtlasSource_jurln")
+sources/8 = SubResource("TileSetAtlasSource_cxglc")
+sources/7 = SubResource("TileSetAtlasSource_cjvgr")
+sources/6 = SubResource("TileSetAtlasSource_o4xno")
+sources/5 = SubResource("TileSetAtlasSource_70ah7")
+sources/4 = SubResource("TileSetAtlasSource_vmefu")
+sources/3 = SubResource("TileSetAtlasSource_q2fk3")
+sources/2 = SubResource("TileSetAtlasSource_rn4y6")
+sources/1 = SubResource("TileSetAtlasSource_k8vjh")
 
 [node name="PlaceTiles" type="Node2D"]
 script = ExtResource("1_fkhse")
@@ -202,6 +221,10 @@ tile_set = SubResource("TileSet_4mf3u")
 [node name="ChipLayer" type="TileMapLayer" parent="."]
 scale = Vector2(0.3, 0.3)
 tile_set = SubResource("TileSet_qnt7o")
+
+[node name="TileMapHighlight" type="TileMapLayer" parent="."]
+scale = Vector2(0.3, 0.3)
+tile_set = SubResource("TileSet_472io")
 
 [node name="ChipLayer2" type="TileMapLayer" parent="."]
 scale = Vector2(0.3, 0.3)
