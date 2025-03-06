@@ -41,6 +41,7 @@ func _input(event):
 			temp_mouse_pos = tilemaplayer.get_local_mouse_position()
 			temp_tile_pos = tilemaplayer.local_to_map(temp_mouse_pos)
 			temp_id = tilemapcount.get_cell_source_id(temp_tile_pos)
+			tilePlayer = tilemaplayer.get_cell_source_id(temp_tile_pos)
 			tilemaphighlight.set_cell(temp_tile_pos, tilePlayer, Vector2i(0,0))
 			tileNumber = 0
 			playing_faze = false
