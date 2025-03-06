@@ -9,6 +9,10 @@ extends Node2D
 @onready var tileNumber = 0
 @onready var tilePlayer = 0
 @onready var playing_faze = false
+var begin = false
+var temp_id = null
+var temp_mouse_pos = null
+var temp_tile_pos = null
 
 func _ready():
 	pass
@@ -22,14 +26,21 @@ func _input(event):
 			#game core will have to see if original tile placement is valid
 			tilemaplayer.set_cell(tile_pos, 0, Vector2i(0, 0)) 
 			tilePlayer = 1
+			tilemapcount.set_cell(tile_pos, 14, Vector2i(0, 0))
 		elif placing_tile and tilePlayer == 1 and !playing_faze:
 			#game core will have to see if original tile placement is valid
 			tilemaplayer.set_cell(tile_pos, 1, Vector2i(0, 0)) 
+			tilemapcount.set_cell(tile_pos, 14, Vector2i(0, 0))
+			tilePlayer = 0
 			placing_tile = false
 			selecting_tile = true
 			playing_faze = true
 		elif playing_faze:
 			#will have to tell game core what tile was selected and receive validation
+			temp_mouse_pos = tilemaplayer.get_local_mouse_position()
+			temp_tile_pos = tilemaplayer.local_to_map(temp_mouse_pos)
+			temp_id = tilemapcount.get_cell_source_id(temp_tile_pos)
+			tileNumber = 0
 			playing_faze = false
 		elif selecting_tile:
 			#game core will need to check the next click to see if it is correct.
@@ -43,17 +54,22 @@ func _input(event):
 
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
 		playing_faze = true
+		if !begin:
+			tilemapcount.set_cell(temp_tile_pos, temp_id - tileNumber, Vector2i(0,0))
+		else:
+			tilemapcount.set_cell(temp_tile_pos, tileNumber, Vector2i(0,0))
 		if tilePlayer == 1:
 			tilePlayer = 0
 		else:
 			tilePlayer = 1
 
 func move_tile(from_pos, to_pos):
-
+	
 	tilemaplayer.set_cell(to_pos, tilePlayer, Vector2i(0, 0))
 	tilemapcount.set_cell(to_pos, tileNumber, Vector2i(0, 0))
 	#tileNumber will be edit to have a max of how many tiles there are in starting stack
-	if tileNumber == 0:
+	if tileNumber < temp_id - 1:
 		tileNumber += 1
 	else:
 		tileNumber = 0
+		begin = true
