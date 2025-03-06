@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://coawf4r6b0ni3"]
 
 [ext_resource type="Script" path="res://Scripts/character.gd" id="1_ofyqm"]
-[ext_resource type="Texture2D" uid="uid://by7nwbgl1g23c" path="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg" id="2_vr5pl"]
+[ext_resource type="Texture2D" uid="uid://dssymgf626cv8" path="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg" id="2_vr5pl"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_2irgd"]
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="4_o48re"]
 [ext_resource type="Texture2D" uid="uid://qtaxa6w0sylj" path="res://assets/Clownfish1.png" id="5_5drpt"]
