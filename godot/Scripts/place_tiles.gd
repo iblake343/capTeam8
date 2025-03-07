@@ -1,5 +1,5 @@
 extends Node2D
-
+@onready var tileplacement: TileMapLayer = $TileMapLayer
 @onready var tilemaplayer: TileMapLayer = $ChipLayer  # Ensure this exists in your scene
 @onready var tilemapcount: TileMapLayer = $ChipLayer2
 @onready var tilemaphighlight: TileMapLayer = $TileMapHighlight
@@ -16,8 +16,10 @@ var temp_mouse_pos = null
 var temp_tile_pos = null
 
 func _ready():
-	pass
-	
+	var previous_tiles = GameBoard.get_placed_tiles()
+	for tile in previous_tiles:
+		tileplacement.set_cell(tile, randi_range(1, 5), Vector2i(0, 0))  # Example of using stored positions
+
 func _input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var mouse_pos = tilemaplayer.get_local_mouse_position()

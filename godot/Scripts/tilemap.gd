@@ -8,6 +8,7 @@ var hovered_tile: Vector2i = Vector2i(-1, -1)  # Track previously hovered tile
 var original_tiles: Dictionary = {}  # Stores original tile states
 var wantsToPlaceTile = false
 var count = 0 #will delete when andrew implement when to go to next state
+var placed_positions: Array = []
 
 # Hex grid offsets for even and odd column parities (existing offsets)
 var pattern_offsets_even_original: Array = [
@@ -70,7 +71,7 @@ func _process(delta):
 		tracker = false
 		# Restore previous tiles
 		for prev_tile in original_tiles.keys():
-			tilemaplayer.set_cell(prev_tile, randi_range(1,5), original_tiles[prev_tile])
+			tilemaplayer.set_cell(prev_tile, 4, original_tiles[prev_tile])
 		original_tiles.clear()
 
 		# Select the correct offset pattern based on column parity and current state
@@ -81,7 +82,7 @@ func _process(delta):
 			var target_tile = tile_pos + offset
 			if not original_tiles.has(target_tile):
 				original_tiles[target_tile] = tilemaplayer.get_cell_atlas_coords(target_tile)
-				tilemaplayer.set_cell(target_tile, randi_range(1,5), Vector2i(0, 0))  # hover tile
+				tilemaplayer.set_cell(target_tile, 4, Vector2i(0, 0))  # hover tile
 
 		hovered_tile = tile_pos
 
@@ -94,7 +95,7 @@ func _input(event):
 
 		# Select the correct offset pattern based on column parity and current state
 		var pattern_offsets = get_pattern_offsets(tile_pos)
-
+		
 		game.TilePlaced.emit();
 
 		# Make the clicked pattern stay changed
@@ -102,7 +103,9 @@ func _input(event):
 			var target_tile = tile_pos + offset
 			original_tiles.erase(target_tile)  # Remove from revert list
 			# Will pass to game core to validate placement
-			tilemaplayer.set_cell(target_tile, randi_range(1,5), Vector2i(0, 0))  # Set permanent change
+			tilemaplayer.set_cell(target_tile, 4, Vector2i(0, 0))  # Set permanent change
+			placed_positions.append(target_tile)
+			GameBoard.add_tile_position(placed_positions)
 		print("Pattern clicked!")
 		count += 1
 		if count == 8:
@@ -119,7 +122,7 @@ func _input(event):
 			is_right_click_held = true
 			hovered_tile = Vector2i(-1, -1)  # Reset hovered tile
 			for prev_tile in original_tiles.keys():
-				tilemaplayer.set_cell(prev_tile, randi_range(1,5), original_tiles[prev_tile])
+				tilemaplayer.set_cell(prev_tile, 1, original_tiles[prev_tile])
 			original_tiles.clear()
 		else:
 			# Right-click released, restore hover functionality

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=60 format=3 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/place_tiles.gd" id="1_fkhse"]
 [ext_resource type="Texture2D" uid="uid://rlu8ecytgr3s" path="res://assets/Background1.png" id="2_flr6g"]
@@ -215,7 +215,6 @@ texture = ExtResource("2_flr6g")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 scale = Vector2(0.3, 0.3)
-tile_map_data = PackedByteArray("AAD/////AQAAAAAAAAAAAAAAAQAAAAAAAAD//wAAAQAAAAAAAAD+/wAAAQAAAAAAAAAAAP//AgAAAAAAAAABAP7/AgAAAAAAAAAAAP7/AgAAAAAAAAD///7/AgAAAAAAAAD///3/AwAAAAAAAAD///z/AwAAAAAAAAAAAP3/AwAAAAAAAAAAAPz/AwAAAAAAAAD9////BAAAAAAAAAD8////BAAAAAAAAAD8//7/BAAAAAAAAAD9//7/BAAAAAAAAAABAP//BQAAAAAAAAACAAAABQAAAAAAAAACAP//BQAAAAAAAAADAP//BQAAAAAAAAD9//3/AgAAAAAAAAD8//3/AgAAAAAAAAD9//z/AgAAAAAAAAD+//3/AgAAAAAAAAADAP7/AQAAAAAAAAAEAP7/AQAAAAAAAAADAP3/AQAAAAAAAAAEAP3/AQAAAAAAAAD8/wAABQAAAAAAAAD7/wAABQAAAAAAAAD8/wEABQAAAAAAAAD7/wEABQAAAAAAAAA=")
 tile_set = SubResource("TileSet_4mf3u")
 
 [node name="ChipLayer" type="TileMapLayer" parent="."]
