@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfn84s2wt5lj"
-path="res://.godot/imported/ClownFishHighlight.png-b755f78f45d5efcb57c25d5e3c5d12f6.ctex"
+uid="uid://yu42skovw4q2"
+path="res://.godot/imported/Octopus Disk0 (1).png-d26e65b053da89810f4f6e8337896b7f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ClownFishHighlight.png"
-dest_files=["res://.godot/imported/ClownFishHighlight.png-b755f78f45d5efcb57c25d5e3c5d12f6.ctex"]
+source_file="res://assets/CharacterTiles/Octopus Disk0 (1).png"
+dest_files=["res://.godot/imported/Octopus Disk0 (1).png-d26e65b053da89810f4f6e8337896b7f.ctex"]
 
 [params]
 

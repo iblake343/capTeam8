@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bepqvktbctpk3"
-path="res://.godot/imported/Shark disk1 (1).png-2056037de6e964c0814fef34f6de2075.ctex"
+uid="uid://chfqb3c5d0au8"
+path="res://.godot/imported/sharkHighlightChip.png-1974ded456815c9d7c7b635bfb6e892f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Shark disk1 (1).png"
-dest_files=["res://.godot/imported/Shark disk1 (1).png-2056037de6e964c0814fef34f6de2075.ctex"]
+source_file="res://assets/CharacterTiles/sharkHighlightChip.png"
+dest_files=["res://.godot/imported/sharkHighlightChip.png-1974ded456815c9d7c7b635bfb6e892f.ctex"]
 
 [params]
 

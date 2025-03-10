@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc0frbdqh4tp3"
-path="res://.godot/imported/Tiles3.png-ceb163dfd1822d116cd72b1a6bb17fb6.ctex"
+uid="uid://bosm7elmv62ed"
+path="res://.godot/imported/HighlightCrabChip.png-0f8b7b8e12f004ff22c28cefe4b1645d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Tiles3.png"
-dest_files=["res://.godot/imported/Tiles3.png-ceb163dfd1822d116cd72b1a6bb17fb6.ctex"]
+source_file="res://assets/CharacterTiles/HighlightCrabChip.png"
+dest_files=["res://.godot/imported/HighlightCrabChip.png-0f8b7b8e12f004ff22c28cefe4b1645d.ctex"]
 
 [params]
 

@@ -1,7 +1,8 @@
 extends Node
 
 var placed_tiles: Array = []
-
+var player1 = 0
+var player2 = 1
 func add_tile_position(tile_positions: Array):
 	for pos in tile_positions:
 		placed_tiles.append(pos)

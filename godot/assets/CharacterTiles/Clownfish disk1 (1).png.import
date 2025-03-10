@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://maisrery10qr"
-path="res://.godot/imported/Crab Disk0 (1).png-af7ef68ba3b5cdd664d067d0e317361d.ctex"
+uid="uid://d2ans6o8phhs"
+path="res://.godot/imported/Clownfish disk1 (1).png-3f83096c568db4bbcb90153f00bab266.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Crab Disk0 (1).png"
-dest_files=["res://.godot/imported/Crab Disk0 (1).png-af7ef68ba3b5cdd664d067d0e317361d.ctex"]
+source_file="res://assets/CharacterTiles/Clownfish disk1 (1).png"
+dest_files=["res://.godot/imported/Clownfish disk1 (1).png-3f83096c568db4bbcb90153f00bab266.ctex"]
 
 [params]
 

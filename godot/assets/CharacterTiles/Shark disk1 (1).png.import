@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2ans6o8phhs"
-path="res://.godot/imported/Clownfish disk1 (1).png-88d43797d1bc333612bc9ad4e12c779e.ctex"
+uid="uid://bepqvktbctpk3"
+path="res://.godot/imported/Shark disk1 (1).png-0f2250af4b2050111e50a13ebc4adc86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Clownfish disk1 (1).png"
-dest_files=["res://.godot/imported/Clownfish disk1 (1).png-88d43797d1bc333612bc9ad4e12c779e.ctex"]
+source_file="res://assets/CharacterTiles/Shark disk1 (1).png"
+dest_files=["res://.godot/imported/Shark disk1 (1).png-0f2250af4b2050111e50a13ebc4adc86.ctex"]
 
 [params]
 

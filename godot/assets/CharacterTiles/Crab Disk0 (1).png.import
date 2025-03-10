@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yu42skovw4q2"
-path="res://.godot/imported/Octopus Disk0 (1).png-33a3a92a42c1d46c20b9397a597eb50a.ctex"
+uid="uid://maisrery10qr"
+path="res://.godot/imported/Crab Disk0 (1).png-1b7438e02bcfebdbec5b4c950774d6dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Octopus Disk0 (1).png"
-dest_files=["res://.godot/imported/Octopus Disk0 (1).png-33a3a92a42c1d46c20b9397a597eb50a.ctex"]
+source_file="res://assets/CharacterTiles/Crab Disk0 (1).png"
+dest_files=["res://.godot/imported/Crab Disk0 (1).png-1b7438e02bcfebdbec5b4c950774d6dd.ctex"]
 
 [params]
 
