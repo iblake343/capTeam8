@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cspt0b2ade8bf"
-path="res://.godot/imported/Tiles4.png-7ed685ca7fe39b012c0a927cfdfd18b5.ctex"
+uid="uid://dfn84s2wt5lj"
+path="res://.godot/imported/ClownFishHighlight.png-7bae2cb0856db05f493c891352715b35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Tiles4.png"
-dest_files=["res://.godot/imported/Tiles4.png-7ed685ca7fe39b012c0a927cfdfd18b5.ctex"]
+source_file="res://assets/CharacterTiles/ClownFishHighlight.png"
+dest_files=["res://.godot/imported/ClownFishHighlight.png-7bae2cb0856db05f493c891352715b35.ctex"]
 
 [params]
 

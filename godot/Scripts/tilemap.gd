@@ -2,6 +2,10 @@ extends Node2D
 
 @onready var tilemaplayer: TileMapLayer = $TileMapLayer
 @onready var game = $Game
+@onready var clownDisk = $"CanvasLayer/HBoxContainer/ClownfishDisk1(1)"
+@onready var octopusDisk = $"CanvasLayer/HBoxContainer/OctopusDisk0(1)"
+@onready var crabDisk = $"CanvasLayer/HBoxContainer/CrabDisk0(1)"
+@onready var sharkDisk = $"CanvasLayer/HBoxContainer/SharkDisk1(1)"
 var tracker = false
 var is_right_click_held = false  # Track if the right-click is held down
 var hovered_tile: Vector2i = Vector2i(-1, -1)  # Track previously hovered tile
@@ -9,6 +13,9 @@ var original_tiles: Dictionary = {}  # Stores original tile states
 var wantsToPlaceTile = false
 var count = 0 #will delete when andrew implement when to go to next state
 var placed_positions: Array = []
+var turn = true
+var player1
+var player2
 
 # Hex grid offsets for even and odd column parities (existing offsets)
 var pattern_offsets_even_original: Array = [
@@ -56,9 +63,31 @@ var pattern_offsets_odd_flipped: Array = [
 var pattern_state: int = 0  # Default is the original pattern
 
 func _ready() -> void:
+	turn = false
+	clownDisk.hide()
+	octopusDisk.hide()
+	crabDisk.hide()
+	sharkDisk.hide()
+	if GameBoard.player1 == 0:
+		player1 = clownDisk
+	elif GameBoard.player1 == 1:
+		player1 = crabDisk
+	elif GameBoard.player1 == 2:
+		player1 = octopusDisk
+	elif GameBoard.player1 == 3:
+		player1 = sharkDisk
+	if GameBoard.player2 == 0:
+		player2 = clownDisk
+	elif GameBoard.player2 == 1:
+		player2 = crabDisk
+	elif GameBoard.player2 == 2:
+		player2 = octopusDisk
+	elif GameBoard.player2 == 3:
+		player2 = sharkDisk
+	player1.show()
 	game.registerPlayer1(self)
 	game.startGame()
-
+	$"CanvasLayer/HBoxContainer/Label2".text = str("TILES REMAINING: 8")
 func _process(delta):
 	# Only update hover if right-click is not held
 	if is_right_click_held or !wantsToPlaceTile:
@@ -106,6 +135,16 @@ func _input(event):
 			tilemaplayer.set_cell(target_tile, 4, Vector2i(0, 0))  # Set permanent change
 			placed_positions.append(target_tile)
 			GameBoard.add_tile_position(placed_positions)
+		$"CanvasLayer/HBoxContainer/Label2".text = str("TILES REMAINING: ")
+		$"CanvasLayer/HBoxContainer/Label2".text += str(7-count)
+		if turn == true:
+			turn = false
+			player2.hide()
+			player1.show()
+		else:
+			turn = true
+			player1.hide()
+			player2.show()
 		print("Pattern clicked!")
 		count += 1
 		if count == 8:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb7oftst6mnpx"
-path="res://.godot/imported/Tiles5.png-a6d17eefc1ac1a52a7faf19a2609107b.ctex"
+uid="uid://c2wdhlyoikr3g"
+path="res://.godot/imported/Shark1 (1).png-65307101a748ad7fd5e7f12206342512.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Tiles5.png"
-dest_files=["res://.godot/imported/Tiles5.png-a6d17eefc1ac1a52a7faf19a2609107b.ctex"]
+source_file="res://assets/Shark1 (1).png"
+dest_files=["res://.godot/imported/Shark1 (1).png-65307101a748ad7fd5e7f12206342512.ctex"]
 
 [params]
 
