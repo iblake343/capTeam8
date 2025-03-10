@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dssymgf626cv8"
-path="res://.godot/imported/coral-reef-background-wnbdw3mzqnjgwlzz.jpg-08a3ffc67253d3c72eff88ccec892163.ctex"
+uid="uid://rlu8ecytgr3s"
+path="res://.godot/imported/Background1.png-43324f8b886950caec7721fdb3d83abd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg"
-dest_files=["res://.godot/imported/coral-reef-background-wnbdw3mzqnjgwlzz.jpg-08a3ffc67253d3c72eff88ccec892163.ctex"]
+source_file="res://assets/Background1.png"
+dest_files=["res://.godot/imported/Background1.png-43324f8b886950caec7721fdb3d83abd.ctex"]
 
 [params]
 

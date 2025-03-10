@@ -1,31 +1,50 @@
-using Godot;
 using System;
 using System.Threading.Tasks;
 
-public partial class Game : Node
-{
-	private Player player1;
-	private Player player2;
+public partial class Game {
+	private Player[] players;
+	private string[] names;
 	private Board board;
-	
-	public void registerPlayer1(Node p1) {
-		this.player1 = p1 as Player;
+	private Display display;
+
+	public Game(Player[] ps, string[] ns, Board b, Display disp) {
+		players = ps;
+		names = ns;
+		board = b;
+		display = disp;
 	}
-	public void registerPlayer2(Node p2) {
-		this.player2 = p2 as Player;
-	}
 	
-	[Signal]
-	public delegate void TilePlacedEventHandler();
-	
-	public async void startGame()
-	{
-		if (player1 == null) {
-			GD.Print("Error: No player 1");
-			return;
+	public void StartGame() {
+		while (true) {
+			display.DrawBoard(board);
+			int ix_player = board.CurrentPlayer();
+			Player player = players[ix_player];
+			int k = board.ExpectedMoveKind();
+
+			if (k == -1) {
+				int ix_winner = board.Winner();
+				if (ix_winner == -1) {
+					display.DeclareTie();
+				} else {
+					display.DeclareWinner(names[ix_winner]);
+				}
+				return;
+			}
+
+			Console.WriteLine($"{names[ix_player]}'s turn");
+			MoveKind j = (MoveKind) k;
+			if (j == MoveKind.PlaceTile)
+				player.PlaceTile(board);
+			else if (j == MoveKind.PlaceInitialStack)
+				player.PlaceInitialStack(board);
+			else if (j == MoveKind.MoveTokens)
+				player.MoveTokens(board);
 		}
-		
-		var locations = await player1.PlaceTile();
-		GD.Print($"got a tile placed at {loc} with orientation {orient}");
 	}
+}
+
+public enum MoveKind : ushort {
+	PlaceTile,
+	PlaceInitialStack,
+	MoveTokens,
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dssymgf626cv8"
-path="res://.godot/imported/coral-reef-background-wnbdw3mzqnjgwlzz.jpg-08a3ffc67253d3c72eff88ccec892163.ctex"
+uid="uid://cspt0b2ade8bf"
+path="res://.godot/imported/Tiles4.png-7bcbb36991f8df33c8898f9b3ebf01dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg"
-dest_files=["res://.godot/imported/coral-reef-background-wnbdw3mzqnjgwlzz.jpg-08a3ffc67253d3c72eff88ccec892163.ctex"]
+source_file="res://assets/SandTiles/Tiles4.png"
+dest_files=["res://.godot/imported/Tiles4.png-7bcbb36991f8df33c8898f9b3ebf01dc.ctex"]
 
 [params]
 

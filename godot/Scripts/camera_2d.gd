@@ -1,18 +1,16 @@
 extends Camera2D
 
 @export var zoom_step: float = 0.1  # Zoom step for scrolling
-@export var min_zoom: float = 0.05  # Minimum zoom
-@export var max_zoom: float = 4  # Maximum zoom
+@export var min_zoom: float = 0.15  # Minimum zoom
+@export var max_zoom: float = 2  # Maximum zoom
 @export var drag_speed: float = 2  # Speed of camera movement during drag
 
 var dragging = false
 var last_mouse_pos = Vector2.ZERO
 
 func _ready():
-	# Ensure the camera is initialized
 	pass
 
-# Handle mouse input for dragging
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT:
