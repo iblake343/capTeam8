@@ -240,7 +240,7 @@ pub const Board = struct {
             var stack = std.ArrayList(Location).initCapacity(fba.allocator(), 16) catch unreachable;
 
             stack.appendAssumeCapacity(loc);
-            while (stack.popOrNull()) |node| {
+            while (stack.pop()) |node| {
                 count_contiguous += 1;
                 for (0..std.meta.fields(Direction).len) |ix_dir| {
                     const next = node + Direction.vector(@enumFromInt(ix_dir));

@@ -1,15 +1,14 @@
-extends Node2D
+extends Node
 
-@onready var tilemaplayer: TileMapLayer = $TileMapLayer
-@onready var clownDisk = $"CanvasLayer/HBoxContainer/ClownfishDisk1(1)"
-@onready var octopusDisk = $"CanvasLayer/HBoxContainer/OctopusDisk0(1)"
-@onready var crabDisk = $"CanvasLayer/HBoxContainer/CrabDisk0(1)"
-@onready var sharkDisk = $"CanvasLayer/HBoxContainer/SharkDisk1(1)"
+@onready var tilemaplayer: TileMapLayer = $"../TileMapLayer"
+@onready var clownDisk = $"../CanvasLayer/HBoxContainer/ClownfishDisk1(1)"
+@onready var octopusDisk = $"../CanvasLayer/HBoxContainer/OctopusDisk0(1)"
+@onready var crabDisk = $"../CanvasLayer/HBoxContainer/CrabDisk0(1)"
+@onready var sharkDisk = $"../CanvasLayer/HBoxContainer/SharkDisk1(1)"
 var tracker = false
 var is_right_click_held = false  # Track if the right-click is held down
 var hovered_tile: Vector2i = Vector2i(-1, -1)  # Track previously hovered tile
 var original_tiles: Dictionary = {}  # Stores original tile states
-var wantsToPlaceTile = false
 var count = 0 #will delete when andrew implement when to go to next state
 var placed_positions: Array = []
 var turn = true
@@ -63,10 +62,6 @@ var pattern_state: int = 0  # Default is the original pattern
 
 func _ready() -> void:
 	turn = false
-	clownDisk.hide()
-	octopusDisk.hide()
-	crabDisk.hide()
-	sharkDisk.hide()
 	if GameBoard.player1 == 0:
 		player1 = clownDisk
 	elif GameBoard.player1 == 1:
@@ -84,10 +79,9 @@ func _ready() -> void:
 	elif GameBoard.player2 == 3:
 		player2 = sharkDisk
 	player1.show()
-	$"CanvasLayer/HBoxContainer/Label2".text = str("TILES REMAINING: 8")
 func _process(delta):
 	# Only update hover if right-click is not held
-	if is_right_click_held or !wantsToPlaceTile:
+	if is_right_click_held:
 		return  # Skip hover effect if right-click is held
 
 	var mouse_pos = tilemaplayer.get_local_mouse_position()
@@ -113,15 +107,19 @@ func _process(delta):
 		hovered_tile = tile_pos
 
 func _input(event):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and wantsToPlaceTile == true:
-		wantsToPlaceTile = false
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var mouse_pos = tilemaplayer.get_local_mouse_position()
 		var tile_pos = tilemaplayer.local_to_map(mouse_pos)
 		
+		var game: Node = $".."
+		game.GetBoard
+		#.call("PlaceTile", tile_pos, 3)
 
 		# Select the correct offset pattern based on column parity and current state
 		var pattern_offsets = get_pattern_offsets(tile_pos)
 		
+		# kill self
+		queue_free()
 
 		# Make the clicked pattern stay changed
 		for offset in pattern_offsets:
@@ -131,8 +129,6 @@ func _input(event):
 			tilemaplayer.set_cell(target_tile, 4, Vector2i(0, 0))  # Set permanent change
 			placed_positions.append(target_tile)
 			GameBoard.add_tile_position(placed_positions)
-		$"CanvasLayer/HBoxContainer/Label2".text = str("TILES REMAINING: ")
-		$"CanvasLayer/HBoxContainer/Label2".text += str(7-count)
 		if turn == true:
 			turn = false
 			player2.hide()
@@ -178,14 +174,14 @@ func get_pattern_offsets(tile_pos: Vector2i) -> Array:
 			2: pattern_offsets = pattern_offsets_odd_flipped
 	return pattern_offsets
 
+func _exit_tree():
+	print("goodbye, world!")
+
 # Function to cycle through the pattern states
 func cycle_pattern() -> void:
 	pattern_state = (pattern_state + 1) % 3  # Cycle through 0, 1, 2
 	print("Pattern switched to state: ", pattern_state)
 	tracker = true
-
-func place_tile() -> void:
-	wantsToPlaceTile = true
 
 #calling myself at the moment, will have Andrew pass me when to go
 func place_initial_stack():

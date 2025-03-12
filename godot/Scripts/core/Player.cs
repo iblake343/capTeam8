@@ -4,23 +4,26 @@ using System.Threading.Tasks;
 using Godot;
 
 public interface Player {
-	void PlaceTile(Board board);
-	void PlaceInitialStack(Board board);
-	void MoveTokens(Board board);
+	Task<int> PlaceTile(Board board);
+	Task<int> PlaceInitialStack(Board board);
+	Task<int> MoveTokens(Board board);
 }
 
 public class TuiPlayer : Player {
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static void xTuiDoTurn(byte[] data);
 
-	public void PlaceTile(Board board) {
+	public async Task<int> PlaceTile(Board board) {
 		xTuiDoTurn(board.data);
+		return 0;
 	}
-	public void PlaceInitialStack(Board board) {
+	public async Task<int> PlaceInitialStack(Board board) {
 		xTuiDoTurn(board.data);
+		return 0;
 	}
-	public void MoveTokens(Board board) {
+	public async Task<int> MoveTokens(Board board) {
 		xTuiDoTurn(board.data);
+		return 0;
 	}
 }
 
