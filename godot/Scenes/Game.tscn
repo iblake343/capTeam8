@@ -247,6 +247,11 @@ tile_set = SubResource("TileSet_472io")
 scale = Vector2(0.3, 0.3)
 tile_set = SubResource("TileSet_il8kw")
 
+[node name="HoverHighlightLayer" type="TileMapLayer" parent="."]
+modulate = Color(0, 1, 0, 0.337255)
+scale = Vector2(0.3, 0.3)
+tile_set = SubResource("TileSet_4mf3u")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.4, 0.4)
 script = ExtResource("31_8lr7v")
@@ -292,5 +297,3 @@ texture = ExtResource("9_51wn1")
 position = Vector2(435, 105)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("11_cghng")
-
-[node name="Drawer" type="Node" parent="."]

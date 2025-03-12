@@ -78,4 +78,34 @@ public static class DirectionExtensions {
 		Console.WriteLine("error in Direction.Vector: out of bounds");
 		return new(42, 42);
 	}
+	public static Direction Left(this Direction dir) {
+		if (dir == Direction.NW) return Direction.W;
+		if (dir == Direction.NE) return Direction.NW;
+		if (dir == Direction.E) return Direction.NE;
+		if (dir == Direction.SE) return Direction.E;
+		if (dir == Direction.SW) return Direction.SE;
+		if (dir == Direction.W) return Direction.SW;
+		Console.WriteLine("error in Direction.Right: out of bounds");
+		return Direction.E;
+	}
+	public static Direction Right(this Direction dir) {
+		if (dir == Direction.NW) return Direction.NE;
+		if (dir == Direction.NE) return Direction.E;
+		if (dir == Direction.E) return Direction.SE;
+		if (dir == Direction.SE) return Direction.SW;
+		if (dir == Direction.SW) return Direction.W;
+		if (dir == Direction.W) return Direction.NW;
+		Console.WriteLine("error in Direction.Left: out of bounds");
+		return Direction.E;
+	}
+	public static Direction Back(this Direction dir) {
+		if (dir == Direction.NW) return Direction.SE;
+		if (dir == Direction.NE) return Direction.SW;
+		if (dir == Direction.E) return Direction.W;
+		if (dir == Direction.SE) return Direction.NW;
+		if (dir == Direction.SW) return Direction.NE;
+		if (dir == Direction.W) return Direction.E;
+		Console.WriteLine("error in Direction.Back: out of bounds");
+		return Direction.E;
+	}
 }

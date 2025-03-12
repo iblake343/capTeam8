@@ -9,7 +9,7 @@ using Godot;
 //using TileLocation = (Location a, Location b, Location c, Location d);
 //using Move = (Location src, Location dest);
 
-public partial class Board {
+public partial class Board : GodotObject {
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static int BoardSize();
 
@@ -47,7 +47,7 @@ public partial class Board {
 	private extern static int xCountLegalTileLocations(byte[] data);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static void xGetLegalTileLocations(byte[] board, int[] coords);
-	public Vector2I[] LegalTileLocations() {
+	public Godot.Collections.Array<Vector2I> LegalTileLocations() {
 		var size = xCountLegalTileLocations(data);
 		var coords = new int[size * 2];
 		var vectors = new Vector2I[size];
@@ -55,7 +55,7 @@ public partial class Board {
 		for (int i = 0; i < size; ++i) {
 			vectors[i] = new(coords[i*2], coords[i*2+1]);
 		}
-		return vectors;
+		return new(vectors);
 	}
 
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -146,8 +146,21 @@ public partial class Board {
 		return new((Color) ((cell / 100) - 1), cell % 100);
 	}
 	
+	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
+	private extern static bool xGetFrame(byte[] data, int[] coords);
 	public (Vector2I min, Vector2I max) Frame() {
-		return (new(0, 0), new(0, 0));
+		var coords = new int[4];
+		xGetFrame(data, coords);
+		return (new(coords[0], coords[1]), new(coords[2], coords[3]));
+	}
+	
+	public Godot.Collections.Array<Vector2I> GetLocsFromOriginAndDir(Vector2I orig, int diri) {
+		Direction dir = (Direction) diri;
+		Vector2I v = dir.Vector();
+		Vector2I w = dir.Right().Vector();
+		return new(new[]{
+			orig, orig + v, orig + w, orig + w + v,
+		});
 	}
 }
 

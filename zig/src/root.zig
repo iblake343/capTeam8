@@ -920,6 +920,15 @@ export fn xMoveTokens(board: *Board, x1: int, y1: int, x2: int, y2: int, amt: in
     })) |_| true else |err| err catch false;
 }
 
+export fn xGetFrame(board: *Board, coords: *[4]int) callconv(.C) void {
+    coords.* = .{
+        board.origin[0],
+        board.origin[1],
+        (board.origin + board.size)[0],
+        (board.origin + board.size)[1],
+    };
+}
+
 fn factorDirection(a: Location, b: Location) ?Direction {
     const dx = std.math.order(b[0], a[0]);
     const dy = std.math.order(b[1], a[1]);
