@@ -17,20 +17,27 @@ public partial class GameScene : Node, Display, Player {
 	}
 	
 	public void DrawBoard(Board board) {
-		TileMapLayer base_layer = GetNode<TileMapLayer>("TileMapLayer");
+		TileMapLayer base_layer = GetNode<TileMapLayer>("HexLayer");
+		TileMapLayer chip_layer = GetNode<TileMapLayer>("ChipLayer");
+		TileMapLayer number_layer = GetNode<TileMapLayer>("NumberLayer");
 		var frame = board.Frame();
+		
+		number_layer.Clear();
+		base_layer.Clear();
+		chip_layer.Clear();
+		
 		for (int y = frame.min.Y; y < frame.max.Y; ++y) {
 			for (int x = frame.min.X; x < frame.max.X; ++x) {
 				var cell = board.At(new(x, y));
-				if (cell.count >= 0) {
-				base_layer.SetCell(
-					new(x, y),
-					4,
-					new(0, 0)
-				);}
-				else {
-					base_layer.EraseCell(new(x, y));
-				}
+				if (cell.count == -1) continue;
+				
+				base_layer.SetCell(new(x, y), 4, new(0, 0));
+				if (cell.count == 0) continue;
+				
+				chip_layer.SetCell(new(x, y), Globals.players[(int)cell.color], new(0, 0));
+				if (cell.count == 1) continue;
+				
+				number_layer.SetCell(new(x, y), cell.count, new(0, 0));
 			}
 		}
 	}
@@ -41,7 +48,7 @@ public partial class GameScene : Node, Display, Player {
 		
 		Node node = new();
 		ulong nodeId = node.GetInstanceId();
-		node.SetScript(GD.Load<Script>("res://Scripts/tilemap.gd"));
+		node.SetScript(GD.Load<Script>("res://Scripts/place_tile.gd"));
 		node = (Node)InstanceFromId(nodeId);
 		CallDeferred("add_child", node);
 		

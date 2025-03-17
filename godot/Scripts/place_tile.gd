@@ -16,7 +16,11 @@ func _process(_delta):
 
 	# Select the correct offset pattern based on column parity and current state
 	var pattern_locs = game.board.GetLocsFromOriginAndDir(tile_pos, dir)
-
+	if game.board.IsLegalTilePlacement(tile_pos, dir):
+		highlights.modulate = Color(0, 1, 0, 0.33)
+	else:
+		highlights.modulate = Color(1, 0, 0, 0.33)
+	
 	# Apply the hover effect in the selected pattern
 	for target_tile in pattern_locs:
 		highlights.set_cell(target_tile, 4, Vector2i(0, 0))  # hover tile
@@ -26,7 +30,7 @@ func _input(event):
 		var mouse_pos = highlights.get_local_mouse_position()
 		var tile_pos = highlights.local_to_map(mouse_pos)
 		
-		game.GetBoard().PlaceTile(tile_pos, dir)
+		game.board.PlaceTile(tile_pos, dir)
 
 		# kill self
 		queue_free()

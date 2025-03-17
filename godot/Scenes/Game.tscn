@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=55 format=3 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
 [ext_resource type="Texture2D" uid="uid://rlu8ecytgr3s" path="res://assets/Background1.png" id="2_wdm6a"]
@@ -11,10 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://maisrery10qr" path="res://assets/CharacterTiles/Crab Disk0 (1).png" id="9_51wn1"]
 [ext_resource type="Texture2D" uid="uid://yu42skovw4q2" path="res://assets/CharacterTiles/Octopus Disk0 (1).png" id="10_ioss3"]
 [ext_resource type="Texture2D" uid="uid://bepqvktbctpk3" path="res://assets/CharacterTiles/Shark disk1 (1).png" id="11_cghng"]
-[ext_resource type="Texture2D" uid="uid://dfn84s2wt5lj" path="res://assets/CharacterTiles/ClownFishHighlight.png" id="12_g38sq"]
-[ext_resource type="Texture2D" uid="uid://bosm7elmv62ed" path="res://assets/CharacterTiles/HighlightCrabChip.png" id="13_yltmn"]
-[ext_resource type="Texture2D" uid="uid://bj7cnfculyxvx" path="res://assets/CharacterTiles/octopusHighlightChip.png" id="14_gkr8j"]
-[ext_resource type="Texture2D" uid="uid://chfqb3c5d0au8" path="res://assets/CharacterTiles/sharkHighlightChip.png" id="15_oj4mc"]
 [ext_resource type="Texture2D" uid="uid://cwgohkycb474x" path="res://assets/Numbers/1.png" id="16_d4kvs"]
 [ext_resource type="Texture2D" uid="uid://ds7eq0sq3sxjr" path="res://assets/Numbers/2.png" id="17_soqeu"]
 [ext_resource type="Texture2D" uid="uid://cinlk52iguwce" path="res://assets/Numbers/11.png" id="18_xh0ii"]
@@ -97,36 +93,6 @@ sources/0 = SubResource("TileSetAtlasSource_ocjaf")
 sources/1 = SubResource("TileSetAtlasSource_n7iet")
 sources/2 = SubResource("TileSetAtlasSource_k8bq1")
 sources/3 = SubResource("TileSetAtlasSource_7tbx5")
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mtoun"]
-texture = ExtResource("12_g38sq")
-texture_region_size = Vector2i(400, 400)
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xq4io"]
-texture = ExtResource("13_yltmn")
-texture_region_size = Vector2i(400, 400)
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hmbve"]
-texture = ExtResource("14_gkr8j")
-texture_region_size = Vector2i(425, 425)
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5p367"]
-texture = ExtResource("15_oj4mc")
-texture_region_size = Vector2i(425, 425)
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_472io"]
-tile_shape = 3
-tile_layout = 4
-tile_offset_axis = 1
-tile_size = Vector2i(600, 520)
-sources/1 = SubResource("TileSetAtlasSource_xq4io")
-sources/0 = SubResource("TileSetAtlasSource_mtoun")
-sources/2 = SubResource("TileSetAtlasSource_hmbve")
-sources/3 = SubResource("TileSetAtlasSource_5p367")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_givid"]
 texture = ExtResource("16_d4kvs")
@@ -231,7 +197,7 @@ script = ExtResource("1_vno3s")
 scale = Vector2(0.523333, 0.512889)
 texture = ExtResource("2_wdm6a")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="HexLayer" type="TileMapLayer" parent="."]
 scale = Vector2(0.3, 0.3)
 tile_set = SubResource("TileSet_4mf3u")
 
@@ -239,13 +205,14 @@ tile_set = SubResource("TileSet_4mf3u")
 scale = Vector2(0.3, 0.3)
 tile_set = SubResource("TileSet_qnt7o")
 
-[node name="TileMapHighlight" type="TileMapLayer" parent="."]
-scale = Vector2(0.3, 0.3)
-tile_set = SubResource("TileSet_472io")
-
-[node name="ChipLayer2" type="TileMapLayer" parent="."]
+[node name="NumberLayer" type="TileMapLayer" parent="."]
 scale = Vector2(0.3, 0.3)
 tile_set = SubResource("TileSet_il8kw")
+
+[node name="HighlightLayer" type="TileMapLayer" parent="."]
+modulate = Color(1, 1, 0, 0.337255)
+scale = Vector2(0.3, 0.3)
+tile_set = SubResource("TileSet_4mf3u")
 
 [node name="HoverHighlightLayer" type="TileMapLayer" parent="."]
 modulate = Color(0, 1, 0, 0.337255)
