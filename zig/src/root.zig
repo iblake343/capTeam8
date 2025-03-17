@@ -77,7 +77,7 @@ pub const MoveTokensError = error{
 pub const TurnError = PlaceHexesError || PlaceTokensError || MoveTokensError;
 
 pub const Board = struct {
-    cells: ModMatrix(max_size, Cell) = .fill(.empty),
+    cells: [max_size][max_size]Cell = [1][max_size]Cell{.{.illegal} ** max_size} ** max_size,
     current_player: Player = @enumFromInt(0),
     hexes_count: usize = 0,
     initial_stack_count: usize = 0,
@@ -107,7 +107,7 @@ pub const Board = struct {
         b.size += delta(loc, b.origin);
         b.origin -= delta(loc, b.origin);
         b.size += delta(b.origin + b.size, loc + splat(1));
-        b.cells.at(loc).* = .empty;
+        b.at(loc).* = .empty;
     }
 
     fn elem(as: []Location, a: Location) bool {
@@ -125,13 +125,13 @@ pub const Board = struct {
                 const w, const h = b.size;
                 for (0..h) |dy| for (0..w) |dx| {
                     const loc = b.location(dx, dy);
-                    if (b.cells.get(loc) != .empty) continue;
-                    if (b.cells.get(loc + Direction.vector(.nw)) == .illegal or
-                        b.cells.get(loc + Direction.vector(.ne)) == .illegal or
-                        b.cells.get(loc + Direction.vector(.sw)) == .illegal or
-                        b.cells.get(loc + Direction.vector(.se)) == .illegal or
-                        b.cells.get(loc + Direction.vector(.w)) == .illegal or
-                        b.cells.get(loc + Direction.vector(.e)) == .illegal)
+                    if (b.get(loc) != .empty) continue;
+                    if (b.get(loc + Direction.vector(.nw)) == .illegal or
+                        b.get(loc + Direction.vector(.ne)) == .illegal or
+                        b.get(loc + Direction.vector(.sw)) == .illegal or
+                        b.get(loc + Direction.vector(.se)) == .illegal or
+                        b.get(loc + Direction.vector(.w)) == .illegal or
+                        b.get(loc + Direction.vector(.e)) == .illegal)
                     {
                         list.appendAssumeCapacity(loc);
                     }
@@ -143,7 +143,7 @@ pub const Board = struct {
                 const w, const h = b.size;
                 const start = b: for (0..h) |dy| (for (0..w) |dx| {
                     const loc = b.location(dx, dy);
-                    if (b.cells.get(loc) == .empty) break :b loc;
+                    if (b.get(loc) == .empty) break :b loc;
                 }) else unreachable;
                 list.appendAssumeCapacity(start);
 
@@ -153,14 +153,14 @@ pub const Board = struct {
                     // find next cell
                     for (0..6) |_| {
                         dir = dir.right();
-                        if (b.cells.get(loc + dir.vector()) != .illegal) {
+                        if (b.get(loc + dir.vector()) != .illegal) {
                             loc += dir.vector();
                             dir = dir.back();
                             break :b loc;
                         }
                     } else unreachable;
                 })) {
-                    if (b.cells.get(loc) == .empty and
+                    if (b.get(loc) == .empty and
                         !elem(list.items, loc))
                         list.appendAssumeCapacity(loc);
                 }
@@ -178,16 +178,16 @@ pub const Board = struct {
         for (0..h) |dy| for (0..w) |dx| {
             const loc = b.location(dx, dy);
 
-            if (b.cells.get(loc) != .stack) continue;
-            if (b.cells.get(loc).stack.color != player) continue;
-            if (b.cells.get(loc).stack.count == 0) continue;
+            if (b.get(loc) != .stack) continue;
+            if (b.get(loc).stack.color != player) continue;
+            if (b.get(loc).stack.count == 0) continue;
 
-            if (b.cells.get(loc + Direction.vector(.nw)) != .empty and
-                b.cells.get(loc + Direction.vector(.ne)) != .empty and
-                b.cells.get(loc + Direction.vector(.sw)) != .empty and
-                b.cells.get(loc + Direction.vector(.se)) != .empty and
-                b.cells.get(loc + Direction.vector(.w)) != .empty and
-                b.cells.get(loc + Direction.vector(.e)) != .empty)
+            if (b.get(loc + Direction.vector(.nw)) != .empty and
+                b.get(loc + Direction.vector(.ne)) != .empty and
+                b.get(loc + Direction.vector(.sw)) != .empty and
+                b.get(loc + Direction.vector(.se)) != .empty and
+                b.get(loc + Direction.vector(.w)) != .empty and
+                b.get(loc + Direction.vector(.e)) != .empty)
                 continue;
 
             list.appendAssumeCapacity(loc);
@@ -228,8 +228,8 @@ pub const Board = struct {
         for (0..h) |dy| for (0..w) |dx| {
             const loc = b.location(dx, dy);
             if (breadcrumbs.guard(loc)) continue;
-            if (b.cells.get(loc) != .stack) continue;
-            if (b.cells.get(loc).stack.color != player) continue;
+            if (b.get(loc) != .stack) continue;
+            if (b.get(loc).stack.color != player) continue;
 
             // DFS the region, counting stacks
             // this DFS is modified to ensure that the stack cannot possibly be longer than 16 items
@@ -245,8 +245,8 @@ pub const Board = struct {
                 for (0..std.meta.fields(Direction).len) |ix_dir| {
                     const next = node + Direction.vector(@enumFromInt(ix_dir));
                     if (breadcrumbs.guard(next)) continue;
-                    if (b.cells.get(next) != .stack) continue;
-                    if (b.cells.get(next).stack.color != player) continue;
+                    if (b.get(next) != .stack) continue;
+                    if (b.get(next).stack.color != player) continue;
 
                     stack.appendAssumeCapacity(next);
                 }
@@ -320,11 +320,11 @@ pub const Board = struct {
             } else break;
     }
 
-    fn tilePlaceError(
-        board: *const Board,
+    fn placeHexes(
+        board: *Board,
         orig: Location,
         dir: Direction,
-    ) ?PlaceHexesError {
+    ) PlaceHexesError!void {
         const v = dir.vector();
         const w = dir.right().vector();
         const loc1 = orig;
@@ -332,9 +332,9 @@ pub const Board = struct {
         const loc3 = orig + w;
         const loc4 = loc2 + w;
 
-        // detect placing tile on top of other tile
+        // detect plaing tile on top of other tile
         for ([4]Location{ loc1, loc2, loc3, loc4 }) |loc| {
-            if (board.cells.get(loc) != .illegal) return error.collision;
+            if (board.get(loc) != .illegal) return error.collision;
         }
 
         // make sure that the tile is adjacent to land
@@ -347,23 +347,9 @@ pub const Board = struct {
             orig + splat(2) * v,     orig + splat(2) * w,
             orig + splat(2) * v + w, orig + splat(2) * w + v,
         }) |loc| {
-            if (board.cells.get(loc) == .empty) break;
+            if (board.get(loc) == .empty) break;
         } else return error.not_adjacent_to_land;
-        return null;
-    }
 
-    fn placeHexes(
-        board: *Board,
-        orig: Location,
-        dir: Direction,
-    ) PlaceHexesError!void {
-        const v = dir.vector();
-        const w = dir.right().vector();
-        const loc1 = orig;
-        const loc2 = orig + v;
-        const loc3 = orig + w;
-        const loc4 = loc2 + w;
-        if (board.tilePlaceError(orig, dir)) |err| return err;
         for ([4]Location{ loc1, loc2, loc3, loc4 }) |loc| {
             board.addHex(loc);
         }
@@ -371,9 +357,43 @@ pub const Board = struct {
         board.hexes_count += 4;
     }
 
+    fn canPlaceHexes(
+        board: *const Board,
+        orig: Location,
+        dir: Direction,
+        ignore_floating: bool,
+    ) bool {
+        const v = dir.vector();
+        const w = dir.right().vector();
+        const loc1 = orig;
+        const loc2 = orig + v;
+        const loc3 = orig + w;
+        const loc4 = loc2 + w;
+
+        // detect plaing tile on top of other tile
+        for ([4]Location{ loc1, loc2, loc3, loc4 }) |loc| {
+            if (board.get(loc) != .illegal) return false;
+        }
+
+        // make sure that the tile is adjacent to land
+        // this check is skipped if the tile is the first on the board
+        if (board.hexes_count != 0 or ignore_floating) inline for (.{
+            // all the spaces adjacent to the tile
+            orig - w,                orig - v,
+            orig + v - w,            orig + w - v,
+            orig + splat(2) * v - w, orig + splat(2) * w - v,
+            orig + splat(2) * v,     orig + splat(2) * w,
+            orig + splat(2) * v + w, orig + splat(2) * w + v,
+        }) |loc| {
+            if (board.get(loc) == .empty) break;
+        } else return false;
+
+        return true;
+    }
+
     // TODO does this fn need to do validation?
     fn placeTokens(b: *Board, loc: Location) PlaceTokensError!void {
-        b.cells.at(loc).* = .{ .stack = .{ .color = b.current_player, .count = 15 } };
+        b.at(loc).* = .{ .stack = .{ .color = b.current_player, .count = 15 } };
         b.initial_stack_count += 1;
     }
 
@@ -383,7 +403,7 @@ pub const Board = struct {
         // that matches the current_player
         // and has at least count + 1 tokens
         {
-            const cell = b.cells.get(start);
+            const cell = b.get(start);
             if (cell != .stack) return error.cell_is_not_stack;
             if (cell.stack.color != b.current_player) return error.wrong_color;
             if (cell.stack.count < count) return error.not_enough_tokens;
@@ -393,16 +413,24 @@ pub const Board = struct {
         // ensure that dest != start
         const dest = b: for (1..max_size) |udist| {
             const dist: i32 = @intCast(udist);
-            if (b.cells.get(start + dir.vector() * splat(dist)) == .empty) continue;
+            if (b.get(start + dir.vector() * splat(dist)) == .empty) continue;
             if (dist == 1) return error.invalid_direction;
             break :b start + dir.vector() * splat(dist - 1);
         } else unreachable;
 
         // do the moving
-        b.cells.at(start).stack.count -= count;
-        b.cells.at(dest).* = .{
+        b.at(start).stack.count -= count;
+        b.at(dest).* = .{
             .stack = .{ .color = b.current_player, .count = count - 1 },
         };
+    }
+
+    fn at(b: *Board, loc: Location) *Cell {
+        return &b.cells[@intCast(@mod(loc[0], max_size))][@intCast(@mod(loc[1], max_size))];
+    }
+
+    pub fn get(b: *const Board, loc: Location) Cell {
+        return @constCast(b).at(loc).*;
     }
 };
 
@@ -552,7 +580,7 @@ export fn BoardSize() callconv(.C) i32 {
 }
 
 export fn xAt(b: *Board, x: i32, y: i32) callconv(.C) int {
-    return b.cells.at(.{ x, y }).toInt();
+    return b.at(.{ x, y }).toInt();
 }
 
 /// This function ignores errors
@@ -625,13 +653,13 @@ pub fn drawBoard(board: *const Board, poi_list: []Location, writer: anytype, col
                         try color.setColor(writer, .dim);
                         try writer.writeByte(poiChar(ix_poi));
                         try color.setColor(writer, .reset);
-                    } else if (board.cells.get(loc) == .empty)
+                    } else if (board.get(loc) == .empty)
                         try writer.writeByte('.')
                     else
                         try writer.writeByte(' ');
                 },
                 2 => {
-                    switch (board.cells.get(loc)) {
+                    switch (board.get(loc)) {
                         .illegal => try writer.writeByte(' '),
                         .empty => try writer.writeByte('.'),
                         .stack => |stack| {
@@ -655,7 +683,7 @@ pub fn drawBoard(board: *const Board, poi_list: []Location, writer: anytype, col
                         else => unreachable,
                     };
 
-                    if (board.cells.get(loc) == .illegal and board.cells.get(adj) == .illegal) {
+                    if (board.get(loc) == .illegal and board.get(adj) == .illegal) {
                         try writer.writeByte(' ');
                     } else {
                         row_flag = true;
@@ -739,7 +767,7 @@ fn legalTileLocations(
     const w, const h = board.size;
     for (0..h) |dy| for (0..w) |dx| {
         const loc = board.location(dx, dy);
-        if (board.cells.get(loc) == .illegal) continue;
+        if (board.get(loc) == .illegal) continue;
 
         maxWith(checks.at(loc), .land);
         for (adjacentN(1, loc)) |loc3| maxWith(checks.at(loc3), .coast);
@@ -783,8 +811,7 @@ export fn xPlaceTile(board: *Board, x: int, y: int, dir_i: int) callconv(.C) boo
 export fn xIsLegalTilePlacement(board: *Board, x: int, y: int, dir_i: int) callconv(.C) bool {
     const orig: Location = .{ x, y };
     const dir: Direction = @enumFromInt(dir_i);
-    if (board.tilePlaceError(orig, dir)) |err| return err catch false;
-    return true;
+    return board.canPlaceHexes(orig, dir, false);
 }
 
 export fn xCountLegalInitialStackLocations(board: *const Board) callconv(.C) int {
@@ -816,10 +843,10 @@ fn legalTileArrangements(comptime action: enum { count, get }, b: *const Board, 
     const w, const h = b.size;
     for (0..h + 6) |dy| for (0..w + 6) |dx| {
         const loc = b.location(dx, dy) - splat(3);
-        if (b.cells.get(loc) != .illegal) continue;
+        if (b.get(loc) != .illegal) continue;
         for (0..3) |diri| {
             const dir: Direction = @enumFromInt(diri);
-            if (b.tilePlaceError(loc, dir) == null) {
+            if (b.canPlaceHexes(loc, dir, true)) {
                 if (action == .get)
                     options.?[count] = .{ loc[0], loc[1], @intCast(diri) };
                 count += 1;
@@ -866,7 +893,7 @@ export fn xCountLegalDestLocations(board: *const Board, x: int, y: int) callconv
     var count: int = 0;
     const start: Location = .{ x, y };
     for (0..6) |diri| {
-        if (board.cells.get(start + Direction.vector(@enumFromInt(diri))) == .empty) count += 1;
+        if (board.get(start + Direction.vector(@enumFromInt(diri))) == .empty) count += 1;
     }
     return count;
 }
@@ -878,7 +905,7 @@ export fn xGetLegalDestLocations(board: *const Board, x: int, y: int, coords: [*
         const dir: Direction = @enumFromInt(diri);
         const dest = b: for (1..Board.max_size) |udist| {
             const dist: i32 = @intCast(udist);
-            if (board.cells.get(start + dir.vector() * splat(dist)) == .empty) continue;
+            if (board.get(start + dir.vector() * splat(dist)) == .empty) continue;
             if (dist == 1) continue :outer;
             break :b start + dir.vector() * splat(dist - 1);
         } else unreachable;

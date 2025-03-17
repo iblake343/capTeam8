@@ -72,6 +72,16 @@ public partial class Board : GodotObject {
 		return xPlaceTile(data, loc.X, loc.Y, (int) dir);
 		}
 	
+	public Godot.Collections.Array<Vector2I> LegalInitialStackLocationsGd() {
+		var size = xCountLegalInitialStackLocations(data);
+		var coords = new int[size * 2];
+		var vectors = new Vector2I[size];
+		xGetLegalInitialStackLocations(data, coords);
+		for (int i = 0; i < size; ++i) {
+			vectors[i] = new(coords[i*2], coords[i*2+1]);
+		}
+		return new(vectors);
+		}
 	public Vector2I[] LegalInitialStackLocations() {
 		var size = xCountLegalInitialStackLocations(data);
 		var coords = new int[size * 2];

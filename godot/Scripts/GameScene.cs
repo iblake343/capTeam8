@@ -37,7 +37,7 @@ public partial class GameScene : Node, Display, Player {
 				chip_layer.SetCell(new(x, y), Globals.players[(int)cell.color], new(0, 0));
 				if (cell.count == 1) continue;
 				
-				number_layer.SetCell(new(x, y), cell.count, new(0, 0));
+				number_layer.SetCell(new(x, y), cell.count - 1, new(0, 0));
 			}
 		}
 	}
@@ -45,7 +45,6 @@ public partial class GameScene : Node, Display, Player {
 	public void DeclareTie() { }
 	
 	public async Task<int> PlaceTile(Board board) {
-		
 		Node node = new();
 		ulong nodeId = node.GetInstanceId();
 		node.SetScript(GD.Load<Script>("res://Scripts/place_tile.gd"));
@@ -56,9 +55,15 @@ public partial class GameScene : Node, Display, Player {
 		return 0;
 	}
 
-	public Task<int> PlaceInitialStack(Board board) { 
-		GD.Print("TODO PlaceInitialStack");
-		return Task.FromResult(0);
+	public async Task<int> PlaceInitialStack(Board board) { 
+		Node node = new();
+		ulong nodeId = node.GetInstanceId();
+		node.SetScript(GD.Load<Script>("res://Scripts/place_initial_stack.gd"));
+		node = (Node)InstanceFromId(nodeId);
+		CallDeferred("add_child", node);
+		
+		await ToSignal(GetTree(), "node_removed");
+		return 0;
 	}
 	
 	public Task<int> MoveTokens(Board board) {

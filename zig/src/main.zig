@@ -69,7 +69,7 @@ pub fn drawBoard(board: Board, poi_list: []Location, writer: anytype, color: std
         for (0..w) |dx| {
             const loc = board.location(dx, dy);
 
-            switch (board.cells.get(loc)) {
+            switch (board.get(loc)) {
                 .illegal => {
                     try color.setColor(writer, .dim);
                     if (ixOf(poi_list, loc)) |ix| {
