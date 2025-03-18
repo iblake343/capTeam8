@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=68 format=3 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
 [ext_resource type="Texture2D" uid="uid://rlu8ecytgr3s" path="res://assets/Background1.png" id="2_wdm6a"]
@@ -23,8 +23,10 @@
 [ext_resource type="Texture2D" uid="uid://catbaw14inwwe" path="res://assets/Numbers/5.png" id="25_vjjlx"]
 [ext_resource type="Texture2D" uid="uid://b3htdyhraee8a" path="res://assets/Numbers/6.png" id="26_cqi8x"]
 [ext_resource type="Texture2D" uid="uid://hj8jcd7l7iig" path="res://assets/Numbers/7.png" id="27_1dp5b"]
+[ext_resource type="Texture2D" uid="uid://beaojkhnwvex5" path="res://assets/OtherAssets/Menu Button.png" id="28_cuaai"]
 [ext_resource type="Texture2D" uid="uid://dxafy1fey7wtv" path="res://assets/Numbers/8.png" id="28_sblrm"]
 [ext_resource type="Texture2D" uid="uid://bey8mn0g4kwr8" path="res://assets/Numbers/9.png" id="29_eimfn"]
+[ext_resource type="PackedScene" uid="uid://cnhwf45kagtwd" path="res://Scenes/overlay_tile.tscn" id="29_hur8m"]
 [ext_resource type="Texture2D" uid="uid://cb83e1v5j0yxw" path="res://assets/Numbers/10.png" id="30_h5qa7"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="31_8lr7v"]
 
@@ -190,6 +192,28 @@ sources/3 = SubResource("TileSetAtlasSource_q2fk3")
 sources/2 = SubResource("TileSetAtlasSource_rn4y6")
 sources/1 = SubResource("TileSetAtlasSource_k8vjh")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61cqv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qpmw7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gmdim"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ivntw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ym86d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0kpjd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dbq8c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y0fgt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uolcp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ohxcs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t5t50"]
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_vno3s")
 
@@ -227,40 +251,88 @@ script = ExtResource("31_8lr7v")
 scale = Vector2(1.25, 1.25)
 transform = Transform2D(1.25, 0, 0, 1.25, 0, 0)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -250.0
-offset_right = 321.0
-offset_bottom = -54.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(0.4, 0.4)
-size_flags_horizontal = 4
-
-[node name="ClownfishDisk1(1)" type="Sprite2D" parent="CanvasLayer/HBoxContainer"]
-position = Vector2(435, 105)
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 962.0
+offset_top = 514.0
+offset_right = 1162.0
+offset_bottom = 714.0
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("8_p5cit")
+size_flags_vertical = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_61cqv")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_qpmw7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_gmdim")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_ivntw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ym86d")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_0kpjd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dbq8c")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_y0fgt")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_uolcp")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ohxcs")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t5t50")
+icon = ExtResource("28_cuaai")
 
-[node name="OctopusDisk0(1)" type="Sprite2D" parent="CanvasLayer/HBoxContainer"]
-position = Vector2(435, 105)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("10_ioss3")
-
-[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 120
-text = "TURN:     "
-
-[node name="CrabDisk0(1)" type="Sprite2D" parent="CanvasLayer/HBoxContainer"]
-position = Vector2(435, 105)
-scale = Vector2(0.3, 0.3)
+[node name="CrabDisk0(1)" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(480.8, 527.2)
+scale = Vector2(0.12, 0.12)
 texture = ExtResource("9_51wn1")
 
-[node name="SharkDisk1(1)" type="Sprite2D" parent="CanvasLayer/HBoxContainer"]
-position = Vector2(435, 105)
-scale = Vector2(0.3, 0.3)
+[node name="SharkDisk1(1)" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(552.8, 522.4)
+scale = Vector2(0.12, 0.12)
 texture = ExtResource("11_cghng")
+
+[node name="Control1" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
+offset_left = 268.0
+offset_top = 495.2
+offset_right = 268.0
+offset_bottom = 495.2
+rotation = 2.0944
+
+[node name="Control2" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
+offset_left = 327.2
+offset_top = 496.0
+offset_right = 327.2
+offset_bottom = 496.0
+rotation = 2.0944
+
+[node name="Control3" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
+offset_left = 390.4
+offset_top = 500.0
+offset_right = 390.4
+offset_bottom = 500.0
+rotation = 2.0944
+
+[node name="Control4" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
+offset_left = 446.4
+offset_top = 504.0
+offset_right = 446.4
+offset_bottom = 504.0
+rotation = 2.0944
+
+[node name="Control5" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
+offset_left = 650.4
+offset_top = 494.4
+offset_right = 650.4
+offset_bottom = 494.4
+rotation = 2.0944
+
+[node name="Control6" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
+offset_left = 708.0
+offset_top = 495.2
+offset_right = 708.0
+offset_bottom = 495.2
+rotation = 2.0944
+
+[node name="Control7" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
+offset_left = 765.6
+offset_top = 496.8
+offset_right = 765.6
+offset_bottom = 496.8
+rotation = 2.0944
+
+[node name="Control8" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
+offset_left = 823.2
+offset_top = 496.8
+offset_right = 823.2
+offset_bottom = 496.8
+rotation = 2.0944

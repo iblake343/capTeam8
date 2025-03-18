@@ -4,6 +4,7 @@ extends Node
 @onready var game = $".."
 var is_right_click_held = false
 var dir: int = 0  # Default is the original pattern
+var counter = 1
 
 func _process(_delta):
 	highlights.clear()
@@ -29,8 +30,8 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var mouse_pos = highlights.get_local_mouse_position()
 		var tile_pos = highlights.local_to_map(mouse_pos)
-		
-		game.board.PlaceTile(tile_pos, dir)
+		$"../CanvasLayer/Control1".modulate = Color(0.6, 0.6, 0.6, 1)
+		# Load the shader and apply it to the parent
 
 		# kill self
 		queue_free()

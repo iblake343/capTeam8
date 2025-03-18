@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnhwf45kagtwd"]
+
+[ext_resource type="Texture2D" uid="uid://cb7oftst6mnpx" path="res://assets/SandTiles/Tiles5.png" id="1_6xh0m"]
+
+[node name="Control" type="Control"]
+use_parent_material = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.05, 0.05)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(301, 335)
+texture = ExtResource("1_6xh0m")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(1200, 336)
+texture = ExtResource("1_6xh0m")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(750, 75)
+texture = ExtResource("1_6xh0m")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(746, 593)
+texture = ExtResource("1_6xh0m")
