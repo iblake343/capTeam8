@@ -25,6 +25,9 @@ public partial class Board : GodotObject {
 	public int ExpectedMoveKind() {
 		return xExpectedMoveKind(data);
 		}
+	public int CountTilesPlaced() {
+		return xCountTilesPlaced(data);
+		}
 	public Cell At(Vector2I loc) {
 		var cell = xAt(data, loc.X, loc.Y);
 		if (cell == 0) return new(Color.Blue, 0);
@@ -128,6 +131,8 @@ public partial class Board : GodotObject {
 	private extern static int xAt(byte[] data, int x, int y);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static int xCurrentPlayer(byte[] data);
+	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
+	private extern static int xCountTilesPlaced(byte[] data);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static int xWinner(byte[] data);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]

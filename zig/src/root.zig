@@ -739,6 +739,9 @@ const int = i32;
 export fn xCurrentPlayer(board: *const Board) callconv(.C) int {
     return @intCast(@intFromEnum(board.current_player));
 }
+export fn xCountTilesPlaced(board: *const Board) callconv(.C) int {
+    return @intCast(@divFloor(board.hexes_count, 4));
+}
 export fn xWinner(b: *const Board) callconv(.C) int {
     return @intCast(@intFromEnum(b.winner() orelse return -1));
 }
