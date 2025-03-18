@@ -247,11 +247,12 @@ tile_set = SubResource("TileSet_4mf3u")
 zoom = Vector2(0.4, 0.4)
 script = ExtResource("31_8lr7v")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="PlaceTileOverlay" type="CanvasLayer" parent="."]
+visible = false
 scale = Vector2(1.25, 1.25)
 transform = Transform2D(1.25, 0, 0, 1.25, 0, 0)
 
-[node name="Button" type="Button" parent="CanvasLayer"]
+[node name="Button" type="Button" parent="PlaceTileOverlay"]
 offset_left = 962.0
 offset_top = 514.0
 offset_right = 1162.0
@@ -271,68 +272,111 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ohxcs")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_t5t50")
 icon = ExtResource("28_cuaai")
 
-[node name="CrabDisk0(1)" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(480.8, 527.2)
+[node name="CrabDisk0(1)" type="Sprite2D" parent="PlaceTileOverlay"]
+position = Vector2(480.8, 525.6)
 scale = Vector2(0.12, 0.12)
 texture = ExtResource("9_51wn1")
 
-[node name="SharkDisk1(1)" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(552.8, 522.4)
+[node name="SharkDisk1(1)" type="Sprite2D" parent="PlaceTileOverlay"]
+position = Vector2(552.8, 525.6)
 scale = Vector2(0.12, 0.12)
 texture = ExtResource("11_cghng")
 
-[node name="Control1" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
-offset_left = 268.0
-offset_top = 495.2
-offset_right = 268.0
-offset_bottom = 495.2
+[node name="Control1" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+offset_left = 270.4
+offset_top = 500.0
+offset_right = 270.4
+offset_bottom = 500.0
 rotation = 2.0944
 
-[node name="Control2" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
-offset_left = 327.2
-offset_top = 496.0
-offset_right = 327.2
-offset_bottom = 496.0
+[node name="Control2" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+offset_left = 330.4
+offset_top = 500.8
+offset_right = 330.4
+offset_bottom = 500.8
 rotation = 2.0944
 
-[node name="Control3" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
+[node name="Control3" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
 offset_left = 390.4
 offset_top = 500.0
 offset_right = 390.4
 offset_bottom = 500.0
 rotation = 2.0944
 
-[node name="Control4" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
-offset_left = 446.4
-offset_top = 504.0
-offset_right = 446.4
-offset_bottom = 504.0
+[node name="Control4" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+offset_left = 450.4
+offset_top = 500.8
+offset_right = 450.4
+offset_bottom = 500.8
 rotation = 2.0944
 
-[node name="Control5" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
+[node name="Control5" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
 offset_left = 650.4
-offset_top = 494.4
+offset_top = 499.999
 offset_right = 650.4
-offset_bottom = 494.4
+offset_bottom = 499.999
 rotation = 2.0944
 
-[node name="Control6" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
-offset_left = 708.0
-offset_top = 495.2
-offset_right = 708.0
-offset_bottom = 495.2
+[node name="Control6" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+offset_left = 710.4
+offset_top = 500.802
+offset_right = 710.4
+offset_bottom = 500.802
 rotation = 2.0944
 
-[node name="Control7" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
-offset_left = 765.6
-offset_top = 496.8
-offset_right = 765.6
-offset_bottom = 496.8
+[node name="Control7" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+offset_left = 770.4
+offset_top = 500.0
+offset_right = 770.4
+offset_bottom = 500.0
 rotation = 2.0944
 
-[node name="Control8" parent="CanvasLayer" instance=ExtResource("29_hur8m")]
-offset_left = 823.2
-offset_top = 496.8
-offset_right = 823.2
-offset_bottom = 496.8
+[node name="Control8" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+offset_left = 830.4
+offset_top = 500.799
+offset_right = 830.4
+offset_bottom = 500.799
 rotation = 2.0944
+
+[node name="PlaceChipOverlay" type="CanvasLayer" parent="."]
+
+[node name="CrabDisk0(1)" type="Sprite2D" parent="PlaceChipOverlay"]
+position = Vector2(595, 651)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("9_51wn1")
+
+[node name="SharkDisk1(1)" type="Sprite2D" parent="PlaceChipOverlay"]
+position = Vector2(667, 651)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("11_cghng")
+
+[node name="Player1Score" type="RichTextLabel" parent="PlaceChipOverlay"]
+anchors_preset = -1
+anchor_left = 0.357
+anchor_top = 0.871
+anchor_right = 0.391
+anchor_bottom = 0.935
+offset_left = 74.04
+offset_top = -0.120056
+offset_right = 49.52
+offset_bottom = -0.200073
+theme_override_font_sizes/normal_font_size = 33
+text = "1
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Player2Score" type="RichTextLabel" parent="PlaceChipOverlay"]
+anchors_preset = -1
+anchor_left = 0.563
+anchor_top = 0.871
+anchor_right = 0.605
+anchor_bottom = 0.935
+offset_left = -2.64001
+offset_top = -1.12006
+offset_right = -3.40002
+offset_bottom = -1.20007
+theme_override_font_sizes/normal_font_size = 33
+text = "1"
+fit_content = true
+autowrap_mode = 0
