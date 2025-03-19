@@ -218,20 +218,13 @@ sources/1 = SubResource("TileSetAtlasSource_k8vjh")
 script = ExtResource("1_vno3s")
 
 [node name="Background1" type="Sprite2D" parent="."]
+position = Vector2(300, 147)
 scale = Vector2(0.523333, 0.512889)
 texture = ExtResource("2_wdm6a")
 
 [node name="HexLayer" type="TileMapLayer" parent="."]
 scale = Vector2(0.3, 0.3)
 tile_set = SubResource("TileSet_4mf3u")
-
-[node name="ChipLayer" type="TileMapLayer" parent="."]
-scale = Vector2(0.3, 0.3)
-tile_set = SubResource("TileSet_qnt7o")
-
-[node name="NumberLayer" type="TileMapLayer" parent="."]
-scale = Vector2(0.3, 0.3)
-tile_set = SubResource("TileSet_il8kw")
 
 [node name="HighlightLayer" type="TileMapLayer" parent="."]
 modulate = Color(1, 1, 0, 0.337255)
@@ -242,6 +235,14 @@ tile_set = SubResource("TileSet_4mf3u")
 modulate = Color(0, 1, 0, 0.337255)
 scale = Vector2(0.3, 0.3)
 tile_set = SubResource("TileSet_4mf3u")
+
+[node name="ChipLayer" type="TileMapLayer" parent="."]
+scale = Vector2(0.3, 0.3)
+tile_set = SubResource("TileSet_qnt7o")
+
+[node name="NumberLayer" type="TileMapLayer" parent="."]
+scale = Vector2(0.3, 0.3)
+tile_set = SubResource("TileSet_il8kw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.4, 0.4)

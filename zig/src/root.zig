@@ -766,7 +766,7 @@ fn legalTileLocations(
     .get => void,
 } {
     const L = Location;
-    var checks = ModMatrix(Board.max_size, Check).fill(.coast);
+    var checks = ModMatrix(Board.max_size, Check).fill(.sea);
     const w, const h = board.size;
     for (0..h) |dy| for (0..w) |dx| {
         const loc = board.location(dx, dy);

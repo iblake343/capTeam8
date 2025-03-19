@@ -50,7 +50,7 @@ public partial class Board : GodotObject {
 		}
 		return new(vectors);
 		}
-	public TileArrangement[] LegalTileArrangements() {
+	public Godot.Collections.Array<TileArrangement> LegalTileArrangements() {
 		var size = xCountLegalTileArrangements(data);
 		var coords = new int[size * 3];
 		var tiles = new TileArrangement[size];
@@ -58,7 +58,7 @@ public partial class Board : GodotObject {
 		for (int i = 0; i < size; ++i) {
 			tiles[i] = new TileArrangement( new Vector2I(coords[i*3], coords[i*3+1]), (Direction) coords[i*3+2]);
 		}
-		return tiles;
+		return new(tiles);
 		}
 	public Godot.Collections.Array<Vector2I> GetLocsFromOriginAndDir(Vector2I orig, int diri) {
 		Direction dir = (Direction) diri;
@@ -75,7 +75,7 @@ public partial class Board : GodotObject {
 		return xPlaceTile(data, loc.X, loc.Y, (int) dir);
 		}
 	
-	public Godot.Collections.Array<Vector2I> LegalInitialStackLocationsGd() {
+	public Godot.Collections.Array<Vector2I> LegalInitialStackLocations() {
 		var size = xCountLegalInitialStackLocations(data);
 		var coords = new int[size * 2];
 		var vectors = new Vector2I[size];
@@ -85,21 +85,11 @@ public partial class Board : GodotObject {
 		}
 		return new(vectors);
 		}
-	public Vector2I[] LegalInitialStackLocations() {
-		var size = xCountLegalInitialStackLocations(data);
-		var coords = new int[size * 2];
-		var vectors = new Vector2I[size];
-		xGetLegalInitialStackLocations(data, coords);
-		for (int i = 0; i < size; ++i) {
-			vectors[i] = new(coords[i*2], coords[i*2+1]);
-		}
-		return vectors;
-		}
 	public bool PlaceInitialStack(Vector2I loc) {
 		return xPlaceInitialStack(data, loc.X, loc.Y);
 		}
 	
-	public Vector2I[] LegalStartStacks() {
+	public Godot.Collections.Array<Vector2I> LegalStartStacks() {
 		var size = xCountLegalStartStacks(data);
 		var coords = new int[size * 2];
 		var vectors = new Vector2I[size];
@@ -107,9 +97,9 @@ public partial class Board : GodotObject {
 		for (int i = 0; i < size; ++i) {
 			vectors[i] = new(coords[i*2], coords[i*2+1]);
 		}
-		return vectors;
+		return new(vectors);
 		}
-	public Vector2I[] LegalDestLocations(Vector2I src) {
+	public Godot.Collections.Array<Vector2I> LegalDestLocations(Vector2I src) {
 		var size = xCountLegalDestLocations(data, src.X, src.Y);
 		var coords = new int[size * 2];
 		xGetLegalDestLocations(data, src.X, src.Y, coords);
@@ -117,7 +107,7 @@ public partial class Board : GodotObject {
 		for (int i = 0; i < size; ++i) {
 			vectors[i] = new(coords[i*2], coords[i*2+1]);
 		}
-		return vectors;
+		return new(vectors);
 		}
 	public bool MoveTokens(Vector2I src, Vector2I dest, int amt) {
 		return xMoveTokens(data, src.X, src.Y, dest.X, dest.Y, amt);
@@ -169,7 +159,7 @@ public partial class Board : GodotObject {
 	private extern static bool xGetFrame(byte[] data, int[] coords);
 }
 
-public class Cell {
+public partial class Cell : GodotObject {
 	public Color color;
 	public int count;
 	public Cell (Color color, int count) {
@@ -178,7 +168,7 @@ public class Cell {
 	}
 }
 
-public class TileArrangement {
+public partial class TileArrangement : GodotObject {
 	public Vector2I origin;
 	public Direction orientation;
 	public TileArrangement (Vector2I origin, Direction orientation) {

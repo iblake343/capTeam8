@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 public class RandPlayer : Player {
 	public async Task<int> PlaceTile(Board board) {
 		var options = board.LegalTileArrangements();
-		var ix = Random.Shared.Next(options.Length);
+		var ix = Random.Shared.Next(options.Count);
 		var	option = options[ix];
 		Vector2I loc = option.origin;
 		Direction dir = option.orientation;
@@ -16,7 +16,7 @@ public class RandPlayer : Player {
 	
 	public async Task<int> PlaceInitialStack(Board board) {
 		var options = board.LegalInitialStackLocations();
-		var ix = Random.Shared.Next(options.Length);
+		var ix = Random.Shared.Next(options.Count);
 		var loc = options[ix];
 		board.PlaceInitialStack(loc);
 		GD.Print($"Placed initial stack at ({loc.X}, {loc.Y})");
@@ -25,10 +25,10 @@ public class RandPlayer : Player {
 	
 	public async Task<int> MoveTokens(Board board) {
 		var options = board.LegalStartStacks();
-		var loc = options[Random.Shared.Next(options.Length)];
+		var loc = options[Random.Shared.Next(options.Count)];
 		
 		var dest_options = board.LegalDestLocations(loc);
-		var dest = dest_options[Random.Shared.Next(dest_options.Length)];
+		var dest = dest_options[Random.Shared.Next(dest_options.Count)];
 
 		var stack_size = board.At(loc).count;
 		if (stack_size < 2) GD.Print($"stack_size = {stack_size}");

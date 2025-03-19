@@ -66,9 +66,15 @@ public partial class GameScene : Node, Display, Player {
 		return 0;
 	}
 	
-	public Task<int> MoveTokens(Board board) {
-		GD.Print("TODO MoveTokens");
-		return Task.FromResult(0);
+	public async Task<int> MoveTokens(Board board) {
+		Node node = new();
+		ulong nodeId = node.GetInstanceId();
+		node.SetScript(GD.Load<Script>("res://Scripts/select_move_start.gd"));
+		node = (Node)InstanceFromId(nodeId);
+		CallDeferred("add_child", node);
+		
+		await ToSignal(GetTree(), "node_removed");
+		return 0;
 	}
 	
 	private int hashCoords(int x, int y, int max) {
