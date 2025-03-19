@@ -218,7 +218,7 @@ sources/1 = SubResource("TileSetAtlasSource_k8vjh")
 script = ExtResource("1_vno3s")
 
 [node name="Background1" type="Sprite2D" parent="."]
-position = Vector2(300, 147)
+position = Vector2(0, 1.52588e-05)
 scale = Vector2(0.523333, 0.512889)
 texture = ExtResource("2_wdm6a")
 
@@ -414,3 +414,40 @@ text = "1
 "
 fit_content = true
 autowrap_mode = 0
+
+[node name="MovementOverlay" type="Node2D" parent="."]
+visible = false
+position = Vector2(1000, 500)
+
+[node name="FinishButton" type="Button" parent="MovementOverlay"]
+offset_left = 53.0
+offset_top = -33.0
+offset_right = 108.0
+offset_bottom = -2.0
+text = "Check"
+
+[node name="CancelButton" type="Button" parent="MovementOverlay"]
+offset_left = 52.0
+offset_top = 6.0
+offset_right = 107.0
+offset_bottom = 37.0
+text = "X"
+
+[node name="MinusButton" type="Button" parent="MovementOverlay"]
+offset_left = -24.0
+offset_top = 57.0
+offset_right = 31.0
+offset_bottom = 88.0
+text = "-"
+
+[node name="PlusButton" type="Button" parent="MovementOverlay"]
+offset_left = -26.0
+offset_top = -85.0
+offset_right = 29.0
+offset_bottom = -54.0
+text = "+"
+
+[connection signal="pressed" from="MovementOverlay/FinishButton" to="MovementOverlay" method="_on_finish_button_pressed"]
+[connection signal="pressed" from="MovementOverlay/CancelButton" to="MovementOverlay" method="_on_exit_button_pressed"]
+[connection signal="pressed" from="MovementOverlay/MinusButton" to="MovementOverlay" method="_on_minus_button_pressed"]
+[connection signal="pressed" from="MovementOverlay/PlusButton" to="MovementOverlay" method="_on_add_button_pressed"]

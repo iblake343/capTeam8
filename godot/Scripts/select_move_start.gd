@@ -4,6 +4,7 @@ extends Node
 @onready var static_lights: TileMapLayer = $"../HighlightLayer"
 @onready var numbers: TileMapLayer = $"../NumberLayer"
 @onready var game = $".."
+@onready var overlay = $"../MovementOverlay"
 var legal_locations
 var is_right_click_held = false
 var state = 0
@@ -58,9 +59,14 @@ func _input(event):
 				max_amount = game.board.At(start_loc).count - 1
 				amount = (max_amount + 1) / 2
 				legal_locations = [end_loc]
+				var scale_factor = highlights.scale
+				mouse_pos *= scale_factor
+				overlay.position = mouse_pos
+				overlay.show()
 				return
 			if state == 2: # complete movement
 				game.board.MoveTokens(start_loc, end_loc, amount)
+				overlay.hide()
 				queue_free()
 		if state == 2 and event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			amount = min(amount + 1, max_amount)
@@ -75,3 +81,19 @@ func _input(event):
 func _exit_tree():
 	highlights.clear()
 	static_lights.clear()
+
+
+#Not sure how to connect these to the buttons
+func _on_finish_button_pressed():
+	game.board.MoveTokens(start_loc, end_loc, amount)
+	queue_free()
+	
+func _on_cancel_button_pressed():
+	#not sure how we are doing this
+	queue_free()
+	
+func _on_plus_button_pressed():
+	amount = min(amount + 1, max_amount)
+	
+func _on_minus_button_pressed():
+	amount = max(amount - 1, 1)
