@@ -37,7 +37,6 @@ func _input(event):
 		var tile_pos = highlights.local_to_map(mouse_pos)
 		game.board.PlaceTile(tile_pos, dir)
 		 # Will need to decide how to keep up with how many tiles have been placed and by who
-		#$"../CanvasLayer/Control1".modulate = Color(0.6, 0.6, 0.6, 1) 
 		# kill self
 		queue_free()
 

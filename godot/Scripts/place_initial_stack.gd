@@ -10,7 +10,6 @@ func _ready():
 	legal_locations = game.board.LegalInitialStackLocations()
 	for loc in legal_locations:
 		static_lights.set_cell(loc, 4, Vector2i(0, 0))
-	$"../PlaceChipOverlay/Player1Score".text = str(1)
 
 func _process(_delta):
 	highlights.clear()

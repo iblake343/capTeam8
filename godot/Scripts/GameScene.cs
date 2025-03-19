@@ -20,11 +20,40 @@ public partial class GameScene : Node, Display, Player {
 		TileMapLayer base_layer = GetNode<TileMapLayer>("HexLayer");
 		TileMapLayer chip_layer = GetNode<TileMapLayer>("ChipLayer");
 		TileMapLayer number_layer = GetNode<TileMapLayer>("NumberLayer");
+		RichTextLabel player1Score = GetNode<RichTextLabel>("PlaceChipOverlay/Player1Score");
+		RichTextLabel player2Score = GetNode<RichTextLabel>("PlaceChipOverlay/Player2Score");
+		RichTextLabel player1ConnectionScore = GetNode<RichTextLabel>("PlaceChipOverlay/Player1ConnectionScore");
+		RichTextLabel player2ConnectionScore = GetNode<RichTextLabel>("PlaceChipOverlay/Player2ConnectionScore");
 		var frame = board.Frame();
 		
 		number_layer.Clear();
 		base_layer.Clear();
 		chip_layer.Clear();
+		//Will need score by player
+		player1Score.Text = "5";
+		player2Score.Text = "1";
+		player1ConnectionScore.Text = "15";
+		player2ConnectionScore.Text = "15";
+		//Can make this a function if want to clean up
+		if (board.CountTilesPlaced() == 1) {
+			Control node = GetNode<Control>("PlaceTileOverlay/Control1");	
+			node.Modulate = new Godot.Color(0.6f, 0.6f, 0.6f);
+		}
+		else {
+			int tilesPlaced = board.CountTilesPlaced();
+			for (int i = 1; i <= tilesPlaced; i++) {
+				string nodePath = $"PlaceTileOverlay/Control{i}";
+				Control node = GetNode<Control>(nodePath); // Use Control directly
+
+				if (node != null) {
+					node.Modulate = new Godot.Color(0.6f, 0.6f, 0.6f); // Corrected constructor
+				}
+				else {
+					GD.Print($"Node {nodePath} not found!");
+				}
+			}
+		}
+
 		
 		for (int y = frame.min.Y; y < frame.max.Y; ++y) {
 			for (int x = frame.min.X; x < frame.max.X; ++x) {
@@ -50,7 +79,7 @@ public partial class GameScene : Node, Display, Player {
 		node.SetScript(GD.Load<Script>("res://Scripts/place_tile.gd"));
 		node = (Node)InstanceFromId(nodeId);
 		CallDeferred("add_child", node);
-		
+		GetNode<CanvasLayer>("PlaceTileOverlay").Show();
 		await ToSignal(GetTree(), "node_removed");
 		return 0;
 	}
@@ -61,6 +90,8 @@ public partial class GameScene : Node, Display, Player {
 		node.SetScript(GD.Load<Script>("res://Scripts/place_initial_stack.gd"));
 		node = (Node)InstanceFromId(nodeId);
 		CallDeferred("add_child", node);
+		GetNode<CanvasLayer>("PlaceTileOverlay").Hide();
+		GetNode<CanvasLayer>("PlaceChipOverlay").Show();
 		
 		await ToSignal(GetTree(), "node_removed");
 		return 0;

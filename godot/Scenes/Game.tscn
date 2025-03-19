@@ -290,42 +290,42 @@ offset_right = 270.4
 offset_bottom = 500.0
 rotation = 2.0944
 
-[node name="Control2" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+[node name="Control3" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
 offset_left = 330.4
 offset_top = 500.8
 offset_right = 330.4
 offset_bottom = 500.8
 rotation = 2.0944
 
-[node name="Control3" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+[node name="Control5" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
 offset_left = 390.4
 offset_top = 500.0
 offset_right = 390.4
 offset_bottom = 500.0
 rotation = 2.0944
 
-[node name="Control4" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+[node name="Control7" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
 offset_left = 450.4
 offset_top = 500.8
 offset_right = 450.4
 offset_bottom = 500.8
 rotation = 2.0944
 
-[node name="Control5" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+[node name="Control2" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
 offset_left = 650.4
 offset_top = 499.999
 offset_right = 650.4
 offset_bottom = 499.999
 rotation = 2.0944
 
-[node name="Control6" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+[node name="Control4" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
 offset_left = 710.4
 offset_top = 500.802
 offset_right = 710.4
 offset_bottom = 500.802
 rotation = 2.0944
 
-[node name="Control7" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
+[node name="Control6" parent="PlaceTileOverlay" instance=ExtResource("29_hur8m")]
 offset_left = 770.4
 offset_top = 500.0
 offset_right = 770.4
@@ -340,6 +340,7 @@ offset_bottom = 500.799
 rotation = 2.0944
 
 [node name="PlaceChipOverlay" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="CrabDisk0(1)" type="Sprite2D" parent="PlaceChipOverlay"]
 position = Vector2(595, 651)
@@ -353,14 +354,14 @@ texture = ExtResource("11_cghng")
 
 [node name="Player1Score" type="RichTextLabel" parent="PlaceChipOverlay"]
 anchors_preset = -1
-anchor_left = 0.357
+anchor_left = 0.415
 anchor_top = 0.871
-anchor_right = 0.391
+anchor_right = 0.43
 anchor_bottom = 0.935
-offset_left = 74.04
+offset_left = -0.200012
 offset_top = -0.120056
-offset_right = 49.52
-offset_bottom = -0.200073
+offset_right = -0.400024
+offset_bottom = -0.200134
 theme_override_font_sizes/normal_font_size = 33
 text = "1
 "
@@ -379,5 +380,37 @@ offset_right = -3.40002
 offset_bottom = -1.20007
 theme_override_font_sizes/normal_font_size = 33
 text = "1"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Player2ConnectionScore" type="RichTextLabel" parent="PlaceChipOverlay"]
+anchors_preset = -1
+anchor_left = 0.386
+anchor_top = 0.919
+anchor_right = 0.401
+anchor_bottom = 0.957
+offset_left = 10.92
+offset_top = 8.32001
+offset_right = 10.72
+offset_bottom = 7.95996
+theme_override_font_sizes/normal_font_size = 19
+text = "1
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Player1ConnectionScore" type="RichTextLabel" parent="PlaceChipOverlay"]
+anchors_preset = -1
+anchor_left = 0.588
+anchor_top = 0.919
+anchor_right = 0.603
+anchor_bottom = 0.967
+offset_left = -1.64001
+offset_top = 8.32001
+offset_right = -1.84009
+offset_bottom = 0.759949
+theme_override_font_sizes/normal_font_size = 19
+text = "1
+"
 fit_content = true
 autowrap_mode = 0
