@@ -17,6 +17,20 @@ func _ready():
 	legal_locations = game.board.LegalStartStacks()
 	for loc in legal_locations:
 		static_lights.set_cell(loc, 4, Vector2i(0, 0))
+	var button = $"../MovementOverlay/FinishButton"
+	if button:
+		button.connect("pressed", Callable(self, "_on_finish_button_pressed"))
+	var cancel_button = $"../MovementOverlay/CancelButton"
+	if cancel_button:
+		cancel_button.connect("pressed", Callable(self, "_on_cancel_button_pressed"))
+	
+	var plus_button = $"../MovementOverlay/PlusButton"
+	if plus_button:
+		plus_button.connect("pressed", Callable(self, "_on_plus_button_pressed"))
+	
+	var minus_button = $"../MovementOverlay/MinusButton"
+	if minus_button:
+		minus_button.connect("pressed", Callable(self, "_on_minus_button_pressed"))
 
 func _process(_delta):
 	highlights.clear()
@@ -32,7 +46,8 @@ func _process(_delta):
 	else:
 		highlights.modulate = Color(1, 0, 0, 0.33)
 	
-	highlights.set_cell(tile_pos, 4, Vector2i(0, 0))  # hover tile
+	if state != 2:
+		highlights.set_cell(tile_pos, 4, Vector2i(0, 0))  # hover tile
 	
 	if state == 2:
 		numbers.set_cell(end_loc, amount - 1, Vector2i(0, 0))
@@ -53,26 +68,29 @@ func _input(event):
 				for loc in legal_locations:
 					static_lights.set_cell(loc, 4, Vector2i(0, 0))
 				return
-			if state == 1: # pick end location
+			if state == 1: # pick end location 
 				state = 2
 				end_loc = tile_pos
 				max_amount = game.board.At(start_loc).count - 1
 				amount = (max_amount + 1) / 2
 				legal_locations = [end_loc]
 				var scale_factor = highlights.scale
-				mouse_pos *= scale_factor
-				overlay.position = mouse_pos
+				# Convert tile position to world coordinates and center it
+				var tile_center = highlights.map_to_local(tile_pos)
+				tile_center *= scale_factor
+				overlay.position = tile_center
 				overlay.show()
 				return
-			if state == 2: # complete movement
-				game.board.MoveTokens(start_loc, end_loc, amount)
-				overlay.hide()
-				queue_free()
+
 		if state == 2 and event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			amount = min(amount + 1, max_amount)
 		if state == 2 and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			amount = max(amount - 1, 1)
 	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_ENTER:
+			game.board.MoveTokens(start_loc, end_loc, amount)
+			overlay.hide()
+			queue_free()
 		if event.keycode in [KEY_W, KEY_UP]:
 			amount = min(amount + 1, max_amount)
 		if event.keycode in [KEY_S, KEY_DOWN]:
@@ -86,10 +104,11 @@ func _exit_tree():
 #Not sure how to connect these to the buttons
 func _on_finish_button_pressed():
 	game.board.MoveTokens(start_loc, end_loc, amount)
+	overlay.hide()
 	queue_free()
 	
 func _on_cancel_button_pressed():
-	#not sure how we are doing this
+	overlay.hide()
 	queue_free()
 	
 func _on_plus_button_pressed():

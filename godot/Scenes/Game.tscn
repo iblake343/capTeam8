@@ -421,28 +421,28 @@ position = Vector2(1000, 500)
 
 [node name="FinishButton" type="Button" parent="MovementOverlay"]
 offset_left = 53.0
-offset_top = -33.0
-offset_right = 108.0
+offset_top = -54.0
+offset_right = 131.0
 offset_bottom = -2.0
 text = "Check"
 
 [node name="CancelButton" type="Button" parent="MovementOverlay"]
 offset_left = 52.0
 offset_top = 6.0
-offset_right = 107.0
-offset_bottom = 37.0
+offset_right = 131.0
+offset_bottom = 57.0
 text = "X"
 
 [node name="MinusButton" type="Button" parent="MovementOverlay"]
-offset_left = -24.0
-offset_top = 57.0
+offset_left = -74.0
+offset_top = 31.0
 offset_right = 31.0
 offset_bottom = 88.0
 text = "-"
 
 [node name="PlusButton" type="Button" parent="MovementOverlay"]
-offset_left = -26.0
-offset_top = -85.0
+offset_left = -74.0
+offset_top = -108.0
 offset_right = 29.0
 offset_bottom = -54.0
 text = "+"
