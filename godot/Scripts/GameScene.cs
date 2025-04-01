@@ -18,6 +18,7 @@ public partial class GameScene : Node, Display, Player {
 	
 	public void DrawBoard(Board board) {
 		TileMapLayer base_layer = GetNode<TileMapLayer>("HexLayer");
+		TileMapLayer back_layer = GetNode<TileMapLayer>("ParallaxBackground2/ParallaxLayer2/BackgroundHexLayer");
 		TileMapLayer chip_layer = GetNode<TileMapLayer>("ChipLayer");
 		TileMapLayer number_layer = GetNode<TileMapLayer>("NumberLayer");
 		RichTextLabel player1Score = GetNode<RichTextLabel>("PlaceChipOverlay/Player1Score");
@@ -60,7 +61,8 @@ public partial class GameScene : Node, Display, Player {
 				var cell = board.At(new(x, y));
 				if (cell.count == -1) continue;
 				
-				base_layer.SetCell(new(x, y), 4, new(0, 0));
+				base_layer.SetCell(new(x, y), fitRange(1, 5, hashCoords(x, y, 5)), new(0, 0));
+				back_layer.SetCell(new(x, y), 4, new(0, 0));
 				if (cell.count == 0) continue;
 				
 				chip_layer.SetCell(new(x, y), Globals.players[(int)cell.color], new(0, 0));
@@ -81,6 +83,14 @@ public partial class GameScene : Node, Display, Player {
 		CallDeferred("add_child", node);
 		GetNode<CanvasLayer>("PlaceTileOverlay").Show();
 		await ToSignal(GetTree(), "node_removed");
+		
+		var frame = board.Frame();
+		
+		TileMapLayer base_layer = GetNode<TileMapLayer>("HexLayer");
+		Camera2D camera = GetNode<Camera2D>("Camera2D");
+		Vector2 center = (base_layer.MapToLocal(frame.min) + base_layer.MapToLocal(frame.max)) * 0.5f;
+		camera.Position = base_layer.ToGlobal(center);
+		
 		return 0;
 	}
 
@@ -111,6 +121,11 @@ public partial class GameScene : Node, Display, Player {
 	private int hashCoords(int x, int y, int max) {
 		string a = (x >= 0) ? new string ('A', x) : new string ('B', -x);
 		string b = (y >= 0) ? new string ('C', y) : new string ('B', -y);
-		return (a + b).GetHashCode() % max;
+		return Math.Abs((a + b).GetHashCode()) % max + 1;
+	}
+	private int fitRange(int low, int high, int val) {
+		if (val <= low) return low;
+		if (val >= high) return high;
+		return val;
 	}
 }
