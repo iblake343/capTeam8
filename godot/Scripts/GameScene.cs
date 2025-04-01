@@ -18,7 +18,6 @@ public partial class GameScene : Node, Display, Player {
 	
 	public void DrawBoard(Board board) {
 		TileMapLayer base_layer = GetNode<TileMapLayer>("HexLayer");
-		TileMapLayer back_layer = GetNode<TileMapLayer>("ParallaxBackground2/ParallaxLayer2/BackgroundHexLayer");
 		TileMapLayer chip_layer = GetNode<TileMapLayer>("ChipLayer");
 		TileMapLayer number_layer = GetNode<TileMapLayer>("NumberLayer");
 		RichTextLabel player1Score = GetNode<RichTextLabel>("PlaceChipOverlay/Player1Score");
@@ -62,7 +61,6 @@ public partial class GameScene : Node, Display, Player {
 				if (cell.count == -1) continue;
 				
 				base_layer.SetCell(new(x, y), fitRange(1, 5, hashCoords(x, y, 5)), new(0, 0));
-				back_layer.SetCell(new(x, y), 4, new(0, 0));
 				if (cell.count == 0) continue;
 				
 				chip_layer.SetCell(new(x, y), Globals.players[(int)cell.color], new(0, 0));
