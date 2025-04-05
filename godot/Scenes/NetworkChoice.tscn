@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://c4qx35wd0hvbj"]
 
-[ext_resource type="Script" path="res://Scripts/network_choice.gd" id="1_07v34"]
+[ext_resource type="Script" path="res://Scripts/MultiplayerChoice.cs" id="1_3h8kj"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="2_7wgvj"]
 
 [sub_resource type="Environment" id="Environment_jvtrm"]
@@ -41,7 +41,7 @@ ambient_light_energy = 16.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x7wps"]
 
 [node name="Settings" type="CanvasLayer"]
-script = ExtResource("1_07v34")
+script = ExtResource("1_3h8kj")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jvtrm")
@@ -96,12 +96,12 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Back"
 
-[node name="NetworkBtn" type="Button" parent="Control"]
+[node name="join" type="Button" parent="Control"]
 layout_mode = 2
-offset_left = 808.0
-offset_top = 127.0
-offset_right = 1174.0
-offset_bottom = 274.0
+offset_left = 725.0
+offset_top = 263.0
+offset_right = 1091.0
+offset_bottom = 410.0
 size_flags_horizontal = 4
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
@@ -118,14 +118,14 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "Host Game"
+text = "join"
 
-[node name="AIBtn" type="Button" parent="Control"]
+[node name="host" type="Button" parent="Control"]
 layout_mode = 2
-offset_left = 109.0
-offset_top = 127.0
-offset_right = 395.0
-offset_bottom = 274.0
+offset_left = 240.0
+offset_top = 255.0
+offset_right = 526.0
+offset_bottom = 402.0
 size_flags_horizontal = 4
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
@@ -142,8 +142,48 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "L ist of Games
+text = "host"
+
+[node name="start" type="Button" parent="Control"]
+layout_mode = 2
+offset_left = 430.0
+offset_top = 454.0
+offset_right = 852.0
+offset_bottom = 601.0
+size_flags_horizontal = 4
+theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_fonts/font = ExtResource("2_7wgvj")
+theme_override_font_sizes/font_size = 150
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
+text = "Start game
 "
 
+[node name="status" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 91.0
+offset_right = 1200.0
+offset_bottom = 203.0
+theme_override_colors/font_color = Color(0, 0.392157, 0, 1)
+theme_override_fonts/font = ExtResource("2_7wgvj")
+theme_override_font_sizes/font_size = 77
+text = "status text
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Control/BackBtn" to="." method="_on_back_btn_pressed"]
-[connection signal="pressed" from="Control/NetworkBtn" to="." method="_on_network_btn_pressed"]
+[connection signal="pressed" from="Control/join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Control/host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Control/start" to="." method="_on_start_pressed"]
