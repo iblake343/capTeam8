@@ -1,7 +1,7 @@
 extends Node
 
-@onready var highlights: TileMapLayer = $"../HoverHighlightLayer"
-@onready var static_lights: TileMapLayer = $"../HighlightLayer"
+@onready var highlights: TileMapLayer = $"../Center/HoverHighlightLayer"
+@onready var static_lights: TileMapLayer = $"../Center/HighlightLayer"
 @onready var game = $".."
 var legal_locations
 var is_right_click_held = false

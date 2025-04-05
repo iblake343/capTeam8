@@ -1,33 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnhwf45kagtwd"]
+[gd_scene load_steps=13 format=3 uid="uid://cnhwf45kagtwd"]
 
+[ext_resource type="Texture2D" uid="uid://byyrmxcvwua5x" path="res://assets/SandTiles/Tiles1.png" id="1_2c5hf"]
 [ext_resource type="Texture2D" uid="uid://cb7oftst6mnpx" path="res://assets/SandTiles/Tiles5.png" id="1_6xh0m"]
+[ext_resource type="Texture2D" uid="uid://dc0frbdqh4tp3" path="res://assets/SandTiles/Tiles3.png" id="2_7t0wu"]
+[ext_resource type="Texture2D" uid="uid://cspt0b2ade8bf" path="res://assets/SandTiles/Tiles4.png" id="3_2td37"]
+[ext_resource type="Texture2D" uid="uid://b8nybsk7m7mff" path="res://assets/SandTiles/Tiles2 (1).png" id="5_mnmia"]
 
-[node name="Control" type="Control"]
-use_parent_material = true
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.05, 0.05)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_68y4s"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-use_parent_material = true
-position = Vector2(301, 335)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0d1qa"]
+texture = ExtResource("1_2c5hf")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xr0vt"]
+texture = ExtResource("2_7t0wu")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ifvlp"]
+texture = ExtResource("3_2td37")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rs6gg"]
 texture = ExtResource("1_6xh0m")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-use_parent_material = true
-position = Vector2(1200, 336)
-texture = ExtResource("1_6xh0m")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_exp8x"]
+texture = ExtResource("5_mnmia")
+texture_region_size = Vector2i(600, 520)
+0:0/0 = 0
 
-[node name="Sprite2D3" type="Sprite2D" parent="."]
-use_parent_material = true
-position = Vector2(750, 75)
-texture = ExtResource("1_6xh0m")
+[sub_resource type="TileSet" id="TileSet_jk61o"]
+tile_shape = 3
+tile_layout = 4
+tile_offset_axis = 1
+tile_size = Vector2i(600, 520)
+sources/1 = SubResource("TileSetAtlasSource_0d1qa")
+sources/2 = SubResource("TileSetAtlasSource_xr0vt")
+sources/3 = SubResource("TileSetAtlasSource_ifvlp")
+sources/4 = SubResource("TileSetAtlasSource_rs6gg")
+sources/5 = SubResource("TileSetAtlasSource_exp8x")
 
-[node name="Sprite2D4" type="Sprite2D" parent="."]
+[node name="Tile" type="PanelContainer"]
 use_parent_material = true
-position = Vector2(746, 593)
-texture = ExtResource("1_6xh0m")
+offset_right = 110.0
+offset_bottom = 140.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_68y4s")
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HexLayer" type="TileMapLayer" parent="Center"]
+position = Vector2(-15, 25)
+rotation = -1.0472
+scale = Vector2(0.1, 0.1)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 255, 255, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 255, 255, 4, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_jk61o")

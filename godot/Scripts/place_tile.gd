@@ -1,6 +1,6 @@
 extends Node
 
-@onready var highlights: TileMapLayer = $"../HoverHighlightLayer"
+@onready var highlights: TileMapLayer = $"../Center/HoverHighlightLayer"
 @onready var game = $".."
 var is_right_click_held = false
 var dir: int = 0  # Default is the original pattern
