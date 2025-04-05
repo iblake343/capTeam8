@@ -1,85 +1,131 @@
 using System;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
-public class GameAI
-{
-	// Assuming that the Zig functions are correctly exported.
-	// The following C# imports will match the necessary Zig functions for game interaction.
+public class GameState {
+    public Board board;
+    public Player currentPlayer;
+    public GamePhase currentPhase;  // Could be Placement, InitialStack, or Movement
 
-	[DllImport("GameLib.dll", CallingConvention = CallingConvention.Cdecl)]
-	public static extern IntPtr initGame();  // Initialize the game and get the board pointer.
+    // Constructor for GameState
+    public GameState(Board board, GamePhase phase, Player player) {
+        this.board = board;
+        this.currentPhase = phase;
+        this.currentPlayer = player;
+    }
 
-	[DllImport("GameLib.dll", CallingConvention = CallingConvention.Cdecl)]
-	public static extern IntPtr getBoardState(IntPtr board);  // Get the current board state.
-
-	[DllImport("GameLib.dll", CallingConvention = CallingConvention.Cdecl)]
-	public static extern IntPtr getLegalMoves(IntPtr board);  // Get a list of legal moves.
-
-	[DllImport("GameLib.dll", CallingConvention = CallingConvention.Cdecl)]
-	public static extern void makeMove(IntPtr board, IntPtr move);  // Make a move on the board.
+    // Returns legal actions for the current game state based on the phase
+    public List<Action> GetLegalActions() {
+        switch (currentPhase) {
+            case GamePhase.Placement:
+                return board.LegalTileLocations();  // Get valid tile placements
+            case GamePhase.InitialStack:
+                return board.LegalInitialStackLocations();  // Get valid initial stack locations
+            case GamePhase.Movement:
+                return board.LegalStartStacks();  // Get valid token movement actions
+            default:
+                return new List<Action>();
+        }
+    }
 }
-public class RandomAI
-{
-	private IntPtr board;  // Pointer to the game board.
 
-	public RandomAI()
-	{
-		// Initialize the game and get the board pointer from Zig.
-		this.board = GameAI.initGame();
-	}
-
-	public void MakeMove()
-	{
-		// Get the legal moves from the Zig code.
-		IntPtr legalMovesPtr = GameAI.getLegalMoves(board);
-
-		// For this example, assume that the legal moves are represented as an array of Location pointers.
-		// In a real implementation, you'd need to map this properly based on how the Zig code represents legal moves.
-
-		// Let's assume legal moves are represented as a list of locations. We’ll pretend here that legalMovesPtr
-		// is the address of an array containing those moves.
-		int moveCount = GetArrayLength(legalMovesPtr);  // Assume you have a function to calculate the array length.
-
-		if (moveCount == 0)
-		{
-			Console.WriteLine("No valid moves available.");
-			return;
-		}
-
-		// Randomly select a move from the legal moves.
-		Random rand = new Random();
-		int randomMoveIndex = rand.Next(moveCount);
-
-		// Get the move at that index. (You'd need to properly dereference the array of locations here.)
-		IntPtr selectedMove = GetArrayElementAt(legalMovesPtr, randomMoveIndex);
-
-		// Make the move in the Zig game.
-		GameAI.makeMove(board, selectedMove);
-	}
-
-	// Helper function to get the length of an array returned from Zig.
-	private int GetArrayLength(IntPtr arrayPtr)
-	{
-		// In a real implementation, you would use Zig's memory structure or return length to handle this.
-		return 10;  // Example: if there are 10 legal moves.
-	}
-
-	// Helper function to get an element at a given index from an array.
-	private IntPtr GetArrayElementAt(IntPtr arrayPtr, int index)
-	{
-		// Here you'd use pointer arithmetic to access the correct element.
-		return arrayPtr + (index * IntPtr.Size);  // This is a placeholder; the real implementation depends on Zig’s data layout.
-	}
+public enum GamePhase {
+    Placement,
+    InitialStack,
+    Movement
 }
-class Program
-{
-	static void Main(string[] args)
-	{
-		RandomAI ai = new RandomAI();
 
-		// Just call the AI to make its move.
-		ai.MakeMove();
+public class MCTSNode {
+    public GameState state;  // The current state of the game at this node
+    public MCTSNode parent;  // Parent node
+    public List<MCTSNode> children;  // Child nodes (possible moves)
+    public int wins;
+    public int visits;
 
-		// The Zig game loop continues to handle other operations like turn-taking, checking for a winner, etc.
-	}
+    // Constructor for MCTSNode
+    public MCTSNode(GameState state) {
+        this.state = state;
+        this.children = new List<MCTSNode>();
+        this.wins = 0;
+        this.visits = 0;
+    }
+}
+
+// Simulate a random game from the current state
+public float Simulate(GameState state) {
+    while (!IsGameOver(state)) {
+        // Perform a random move based on the current phase
+        var actions = state.GetLegalActions();
+        var randomAction = actions[Random.Shared.Next(actions.Count)];
+        
+        // Apply the action to the board
+        state = ApplyAction(state, randomAction);
+        
+        // If the action finishes a phase, update the current phase
+        if (state.currentPhase == GamePhase.Movement && state.board.GameFinished()) {
+            break;  // End simulation when the game finishes
+        }
+    }
+    return EvaluateGameState(state);  // Return the evaluated score (win/loss/draw)
+}
+
+// Backpropagate the result of the simulation
+public void Backpropagate(MCTSNode node, float result) {
+    while (node != null) {
+        node.visits++;
+        node.wins += result;
+        node = node.parent;
+    }
+}
+
+// Select the best child node based on the highest win rate
+public MCTSNode SelectBestChild(MCTSNode node) {
+    return node.children
+        .OrderByDescending(child => child.wins / (float)child.visits)
+        .First();
+}
+
+// Helper functions (these need to be defined):
+public bool IsGameOver(GameState state) {
+    // Define the condition for the game ending (e.g., when a player wins)
+    return state.board.GameFinished();
+}
+
+public GameState ApplyAction(GameState state, Action action) {
+    // Apply the action to the game state and return the updated state
+    // This is a placeholder, your game logic will determine how to do this
+    return new GameState(state.board.ApplyAction(action), state.currentPhase, state.currentPlayer);
+}
+
+public float EvaluateGameState(GameState state) {
+    // Implement evaluation logic for the game state (e.g., score, win/loss)
+    if (state.board.GameFinished()) {
+        return state.currentPlayer.HasWon() ? 1.0f : 0.0f;  // Return 1 for win, 0 for loss
+    }
+    return 0.5f;  // Placeholder for a draw or ongoing game
+}
+
+public class MCTSPlayer : Player {
+    private int numberOfSimulations = 1000;  // Number of MCTS simulations
+
+    public void MakeMove(Board board) {
+        GameState currentState = new GameState(board, GamePhase.Placement, this);
+        MCTSNode rootNode = new MCTSNode(currentState);
+        
+        // Run MCTS for a set number of simulations
+        for (int i = 0; i < numberOfSimulations; i++) {
+            MCTSNode promisingNode = SelectPromisingNode(rootNode);
+            float result = Simulate(promisingNode.state);
+            Backpropagate(promisingNode, result);
+        }
+        
+        // Choose the best move
+        MCTSNode bestChild = SelectBestChild(rootNode);
+        ApplyAction(bestChild.state);
+    }
+
+    public MCTSNode SelectPromisingNode(MCTSNode node) {
+        // Select the node that has the highest potential, usually based on UCT or a similar criterion
+        // Placeholder function, this will need to implement some exploration/exploitation logic
+        return node.children.First();  // Just return the first child for now
+    }
 }
