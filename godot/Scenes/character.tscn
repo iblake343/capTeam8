@@ -1,5 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://coawf4r6b0ni3"]
 
+[ext_resource type="Script" path="res://Scripts/Character.cs" id="1_d5kgi"]
 [ext_resource type="Texture2D" uid="uid://dssymgf626cv8" path="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg" id="2_vr5pl"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_2irgd"]
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="4_o48re"]
@@ -68,6 +69,7 @@ func _on_button_4_pressed() -> void:
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tlkh7"]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_d5kgi")
 script = SubResource("GDScript_reotu")
 
 [node name="Coral-reef-background-wnbdw3Mzqnjgwlzz" type="Sprite2D" parent="."]
@@ -183,7 +185,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
 icon = ExtResource("8_n1koy")
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="Button" to="." method="OnButtonPressed"]
+[connection signal="pressed" from="Button2" to="." method="OnButton2Pressed"]
+[connection signal="pressed" from="Button3" to="." method="OnButton3Pressed"]
+[connection signal="pressed" from="Button4" to="." method="OnButton4Pressed"]

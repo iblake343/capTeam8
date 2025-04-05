@@ -240,7 +240,7 @@ pub const Board = struct {
             var stack = std.ArrayList(Location).initCapacity(fba.allocator(), 16) catch unreachable;
 
             stack.appendAssumeCapacity(loc);
-            while (stack.popOrNull()) |node| {
+            while (stack.pop()) |node| {
                 count_contiguous += 1;
                 for (0..std.meta.fields(Direction).len) |ix_dir| {
                     const next = node + Direction.vector(@enumFromInt(ix_dir));
@@ -345,7 +345,7 @@ pub const Board = struct {
             orig + v - w,            orig + w - v,
             orig + splat(2) * v - w, orig + splat(2) * w - v,
             orig + splat(2) * v,     orig + splat(2) * w,
-            orig + splat(2) * v - w, orig + splat(2) * w - v,
+            orig + splat(2) * v + w, orig + splat(2) * w + v,
         }) |loc| {
             if (board.get(loc) == .empty) break;
         } else return error.not_adjacent_to_land;
@@ -383,7 +383,7 @@ pub const Board = struct {
             orig + v - w,            orig + w - v,
             orig + splat(2) * v - w, orig + splat(2) * w - v,
             orig + splat(2) * v,     orig + splat(2) * w,
-            orig + splat(2) * v - w, orig + splat(2) * w - v,
+            orig + splat(2) * v + w, orig + splat(2) * w + v,
         }) |loc| {
             if (board.get(loc) == .empty) break;
         } else return false;
@@ -739,6 +739,9 @@ const int = i32;
 export fn xCurrentPlayer(board: *const Board) callconv(.C) int {
     return @intCast(@intFromEnum(board.current_player));
 }
+export fn xCountTilesPlaced(board: *const Board) callconv(.C) int {
+    return @intCast(@divFloor(board.hexes_count, 4));
+}
 export fn xWinner(b: *const Board) callconv(.C) int {
     return @intCast(@intFromEnum(b.winner() orelse return -1));
 }
@@ -763,7 +766,7 @@ fn legalTileLocations(
     .get => void,
 } {
     const L = Location;
-    var checks = ModMatrix(Board.max_size, Check).fill(.coast);
+    var checks = ModMatrix(Board.max_size, Check).fill(.sea);
     const w, const h = board.size;
     for (0..h) |dy| for (0..w) |dx| {
         const loc = board.location(dx, dy);
@@ -807,6 +810,11 @@ export fn xPlaceTile(board: *Board, x: int, y: int, dir_i: int) callconv(.C) boo
     }
     board.current_player = board.current_player.next();
     return true;
+}
+export fn xIsLegalTilePlacement(board: *Board, x: int, y: int, dir_i: int) callconv(.C) bool {
+    const orig: Location = .{ x, y };
+    const dir: Direction = @enumFromInt(dir_i);
+    return board.canPlaceHexes(orig, dir, false);
 }
 
 export fn xCountLegalInitialStackLocations(board: *const Board) callconv(.C) int {
@@ -918,6 +926,15 @@ export fn xMoveTokens(board: *Board, x1: int, y1: int, x2: int, y2: int, amt: in
             @intCast(amt),
         },
     })) |_| true else |err| err catch false;
+}
+
+export fn xGetFrame(board: *Board, coords: *[4]int) callconv(.C) void {
+    coords.* = .{
+        board.origin[0],
+        board.origin[1],
+        (board.origin + board.size)[0],
+        (board.origin + board.size)[1],
+    };
 }
 
 fn factorDirection(a: Location, b: Location) ?Direction {

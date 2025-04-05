@@ -14,7 +14,7 @@ public partial class Game {
 		display = disp;
 	}
 	
-	public void StartGame() {
+	public async void StartGame() {
 		while (true) {
 			display.DrawBoard(board);
 			int ix_player = board.CurrentPlayer();
@@ -34,11 +34,11 @@ public partial class Game {
 			Console.WriteLine($"{names[ix_player]}'s turn");
 			MoveKind j = (MoveKind) k;
 			if (j == MoveKind.PlaceTile)
-				player.PlaceTile(board);
+				await Task.Run(() => player.PlaceTile(board));
 			else if (j == MoveKind.PlaceInitialStack)
-				player.PlaceInitialStack(board);
+				await Task.Run(() => player.PlaceInitialStack(board));
 			else if (j == MoveKind.MoveTokens)
-				player.MoveTokens(board);
+				await Task.Run(() => player.MoveTokens(board));
 		}
 	}
 }

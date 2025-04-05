@@ -1,6 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://df7xyev6nyntb"]
+[gd_scene load_steps=19 format=3 uid="uid://b0fulh8pihc8k"]
 
-[ext_resource type="Script" path="res://Scripts/tilemap.gd" id="1_jf3qn"]
+[ext_resource type="Script" path="res://Scripts/place_tile.gd" id="1_jf3qn"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_7sfai"]
 [ext_resource type="Texture2D" uid="uid://byyrmxcvwua5x" path="res://assets/SandTiles/Tiles1.png" id="4_6crbj"]
 [ext_resource type="Texture2D" uid="uid://rlu8ecytgr3s" path="res://assets/Background1.png" id="5_4c61q"]
@@ -40,6 +40,7 @@ texture_region_size = Vector2i(600, 520)
 
 [sub_resource type="TileSet" id="TileSet_a4y5v"]
 tile_shape = 3
+tile_layout = 4
 tile_offset_axis = 1
 tile_size = Vector2i(600, 520)
 sources/1 = SubResource("TileSetAtlasSource_hhuw7")
