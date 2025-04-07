@@ -1,131 +1,215 @@
 using System;
-using System.Collections.Generic;
+using Godot;
+using System.Threading.Tasks;
+using System.Linq;
 
-public class GameState {
-    public Board board;
-    public Player currentPlayer;
-    public GamePhase currentPhase;  // Could be Placement, InitialStack, or Movement
+public class AIPlayer : Player {
+    public async Task<int> PlaceTile(Board board) {
+        // Assuming board.LegalTileArrangements() returns a list or array of TileArrangement objects
+        var options = board.LegalTileArrangements();
 
-    // Constructor for GameState
-    public GameState(Board board, GamePhase phase, Player player) {
-        this.board = board;
-        this.currentPhase = phase;
-        this.currentPlayer = player;
-    }
+        // Simulate placing each tile in each arrangement
+        int numSimulations = 100; // Number of simulations to run for each action
+        float[] scores = new float[options.Count];
 
-    // Returns legal actions for the current game state based on the phase
-    public List<Action> GetLegalActions() {
-        switch (currentPhase) {
-            case GamePhase.Placement:
-                return board.LegalTileLocations();  // Get valid tile placements
-            case GamePhase.InitialStack:
-                return board.LegalInitialStackLocations();  // Get valid initial stack locations
-            case GamePhase.Movement:
-                return board.LegalStartStacks();  // Get valid token movement actions
-            default:
-                return new List<Action>();
+        for (int i = 0; i < options.Count; i++) {
+            var option = options[i]; // Access the TileArrangement (assuming it has 'origin' and 'orientation')
+            Vector2I loc = option.origin;   // Use 'origin' as the location
+            Direction dir = option.orientation;  // Use 'orientation' as the direction
+
+            // Create a copy of the board to simulate on (deep copy)
+            Board simBoard = board.Clone();
+            simBoard.PlaceTile(loc, dir); // Place the tile at 'loc' in direction 'dir'
+
+            // Simulate the initial stack placement
+            PlaceInitialStackSimulation(simBoard);
+
+            // Run the simulation from this point onward
+            scores[i] = RunSimulation(simBoard);
         }
+
+        // Find the best action based on the simulation results
+        float maxScore = scores.Max();
+        int bestIndex = Array.IndexOf(scores, maxScore);
+
+        // Get the best tile placement option
+        var bestOption = options[bestIndex]; // Get the best option based on the simulation results
+        Vector2I bestLoc = bestOption.origin;
+        Direction bestDir = bestOption.orientation;
+
+        // Execute the best move
+        board.PlaceTile(bestLoc, bestDir);
+        GD.Print($"Placed tile at ({bestLoc.X}, {bestLoc.Y}) in direction {bestDir.Name()}");
+
+        return 0; // Return 0 as the placeholder return value
     }
-}
 
-public enum GamePhase {
-    Placement,
-    InitialStack,
-    Movement
-}
 
-public class MCTSNode {
-    public GameState state;  // The current state of the game at this node
-    public MCTSNode parent;  // Parent node
-    public List<MCTSNode> children;  // Child nodes (possible moves)
-    public int wins;
-    public int visits;
-
-    // Constructor for MCTSNode
-    public MCTSNode(GameState state) {
-        this.state = state;
-        this.children = new List<MCTSNode>();
-        this.wins = 0;
-        this.visits = 0;
+    public void PlaceInitialStackSimulation(Board simBoard)
+    {
+        var options = simBoard.LegalInitialStackLocations();
+        Vector2I bestLoc = options[Random.Shared.Next(options.Count)];
+        simBoard.PlaceInitialStack(bestLoc); // Place the initial stack
     }
-}
 
-// Simulate a random game from the current state
-public float Simulate(GameState state) {
-    while (!IsGameOver(state)) {
-        // Perform a random move based on the current phase
-        var actions = state.GetLegalActions();
-        var randomAction = actions[Random.Shared.Next(actions.Count)];
+    public float RunSimulation(Board simBoard)
+    {
+        int maxSimSteps = 100;  // Limit to prevent infinite games
+        int currentPlayer = 1; // Assume 1 is AI, 0 is opponent
         
-        // Apply the action to the board
-        state = ApplyAction(state, randomAction);
-        
-        // If the action finishes a phase, update the current phase
-        if (state.currentPhase == GamePhase.Movement && state.board.GameFinished()) {
-            break;  // End simulation when the game finishes
-        }
-    }
-    return EvaluateGameState(state);  // Return the evaluated score (win/loss/draw)
-}
-
-// Backpropagate the result of the simulation
-public void Backpropagate(MCTSNode node, float result) {
-    while (node != null) {
-        node.visits++;
-        node.wins += result;
-        node = node.parent;
-    }
-}
-
-// Select the best child node based on the highest win rate
-public MCTSNode SelectBestChild(MCTSNode node) {
-    return node.children
-        .OrderByDescending(child => child.wins / (float)child.visits)
-        .First();
-}
-
-// Helper functions (these need to be defined):
-public bool IsGameOver(GameState state) {
-    // Define the condition for the game ending (e.g., when a player wins)
-    return state.board.GameFinished();
-}
-
-public GameState ApplyAction(GameState state, Action action) {
-    // Apply the action to the game state and return the updated state
-    // This is a placeholder, your game logic will determine how to do this
-    return new GameState(state.board.ApplyAction(action), state.currentPhase, state.currentPlayer);
-}
-
-public float EvaluateGameState(GameState state) {
-    // Implement evaluation logic for the game state (e.g., score, win/loss)
-    if (state.board.GameFinished()) {
-        return state.currentPlayer.HasWon() ? 1.0f : 0.0f;  // Return 1 for win, 0 for loss
-    }
-    return 0.5f;  // Placeholder for a draw or ongoing game
-}
-
-public class MCTSPlayer : Player {
-    private int numberOfSimulations = 1000;  // Number of MCTS simulations
-
-    public void MakeMove(Board board) {
-        GameState currentState = new GameState(board, GamePhase.Placement, this);
-        MCTSNode rootNode = new MCTSNode(currentState);
-        
-        // Run MCTS for a set number of simulations
-        for (int i = 0; i < numberOfSimulations; i++) {
-            MCTSNode promisingNode = SelectPromisingNode(rootNode);
-            float result = Simulate(promisingNode.state);
-            Backpropagate(promisingNode, result);
+        // Simulate until the game ends or max steps are reached
+        for (int i = 0; i < maxSimSteps; i++) {
+            if (currentPlayer == 1) {
+                // AI's turn: Random move or Monte Carlo policy for AI
+                MoveTokensRandomly(simBoard);
+            } else {
+                // Opponent's turn: Random move for opponent
+                MoveTokensRandomly(simBoard);
+            }
+            
+            // Check for game-ending conditions (e.g., win, loss, or draw)
+            int winner = simBoard.Winner();
+            if (winner != 0) {
+                return (winner == 1) ? 1.0f : 0.0f;  // 1 if AI wins, 0 if opponent wins
+            }
+            
+            // Switch turn
+            currentPlayer = 1 - currentPlayer; 
         }
         
-        // Choose the best move
-        MCTSNode bestChild = SelectBestChild(rootNode);
-        ApplyAction(bestChild.state);
+        // If game ends after max steps, return a neutral score (e.g., 0.5f for draw)
+        return 0.5f;
     }
 
-    public MCTSNode SelectPromisingNode(MCTSNode node) {
-        // Select the node that has the highest potential, usually based on UCT or a similar criterion
-        // Placeholder function, this will need to implement some exploration/exploitation logic
-        return node.children.First();  // Just return the first child for now
+    public void MoveTokensRandomly(Board simBoard)
+    {
+        var options = simBoard.LegalStartStacks();
+        var loc = options[Random.Shared.Next(options.Count)];
+        
+        var dest_options = simBoard.LegalDestLocations(loc);
+        var dest = dest_options[Random.Shared.Next(dest_options.Count)];
+        
+        var stack_size = simBoard.At(loc).count;
+        if (stack_size < 2) return; // No move possible
+        
+        var amt = Random.Shared.Next(1, stack_size);
+        simBoard.MoveTokens(loc, dest, amt);
+    }
+
+    public async Task<int> PlaceInitialStack(Board board)
+    {
+        // Get all legal initial stack locations
+        var options = board.LegalInitialStackLocations();
+
+        // Number of simulations to run for each stack placement
+        int numSimulations = 100;
+        float[] scores = new float[options.Count];
+
+        // Simulate placing the initial stack at each possible location
+        for (int i = 0; i < options.Count; i++) {
+            Vector2I loc = options[i];
+
+            // Create a copy of the board to simulate on (deep copy)
+            Board simBoard = board.Clone();
+
+            // Place the initial stack at this location
+            simBoard.PlaceInitialStack(loc);
+
+            // Run the simulation from this point onward
+            scores[i] = RunSimulation2(simBoard);
+        }
+
+        // Find the best initial stack location based on simulation results
+        float maxScore = scores.Max();
+        int bestIndex = Array.IndexOf(scores, maxScore);
+
+        Vector2I bestLoc = options[bestIndex];
+        board.PlaceInitialStack(bestLoc);
+
+        GD.Print($"Placed initial stack at ({bestLoc.X}, {bestLoc.Y})");
+
+        return 0;
+    }
+    public float RunSimulation2(Board simBoard)
+    {
+        int maxSimSteps = 100;  // Limit to prevent infinite games
+        int currentPlayer = 1;  // Assume 1 is AI, 0 is opponent
+
+        // Simulate until the game ends or max steps are reached
+        for (int i = 0; i < maxSimSteps; i++) {
+            if (currentPlayer == 1) {
+                // AI's turn: Random move or Monte Carlo policy for AI
+                MoveTokensRandomly(simBoard);
+            } else {
+                // Opponent's turn: Random move for opponent
+                MoveTokensRandomly(simBoard);
+            }
+
+            // Check for game-ending conditions (e.g., win, loss, or draw)
+            int winner = simBoard.Winner();
+            if (winner != 0) {
+                return (winner == 1) ? 1.0f : 0.0f;  // 1 if AI wins, 0 if opponent wins
+            }
+
+            // Switch turn
+            currentPlayer = 1 - currentPlayer;
+        }
+
+        // If game ends after max steps, return a neutral score (e.g., 0.5f for draw)
+        return 0.5f;
+    }
+
+    public async Task<int> MoveTokens(Board board)
+    {
+        // Get all legal starting locations for tokens
+        var options = board.LegalStartStacks();
+        
+        int numSimulations = 100; // Number of simulations to run for each move
+        float[] scores = new float[options.Count];
+        
+        // Simulate each possible token move
+        for (int i = 0; i < options.Count; i++) {
+            Vector2I loc = options[i];
+            
+            // Get all legal destination locations for tokens from this location
+            var dest_options = board.LegalDestLocations(loc);
+            
+            // Try moving tokens to each possible destination
+            foreach (var dest in dest_options) {
+                // Create a copy of the board to simulate on (deep copy)
+                Board simBoard = board.Clone();
+                
+                // Get the stack size at the location
+                var simStackSize = simBoard.At(loc).count;
+                if (simStackSize < 2) continue; // Can't move if there's less than 2 tokens in the stack
+                
+                // Move a random number of tokens (between 1 and the stack size)
+                var amtSim = Random.Shared.Next(1, simStackSize);
+                
+                // Perform the move
+                simBoard.MoveTokens(loc, dest, amtSim);
+                
+                // Run the simulation from this point onward
+                scores[i] = RunSimulation2(simBoard);
+            }
+        }
+        
+        // Find the best move based on the simulation results
+        float maxScore = scores.Max();
+        int bestIndex = Array.IndexOf(scores, maxScore);
+        
+        // Get the best location and destination for the token move
+        Vector2I bestLoc = options[bestIndex];
+        var bestDestOptions = board.LegalDestLocations(bestLoc);
+        Vector2I bestDest = bestDestOptions[Random.Shared.Next(bestDestOptions.Count)];
+        
+        // Move the tokens to the best destination
+        var stack_size = board.At(bestLoc).count;
+        var amt = Random.Shared.Next(1, stack_size);
+        board.MoveTokens(bestLoc, bestDest, amt);
+        
+        GD.Print($"Moved {amt} tokens from ({bestLoc.X}, {bestLoc.Y}) to ({bestDest.X}, {bestDest.Y})");
+
+        return 0;
     }
 }
