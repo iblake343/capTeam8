@@ -13,19 +13,31 @@ public class AIPlayer : Player {
 		float[] scores = new float[options.Count];
 
 		for (int i = 0; i < options.Count; i++) {
-			var option = options[i]; // Access the TileArrangement (assuming it has 'origin' and 'orientation')
+			if (options.Count == 0) return 0;  // No options, so return early to avoid errors
+			var option = options[i]; // Access the TileArrangement
+
 			Vector2I loc = option.origin;   // Use 'origin' as the location
 			Direction dir = option.orientation;  // Use 'orientation' as the direction
 
-			// Create a copy of the board to simulate on (deep copy)
+			// Create a copy of the board to simulate on
 			Board simBoard = board.Clone();
 			simBoard.PlaceTile(loc, dir); // Place the tile at 'loc' in direction 'dir'
 
 			// Simulate the initial stack placement
 			PlaceInitialStackSimulation(simBoard);
 
-			// Run the simulation from this point onward
-			scores[i] = RunSimulation(simBoard);
+			// Run the simulation for this option, accumulate the scores
+			float totalScore = 0f;
+			for (int j = 0; j < numSimulations; j++)
+			{
+				float score = RunSimulation(simBoard);
+				totalScore += score;
+				GD.Print($"Simulation {j + 1}: Score = {score} for move at ({loc.X}, {loc.Y}) in direction {dir.Name()}");
+			}
+			
+			// Store the average score for this move
+			scores[i] = totalScore / numSimulations;
+			GD.Print($"Average score for move at ({loc.X}, {loc.Y}) in direction {dir.Name()} = {scores[i]}");
 		}
 
 		// Find the best action based on the simulation results
@@ -48,6 +60,7 @@ public class AIPlayer : Player {
 	public void PlaceInitialStackSimulation(Board simBoard)
 	{
 		var options = simBoard.LegalInitialStackLocations();
+		if (options.Count == 0) return;  // Guard against empty options list
 		Vector2I bestLoc = options[Random.Shared.Next(options.Count)];
 		simBoard.PlaceInitialStack(bestLoc); // Place the initial stack
 	}
@@ -84,9 +97,11 @@ public class AIPlayer : Player {
 	public void MoveTokensRandomly(Board simBoard)
 	{
 		var options = simBoard.LegalStartStacks();
+		if (options.Count == 0) return;  // Guard against empty options list
 		var loc = options[Random.Shared.Next(options.Count)];
 		
 		var dest_options = simBoard.LegalDestLocations(loc);
+		if (dest_options.Count == 0) return;  // Guard against empty dest options list
 		var dest = dest_options[Random.Shared.Next(dest_options.Count)];
 		
 		var stack_size = simBoard.At(loc).count;
@@ -115,8 +130,15 @@ public class AIPlayer : Player {
 			// Place the initial stack at this location
 			simBoard.PlaceInitialStack(loc);
 
-			// Run the simulation from this point onward
-			scores[i] = RunSimulation2(simBoard);
+			// Run multiple simulations and accumulate the results
+			float totalScore = 0f;
+			for (int j = 0; j < numSimulations; j++)
+			{
+				totalScore += RunSimulation2(simBoard);  // Run simulation and accumulate score
+			}
+
+			// Store the average score for this move
+			scores[i] = totalScore / numSimulations;
 		}
 
 		// Find the best initial stack location based on simulation results
@@ -163,7 +185,8 @@ public class AIPlayer : Player {
 	{
 		// Get all legal starting locations for tokens
 		var options = board.LegalStartStacks();
-		
+		if (options.Count == 0) return 0; // No legal options to move tokens
+
 		int numSimulations = 100; // Number of simulations to run for each move
 		float[] scores = new float[options.Count];
 		
@@ -189,8 +212,15 @@ public class AIPlayer : Player {
 				// Perform the move
 				simBoard.MoveTokens(loc, dest, amtSim);
 				
-				// Run the simulation from this point onward
-				scores[i] = RunSimulation2(simBoard);
+				// Run multiple simulations and accumulate the results
+				float totalScore = 0f;
+				for (int j = 0; j < numSimulations; j++)
+				{
+					totalScore += RunSimulation2(simBoard);  // Run simulation and accumulate score
+				}
+
+				// Store the average score for this move
+				scores[i] = totalScore / numSimulations;
 			}
 		}
 		

@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://c4qx35wd0hvbj"]
 
-[ext_resource type="Script" path="res://Scripts/network_choice.gd" id="1_07v34"]
+[ext_resource type="Script" uid="uid://dmwy5fnks1nmu" path="res://Scripts/network_choice.gd" id="1_07v34"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="2_7wgvj"]
 
 [sub_resource type="Environment" id="Environment_jvtrm"]

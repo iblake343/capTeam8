@@ -7,7 +7,7 @@ public partial class GameScene : Node, Display, Player {
 	public Board GetBoard() {return board;}
 	public override void _Ready() {
 		board = new Board();
-		Player player1 = new RandPlayer();
+		Player player1 = new AIPlayer();
 		
 		var game = new Game(
 			new Player[] {player1, this},

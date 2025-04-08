@@ -2,6 +2,7 @@ using System;
 using Godot;
 using System.Threading.Tasks;
 
+
 public class RandPlayer : Player {
 	public async Task<int> PlaceTile(Board board) {
 		var options = board.LegalTileArrangements();
