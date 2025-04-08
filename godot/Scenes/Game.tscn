@@ -321,8 +321,8 @@ script = ExtResource("1_vno3s")
 layer = -1
 
 [node name="ColorRect" type="ColorRect" parent="Background"]
-offset_right = 1289.0
-offset_bottom = 761.0
+offset_right = 1980.0
+offset_bottom = 1080.0
 color = Color(0.0666667, 0.258824, 0.305882, 1)
 
 [node name="Background" type="TextureRect" parent="Background"]
@@ -331,10 +331,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -640.0
-offset_top = -360.0
-offset_right = 6560.0
-offset_bottom = 4140.0
+offset_left = -990.0
+offset_top = -540.0
+offset_right = 10010.0
+offset_bottom = 6354.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.18, 0.18)
@@ -544,8 +544,8 @@ icon = ExtResource("32_yjerq")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1284.0
-offset_bottom = 722.0
+offset_right = 1980.0
+offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
@@ -654,4 +654,3 @@ layout_mode = 2
 [connection signal="pressed" from="MovementOverlay/FinishButton" to="MovementOverlay" method="_on_finish_button_pressed"]
 [connection signal="pressed" from="MovementOverlay/CancelButton" to="MovementOverlay" method="_on_exit_button_pressed"]
 [connection signal="pressed" from="MovementOverlay/MinusButton" to="MovementOverlay" method="_on_minus_button_pressed"]
-[connection signal="pressed" from="MovementOverlay/PlusButton" to="MovementOverlay" method="_on_add_button_pressed"]
