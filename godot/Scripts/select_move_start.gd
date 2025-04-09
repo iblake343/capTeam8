@@ -5,6 +5,10 @@ extends Node
 @onready var numbers: TileMapLayer = $"../Center/NumberLayer"
 @onready var game = $".."
 @onready var overlay = $"../MovementOverlay"
+@onready var button = $"../MovementOverlay/FinishButton"
+@onready var cancel_button = $"../MovementOverlay/CancelButton"
+@onready var plus_button = $"../MovementOverlay/PlusButton"
+@onready var minus_button = $"../MovementOverlay/MinusButton"
 var legal_locations
 var is_right_click_held = false
 var state = 0
@@ -14,30 +18,27 @@ var amount = 0
 var max_amount = 0
 
 func _ready():
+	if button:
+		button.connect("pressed", Callable(self, "_on_finish_button_pressed"))
+		print("Connected finish button.")
+	else:
+		print("Finish button was null!")
+	if cancel_button:
+		cancel_button.connect("pressed", Callable(self, "_on_cancel_button_pressed"))
+	if plus_button:
+		plus_button.connect("pressed", Callable(self, "_on_plus_button_pressed"))
+	if minus_button:
+		minus_button.connect("pressed", Callable(self, "_on_minus_button_pressed"))
 	legal_locations = game.board.LegalStartStacks()
 	for loc in legal_locations:
 		static_lights.set_cell(loc, 4, Vector2i(0, 0))
-	var button = $"../MovementOverlay/FinishButton"
-	if button:
-		button.connect("pressed", Callable(self, "_on_finish_button_pressed"))
-	var cancel_button = $"../MovementOverlay/CancelButton"
-	if cancel_button:
-		cancel_button.connect("pressed", Callable(self, "_on_cancel_button_pressed"))
-	
-	var plus_button = $"../MovementOverlay/PlusButton"
-	if plus_button:
-		plus_button.connect("pressed", Callable(self, "_on_plus_button_pressed"))
-	
-	var minus_button = $"../MovementOverlay/MinusButton"
-	if minus_button:
-		minus_button.connect("pressed", Callable(self, "_on_minus_button_pressed"))
+
 
 func _process(_delta):
 	highlights.clear()
 	# Only update hover if right-click is not held
 	if is_right_click_held:
 		return  # Skip hover effect if right-click is held
-
 	var mouse_pos = highlights.get_local_mouse_position()
 	var tile_pos = highlights.local_to_map(mouse_pos)
 

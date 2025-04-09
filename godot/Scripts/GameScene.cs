@@ -24,10 +24,6 @@ public partial class GameScene : Node, Display, Player {
 		TileMapLayer back_layer = GetNode<TileMapLayer>("Center/BackLayer");
 		TileMapLayer chip_layer = GetNode<TileMapLayer>("Center/ChipLayer");
 		TileMapLayer number_layer = GetNode<TileMapLayer>("Center/NumberLayer");
-		RichTextLabel player1Score = GetNode<RichTextLabel>("PlaceChipOverlay/Player1Score");
-		RichTextLabel player2Score = GetNode<RichTextLabel>("PlaceChipOverlay/Player2Score");
-		RichTextLabel player1ConnectionScore = GetNode<RichTextLabel>("PlaceChipOverlay/Player1ConnectionScore");
-		RichTextLabel player2ConnectionScore = GetNode<RichTextLabel>("PlaceChipOverlay/Player2ConnectionScore");
 		var frame = board.Frame();
 		
 		GD.Print($"expected move kind is {board.ExpectedMoveKind()}");
@@ -37,10 +33,6 @@ public partial class GameScene : Node, Display, Player {
 		base_layer.Clear();
 		chip_layer.Clear();
 		//Will need score by player
-		player1Score.Text = "5";
-		player2Score.Text = "1";
-		player1ConnectionScore.Text = "15";
-		player2ConnectionScore.Text = "15";
 		//Can make this a function if want to clean up
 		if (board.CountTilesPlaced() == 1) {
 			Control node = GetNode<PanelContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles/Control1");	
@@ -80,6 +72,9 @@ public partial class GameScene : Node, Display, Player {
 				number_layer.SetCell(new(x, y), cell.count - 1, new(0, 0));
 			}
 		}
+		if(board.ExpectedMoveKind() < 0) {
+			GetNode<CanvasLayer>("End Screen").Show();
+		}
 	}
 	public void DeclareWinner(string name) { }
 	public void DeclareTie() { }
@@ -110,7 +105,6 @@ public partial class GameScene : Node, Display, Player {
 		CallDeferred("add_child", node);
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles").Hide();
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles").Hide();
-		GetNode<CanvasLayer>("PlaceChipOverlay").Show();
 		
 		await ToSignal(GetTree(), "node_removed");
 		return 0;

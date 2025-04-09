@@ -1,4 +1,4 @@
-[gd_scene load_steps=118 format=3 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=119 format=3 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://assets/Water one.png" id="3_axe2o"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://dxafy1fey7wtv" path="res://assets/Numbers/8.png" id="28_sblrm"]
 [ext_resource type="Texture2D" uid="uid://bey8mn0g4kwr8" path="res://assets/Numbers/9.png" id="29_eimfn"]
 [ext_resource type="PackedScene" uid="uid://cnhwf45kagtwd" path="res://Scenes/overlay_tile.tscn" id="29_hur8m"]
+[ext_resource type="Script" path="res://Scenes/test.gd" id="29_w1fr0"]
 [ext_resource type="Texture2D" uid="uid://cb83e1v5j0yxw" path="res://assets/Numbers/10.png" id="30_h5qa7"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="31_8lr7v"]
 [ext_resource type="Texture2D" uid="uid://bv3ynjodr000g" path="res://assets/OtherAssets/downButton.png" id="31_rflwh"]
@@ -203,6 +204,28 @@ sources/2 = SubResource("TileSetAtlasSource_rn4y6")
 sources/1 = SubResource("TileSetAtlasSource_k8vjh")
 sources/15 = SubResource("TileSetAtlasSource_q140h")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61cqv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qpmw7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gmdim"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ivntw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ym86d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0kpjd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dbq8c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y0fgt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uolcp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ohxcs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t5t50"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_to03m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qp8ab"]
@@ -291,28 +314,6 @@ sources/15 = SubResource("TileSetAtlasSource_q140h")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_twghq"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61cqv"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qpmw7"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gmdim"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ivntw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ym86d"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0kpjd"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dbq8c"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y0fgt"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uolcp"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ohxcs"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t5t50"]
-
 [node name="Game" type="Node2D"]
 scale = Vector2(0.455, 0.455)
 script = ExtResource("1_vno3s")
@@ -380,177 +381,20 @@ tile_set = SubResource("TileSet_qnt7o")
 scale = Vector2(0.3, 0.3)
 tile_set = SubResource("TileSet_il8kw")
 
-[node name="PlaceChipOverlay" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="CrabDisk0(1)" type="Sprite2D" parent="PlaceChipOverlay"]
-position = Vector2(903, 970)
-scale = Vector2(0.12, 0.12)
-texture = ExtResource("9_51wn1")
-
-[node name="SharkDisk1(1)" type="Sprite2D" parent="PlaceChipOverlay"]
-position = Vector2(1007, 970)
-scale = Vector2(0.12, 0.12)
-texture = ExtResource("11_cghng")
-
-[node name="Player1Score" type="RichTextLabel" parent="PlaceChipOverlay"]
-anchors_preset = -1
-anchor_left = 0.415
-anchor_top = 0.871
-anchor_right = 0.43
-anchor_bottom = 0.935
-offset_left = -0.200012
-offset_top = -0.120056
-offset_right = -0.400024
-offset_bottom = -0.200134
-theme_override_font_sizes/normal_font_size = 33
-text = "1
-"
-fit_content = true
-autowrap_mode = 0
-
-[node name="Player2Score" type="RichTextLabel" parent="PlaceChipOverlay"]
-anchors_preset = -1
-anchor_left = 0.563
-anchor_top = 0.871
-anchor_right = 0.605
-anchor_bottom = 0.935
-offset_left = -2.64001
-offset_top = -1.12006
-offset_right = -3.40002
-offset_bottom = -1.20007
-theme_override_font_sizes/normal_font_size = 33
-text = "1"
-fit_content = true
-autowrap_mode = 0
-
-[node name="Player2ConnectionScore" type="RichTextLabel" parent="PlaceChipOverlay"]
-anchors_preset = -1
-anchor_left = 0.386
-anchor_top = 0.919
-anchor_right = 0.401
-anchor_bottom = 0.957
-offset_left = 10.92
-offset_top = 8.32001
-offset_right = 10.72
-offset_bottom = 7.95996
-theme_override_font_sizes/normal_font_size = 19
-text = "1
-"
-fit_content = true
-autowrap_mode = 0
-
-[node name="Player1ConnectionScore" type="RichTextLabel" parent="PlaceChipOverlay"]
-anchors_preset = -1
-anchor_left = 0.588
-anchor_top = 0.919
-anchor_right = 0.603
-anchor_bottom = 0.967
-offset_left = -1.64001
-offset_top = 8.32001
-offset_right = -1.84009
-offset_bottom = 0.759949
-theme_override_font_sizes/normal_font_size = 19
-text = "1
-"
-fit_content = true
-autowrap_mode = 0
-
-[node name="MovementOverlay" type="Node2D" parent="."]
-visible = false
-position = Vector2(1000, 500)
-
-[node name="FinishButton" type="Button" parent="MovementOverlay"]
-offset_left = 65.0
-offset_top = -167.0
-offset_right = 310.0
-offset_bottom = 78.0
-scale = Vector2(0.7, 0.7)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_to03m")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_qp8ab")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_ed6gl")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_g7ypi")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_hin7n")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_pb656")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_45nkj")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_rhusn")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_ux3k8")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_bn088")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_11in0")
-icon = ExtResource("31_w0cmx")
-
-[node name="CancelButton" type="Button" parent="MovementOverlay"]
-offset_left = 65.0
-offset_top = -5.0
-offset_right = 310.0
-offset_bottom = 240.0
-scale = Vector2(0.7, 0.7)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_aolha")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_nd1mh")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_8k56g")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y7ce6")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_yl6mp")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_a8cky")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_t0xq1")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_njkiw")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_37ua6")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_72ey0")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_tcewl")
-icon = ExtResource("32_nq18a")
-
-[node name="MinusButton" type="Button" parent="MovementOverlay"]
-offset_left = -75.0
-offset_top = 70.0
-offset_right = 435.0
-offset_bottom = 570.0
-scale = Vector2(0.3, 0.3)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_bjbfa")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_cu344")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_f6v54")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_iwvxv")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ypnd3")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_x15hl")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_6i8oj")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_tqftg")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_pjpjc")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_qp2ns")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_rwysv")
-text = "-"
-icon = ExtResource("31_rflwh")
-
-[node name="PlusButton" type="Button" parent="MovementOverlay"]
-offset_left = -75.0
-offset_top = -225.0
-offset_right = 439.0
-offset_bottom = 275.0
-scale = Vector2(0.3, 0.3)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_uhjxu")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_kd3q5")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_kmm4a")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_vkr8u")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_6dbh0")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7kimr")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_fdt1t")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_nhpc7")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_0efiw")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_h8lul")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_twghq")
-text = "+"
-icon = ExtResource("32_yjerq")
-
 [node name="UI Layer" type="CanvasLayer" parent="."]
 
 [node name="UI" type="MarginContainer" parent="UI Layer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1980.0
-offset_bottom = 1080.0
+offset_top = 970.0
+offset_right = 1920.0
+offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 6
+size_flags_vertical = 6
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -651,6 +495,89 @@ layout_mode = 2
 custom_minimum_size = Vector2(110, 140)
 layout_mode = 2
 
+[node name="MovementOverlay" type="Node2D" parent="."]
+position = Vector2(1000, 500)
+scale = Vector2(1, 1)
+script = ExtResource("29_w1fr0")
+
+[node name="FinishButton" type="Button" parent="MovementOverlay"]
+offset_left = 65.0
+offset_top = -167.0
+offset_right = 310.0
+offset_bottom = 78.0
+scale = Vector2(0.7, 0.7)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_to03m")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_qp8ab")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ed6gl")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_g7ypi")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_hin7n")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_pb656")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_45nkj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_rhusn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ux3k8")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_bn088")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_11in0")
+icon = ExtResource("31_w0cmx")
+
+[node name="CancelButton" type="Button" parent="MovementOverlay"]
+offset_left = 65.0
+offset_top = -5.0
+offset_right = 310.0
+offset_bottom = 240.0
+scale = Vector2(0.7, 0.7)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_aolha")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_nd1mh")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8k56g")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y7ce6")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_yl6mp")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_a8cky")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_t0xq1")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_njkiw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_37ua6")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_72ey0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tcewl")
+icon = ExtResource("32_nq18a")
+
+[node name="MinusButton" type="Button" parent="MovementOverlay"]
+offset_left = -75.0
+offset_top = 70.0
+offset_right = 435.0
+offset_bottom = 570.0
+scale = Vector2(0.3, 0.3)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bjbfa")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_cu344")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_f6v54")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_iwvxv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ypnd3")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_x15hl")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_6i8oj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_tqftg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pjpjc")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_qp2ns")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rwysv")
+text = "-"
+icon = ExtResource("31_rflwh")
+
+[node name="PlusButton" type="Button" parent="MovementOverlay"]
+offset_left = -75.0
+offset_top = -225.0
+offset_right = 439.0
+offset_bottom = 275.0
+scale = Vector2(0.3, 0.3)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_uhjxu")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_kd3q5")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kmm4a")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_vkr8u")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_6dbh0")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7kimr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fdt1t")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_nhpc7")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0efiw")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_h8lul")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_twghq")
+text = "+"
+icon = ExtResource("32_yjerq")
+
 [node name="End Screen" type="CanvasLayer" parent="."]
 visible = false
 
@@ -705,6 +632,3 @@ text = "Exit
 "
 
 [connection signal="pressed" from="MovementOverlay/FinishButton" to="MovementOverlay" method="_on_finish_button_pressed"]
-[connection signal="pressed" from="MovementOverlay/CancelButton" to="MovementOverlay" method="_on_exit_button_pressed"]
-[connection signal="pressed" from="MovementOverlay/MinusButton" to="MovementOverlay" method="_on_minus_button_pressed"]
-[connection signal="pressed" from="MovementOverlay/PlusButton" to="." method="_on_plus_button_pressed"]
