@@ -36,10 +36,10 @@ scale = Vector2(1.31156, 1.10102)
 texture = ExtResource("1_a8lqh")
 
 [node name="Label" type="Label" parent="Group-of-sharks-swimming-in-ocean-background-free-photo"]
-offset_left = -652.377
-offset_top = -404.181
-offset_right = -14.377
-offset_bottom = -257.181
+offset_left = -677.056
+offset_top = -437.322
+offset_right = -39.0563
+offset_bottom = -290.322
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_c4fk0")
@@ -47,7 +47,7 @@ theme_override_font_sizes/font_size = 150
 text = "Atlantic  Attrition"
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="."]
-position = Vector2(389, 424)
+position = Vector2(300, 330)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("2_un1i3")
 
@@ -84,7 +84,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_tm1tc")
 text = "EASY"
 
 [node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="."]
-position = Vector2(379, 569)
+position = Vector2(300, 490)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("2_un1i3")
 
@@ -118,7 +118,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_tm1tc")
 text = "Medium"
 
 [node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="."]
-position = Vector2(376, 735)
+position = Vector2(300, 650)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("2_un1i3")
 
@@ -152,7 +152,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_tm1tc")
 text = "Hard"
 
 [node name="—pngtree—buttonStone6967801" type="Sprite2D" parent="."]
-position = Vector2(379, 902)
+position = Vector2(300, 810)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("2_un1i3")
 

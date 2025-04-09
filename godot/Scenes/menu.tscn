@@ -83,7 +83,7 @@ theme_override_font_sizes/font_size = 150
 text = "Atlantic  Attrition"
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(211, 238)
+position = Vector2(210, 238)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("3_q8its")
 
@@ -129,7 +129,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Single Player"
 
 [node name="—pngtree—buttonStone6967801" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(209, 375)
+position = Vector2(210, 375)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("3_q8its")
 
@@ -175,7 +175,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Two player"
 
 [node name="—pngtree—buttonStone6967802" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(209, 520)
+position = Vector2(210, 520)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("3_q8its")
 
@@ -221,7 +221,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Online"
 
 [node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(209, 667)
+position = Vector2(210, 667)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("3_q8its")
 
@@ -265,7 +265,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Settings"
 
 [node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(209, 814)
+position = Vector2(210, 814)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("3_q8its")
 

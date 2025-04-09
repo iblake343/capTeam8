@@ -37,9 +37,8 @@ public partial class CharacterPlayer1 : Node2D
 		GetTree().ChangeSceneToFile("res://Scenes/characterPlayer2.tscn");
 	}
 	
-		private void on_quit_btn_pressed()
+	private void on_quit_btn_pressed()
 	{
-		Globals.players[0] = 3;
 		GetTree().ChangeSceneToFile("res://Scenes/menu.tscn");
 	}
 }

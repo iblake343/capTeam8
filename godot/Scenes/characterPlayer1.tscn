@@ -203,4 +203,4 @@ text = "Back"
 [connection signal="pressed" from="Button2" to="." method="OnButton2Pressed"]
 [connection signal="pressed" from="Button3" to="." method="OnButton3Pressed"]
 [connection signal="pressed" from="Button4" to="." method="OnButton4Pressed"]
-[connection signal="pressed" from="—pngtree—buttonStone6967802/QuitBtn" to="." method="_on_quit_btn_pressed"]
+[connection signal="pressed" from="—pngtree—buttonStone6967802/QuitBtn" to="." method="on_quit_btn_pressed"]
