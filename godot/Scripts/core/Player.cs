@@ -13,17 +13,17 @@ public class TuiPlayer : Player {
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static void xTuiDoTurn(byte[] data);
 
-	public async Task<int> PlaceTile(Board board) {
+	public Task<int> PlaceTile(Board board) {
 		xTuiDoTurn(board.data);
-		return 0;
+		return new(() => 0);
 	}
-	public async Task<int> PlaceInitialStack(Board board) {
+	public Task<int> PlaceInitialStack(Board board) {
 		xTuiDoTurn(board.data);
-		return 0;
+		return new(() => 0);
 	}
-	public async Task<int> MoveTokens(Board board) {
+	public Task<int> MoveTokens(Board board) {
 		xTuiDoTurn(board.data);
-		return 0;
+		return new(() => 0);
 	}
 }
 
