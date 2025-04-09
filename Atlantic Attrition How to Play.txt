@@ -1,0 +1,25 @@
+Atlantic Attrition: How to Play
+
+= Overview
+The reef is luscious and full of life! A bit too full, actually... There's barely enough room for all the sea creatures to live together! Control one of the sea creature families---Clownfish, Sharks, Crabs, and Octopodes---and fight to claim enough reef to live on.
+
+[picture of a game in progress]
+
+The game has two stages: The placing stage, when players collaborate to build the reef, and the moving stage, when players claim tiles by moving their creatures across the reef.
+
+= Building the Reef
+On your turn, you may place a reef tile adjacent to any other reef tile. Rotate the highlighted region with the R key and place the tile with the mouse. The indicator at the bottom shows whose turn it is and how many tiles they have left to place.
+
+[picture of a valid tile placement]
+
+After the reef is built, each player will place a stack of their creatures on any external edge of the board. This will end the placing stage and begin the moving stage.
+
+= Claiming Territory
+On your turn you may move any number of your creatures from one stack into an empty tile. The creatures can move only in a straight line, subject to the following rules:
+- You cannot vacate a tile---that is, whatever stack you move creatures from, that stack must retain at least one creature after you move; stacks with only one creature cannot move.
+- The tile that the creatures move to must be empty: you cannot share a tile with another type of sea creature, nor can you add your creatures to another existing stack of your creatures.
+- The creatures move in a straight line as far as possible until they are blocked by another stack or the edge of the board. You cannot move a stack of creatures into the middle of the reef; there must be something to stop the creatures' motion.
+
+[picture of the legal move destinations of a stack, demonstrating this last rule]
+
+To move your creatures, first select the creatures you want to move by clicking. Then select one of the highlighted cells for the destination. Then click the up and down arrows or use the arrow keys or number keys to insert the number of creatures to move. Remember: you cannot move all of the creatures in the stack; you need to leave at least one.

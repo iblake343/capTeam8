@@ -1,16 +1,9 @@
 extends Node
 
-@onready var options: TileMapLayer = $"../HighlightLayer"
-@onready var highlights: TileMapLayer = $"../HoverHighlightLayer"
+@onready var highlights: TileMapLayer = $"../Center/HoverHighlightLayer"
 @onready var game = $".."
 var is_right_click_held = false
 var dir: int = 0  # Default is the original pattern
-
-func _ready():
-	var locs = game.board.LegalTileLocations()
-	print(locs.size(), "number of legal hex locs")
-	for loc in locs:
-		options.set_cell(loc, 4, Vector2i(0, 0))
 
 func _process(_delta):
 	highlights.clear()
@@ -46,7 +39,6 @@ func _input(event):
 	
 func _exit_tree():
 	highlights.clear()
-	options.clear()
 
 # Function to cycle through the pattern states
 func cycle_pattern() -> void:
