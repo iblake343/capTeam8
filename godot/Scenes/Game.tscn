@@ -377,7 +377,7 @@ theme_override_constants/margin_bottom = 40
 
 [node name="GameLayer" type="Control" parent="UI Layer/UI"]
 layout_mode = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="Bottom UI" type="PanelContainer" parent="UI Layer/UI"]
 custom_minimum_size = Vector2(100, 100)
@@ -459,8 +459,10 @@ mouse_filter = 1
 [node name="HelpButton" parent="UI Layer/UI/Bottom Right UI" instance=ExtResource("31_jlvti")]
 layout_mode = 2
 mouse_filter = 1
+theme_override_font_sizes/font_size = 30
 
 [node name="Win Dialogue" type="Node2D" parent="UI Layer/UI"]
+visible = false
 script = ExtResource("32_46k6p")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI Layer/UI/Win Dialogue"]
@@ -508,6 +510,7 @@ text = "Exit
 "
 
 [node name="MovementOverlay" type="Node2D" parent="."]
+visible = false
 position = Vector2(1000, 500)
 scale = Vector2(1, 1)
 

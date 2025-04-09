@@ -76,12 +76,12 @@ public partial class GameScene : Node, Display, Player {
 	}
 	public void DeclareWinner(string name) {
 		if(board.ExpectedMoveKind() < 0) {
-			GetNode<CanvasLayer>("End Screen").Show();
+			GetNode<Node2D>("UI Layer/UI/Win Dialogue").Show();
 		}
 	}
 	public void DeclareTie() {
 		if(board.ExpectedMoveKind() < 0) {
-			GetNode<CanvasLayer>("End Screen").Show();
+			GetNode<Node2D>("UI Layer/UI/Win Dialogue").Show();
 		}
 	}
 	
