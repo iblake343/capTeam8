@@ -6,12 +6,13 @@ public partial class GameScene : Node, Display, Player {
 	public Board board;
 	public Board GetBoard() {return board;}
 	private bool move_camera = false;
+	private Control game_layer;
 	public override void _Ready() {
 		board = new Board();
  		Player player1 = new AIPlayer();
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles").Show();
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles").Show();
-		
+		game_layer = GetNode<Control>("UI Layer/UI/GameLayer");
 		var game = new Game(
 			new Player[] {player1, this},
 			new string[] {"Human", "Computer"},
@@ -72,19 +73,24 @@ public partial class GameScene : Node, Display, Player {
 				number_layer.SetCell(new(x, y), cell.count - 1, new(0, 0));
 			}
 		}
+	}
+	public void DeclareWinner(string name) {
 		if(board.ExpectedMoveKind() < 0) {
 			GetNode<CanvasLayer>("End Screen").Show();
 		}
 	}
-	public void DeclareWinner(string name) { }
-	public void DeclareTie() { }
+	public void DeclareTie() {
+		if(board.ExpectedMoveKind() < 0) {
+			GetNode<CanvasLayer>("End Screen").Show();
+		}
+	}
 	
 	public async Task<int> PlaceTile(Board board) {
-		Node node = new();
+		Control node = new();
 		ulong nodeId = node.GetInstanceId();
 		node.SetScript(GD.Load<Script>("res://Scripts/place_tile.gd"));
-		node = (Node)InstanceFromId(nodeId);
-		CallDeferred("add_child", node);
+		node = (Control)InstanceFromId(nodeId);
+		game_layer.CallDeferred("add_child", node);
 		await ToSignal(GetTree(), "node_removed");
 		
 		var frame = board.Frame();
@@ -102,7 +108,7 @@ public partial class GameScene : Node, Display, Player {
 		ulong nodeId = node.GetInstanceId();
 		node.SetScript(GD.Load<Script>("res://Scripts/place_initial_stack.gd"));
 		node = (Node)InstanceFromId(nodeId);
-		CallDeferred("add_child", node);
+		game_layer.CallDeferred("add_child", node);
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles").Hide();
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles").Hide();
 		
@@ -115,7 +121,7 @@ public partial class GameScene : Node, Display, Player {
 		ulong nodeId = node.GetInstanceId();
 		node.SetScript(GD.Load<Script>("res://Scripts/select_move_start.gd"));
 		node = (Node)InstanceFromId(nodeId);
-		CallDeferred("add_child", node);
+		game_layer.CallDeferred("add_child", node);
 		
 		await ToSignal(GetTree(), "node_removed");
 		return 0;

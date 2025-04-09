@@ -1,7 +1,6 @@
-[gd_scene load_steps=119 format=3 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=108 format=3 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
-[ext_resource type="Texture2D" uid="uid://rlu8ecytgr3s" path="res://assets/Background1.png" id="2_wdm6a"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://assets/Water one.png" id="3_axe2o"]
 [ext_resource type="Texture2D" uid="uid://byyrmxcvwua5x" path="res://assets/SandTiles/Tiles1.png" id="3_i628i"]
 [ext_resource type="Texture2D" uid="uid://dc0frbdqh4tp3" path="res://assets/SandTiles/Tiles3.png" id="4_ivlxu"]
@@ -25,15 +24,15 @@
 [ext_resource type="Texture2D" uid="uid://catbaw14inwwe" path="res://assets/Numbers/5.png" id="25_vjjlx"]
 [ext_resource type="Texture2D" uid="uid://b3htdyhraee8a" path="res://assets/Numbers/6.png" id="26_cqi8x"]
 [ext_resource type="Texture2D" uid="uid://hj8jcd7l7iig" path="res://assets/Numbers/7.png" id="27_1dp5b"]
-[ext_resource type="Texture2D" uid="uid://beaojkhnwvex5" path="res://assets/OtherAssets/Menu Button.png" id="28_cuaai"]
 [ext_resource type="Texture2D" uid="uid://dxafy1fey7wtv" path="res://assets/Numbers/8.png" id="28_sblrm"]
 [ext_resource type="Texture2D" uid="uid://bey8mn0g4kwr8" path="res://assets/Numbers/9.png" id="29_eimfn"]
 [ext_resource type="PackedScene" uid="uid://cnhwf45kagtwd" path="res://Scenes/overlay_tile.tscn" id="29_hur8m"]
-[ext_resource type="Script" path="res://Scenes/test.gd" id="29_w1fr0"]
 [ext_resource type="Texture2D" uid="uid://cb83e1v5j0yxw" path="res://assets/Numbers/10.png" id="30_h5qa7"]
-[ext_resource type="Script" uid="uid://bcyddha1n6vr0" path="res://Scripts/camera_2d.gd" id="31_8lr7v"]
+[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="31_8lr7v"]
+[ext_resource type="PackedScene" uid="uid://cp1cs34j8r2ok" path="res://help/help_button.tscn" id="31_jlvti"]
 [ext_resource type="Texture2D" uid="uid://bv3ynjodr000g" path="res://assets/OtherAssets/downButton.png" id="31_rflwh"]
 [ext_resource type="Texture2D" uid="uid://cwh6qr2egkar" path="res://assets/OtherAssets/checkButton.png" id="31_w0cmx"]
+[ext_resource type="Script" path="res://help/help.gd" id="32_46k6p"]
 [ext_resource type="Texture2D" uid="uid://bvjiht70yvg23" path="res://assets/OtherAssets/cancelButton.png" id="32_nq18a"]
 [ext_resource type="Texture2D" uid="uid://prsfqbjm7im8" path="res://assets/OtherAssets/upButton.png" id="32_yjerq"]
 
@@ -205,28 +204,6 @@ sources/2 = SubResource("TileSetAtlasSource_rn4y6")
 sources/1 = SubResource("TileSetAtlasSource_k8vjh")
 sources/15 = SubResource("TileSetAtlasSource_q140h")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61cqv"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qpmw7"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gmdim"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ivntw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ym86d"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0kpjd"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dbq8c"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y0fgt"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uolcp"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ohxcs"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t5t50"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_to03m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qp8ab"]
@@ -388,42 +365,19 @@ tile_set = SubResource("TileSet_il8kw")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 970.0
-offset_right = 1920.0
-offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="PlaceTileOverlay" type="CanvasLayer" parent="UI Layer/UI"]
-scale = Vector2(1.25, 1.25)
-transform = Transform2D(1.25, 0, 0, 1.25, 0, 0)
-
-[node name="MenuButton" type="Button" parent="UI Layer/UI/PlaceTileOverlay"]
-offset_left = 1459.2
-offset_top = 784.0
-offset_right = 1659.2
-offset_bottom = 984.0
-scale = Vector2(0.3, 0.3)
-size_flags_vertical = 0
-theme_override_styles/focus = SubResource("StyleBoxEmpty_61cqv")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_qpmw7")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_gmdim")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_ivntw")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ym86d")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_0kpjd")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_dbq8c")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_y0fgt")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_uolcp")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_ohxcs")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_t5t50")
-icon = ExtResource("28_cuaai")
+[node name="GameLayer" type="Control" parent="UI Layer/UI"]
+layout_mode = 2
+mouse_filter = 1
 
 [node name="Bottom UI" type="PanelContainer" parent="UI Layer/UI"]
 custom_minimum_size = Vector2(100, 100)
@@ -440,29 +394,29 @@ theme_override_constants/margin_bottom = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI Layer/UI/Bottom UI/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 80
+theme_override_constants/separation = 40
 
 [node name="P1 Tiles" type="HBoxContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="Control1" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_hur8m")]
-custom_minimum_size = Vector2(110, 140)
+custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
 [node name="Control2" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_hur8m")]
-custom_minimum_size = Vector2(110, 140)
+custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
 [node name="Control3" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_hur8m")]
-custom_minimum_size = Vector2(110, 140)
+custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
 [node name="Control4" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_hur8m")]
-custom_minimum_size = Vector2(110, 140)
+custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
 [node name="P1" type="TextureRect" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -470,7 +424,7 @@ texture = ExtResource("8_p5cit")
 expand_mode = 1
 
 [node name="P2" type="TextureRect" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -481,24 +435,81 @@ expand_mode = 1
 layout_mode = 2
 
 [node name="Control4" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_hur8m")]
-custom_minimum_size = Vector2(110, 140)
+custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
 [node name="Control3" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_hur8m")]
-custom_minimum_size = Vector2(110, 140)
+custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
 [node name="Control2" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_hur8m")]
-custom_minimum_size = Vector2(110, 140)
+custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
 [node name="Control1" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_hur8m")]
-custom_minimum_size = Vector2(110, 140)
+custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
+
+[node name="Bottom Right UI" type="PanelContainer" parent="UI Layer/UI"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+mouse_filter = 1
+
+[node name="HelpButton" parent="UI Layer/UI/Bottom Right UI" instance=ExtResource("31_jlvti")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Win Dialogue" type="Node2D" parent="UI Layer/UI"]
+script = ExtResource("32_46k6p")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI Layer/UI/Win Dialogue"]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_default_cursor_shape = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="UI Layer/UI/Win Dialogue/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Clownfish are the winners!"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MainMenuBtn" type="Button" parent="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 45
+text = "Main Menu"
+
+[node name="ShowBoardBtn" type="Button" parent="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 45
+text = "Show Board"
+
+[node name="ExitBtn" type="Button" parent="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 45
+text = "Exit
+"
 
 [node name="MovementOverlay" type="Node2D" parent="."]
 position = Vector2(1000, 500)
-script = ExtResource("29_w1fr0")
+scale = Vector2(1, 1)
 
 [node name="FinishButton" type="Button" parent="MovementOverlay"]
 offset_left = 65.0
@@ -578,57 +589,4 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_twghq")
 text = "+"
 icon = ExtResource("32_yjerq")
 
-[node name="End Screen" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="Bottom UI" type="PanelContainer" parent="End Screen"]
-custom_minimum_size = Vector2(100, 100)
-offset_left = 29.0
-offset_top = 43.0
-offset_right = 1899.0
-offset_bottom = 1034.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="RichTextLabel" type="RichTextLabel" parent="End Screen"]
-offset_left = 421.0
-offset_top = 193.0
-offset_right = 1357.0
-offset_bottom = 406.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/normal_font_size = 100
-text = "____ is the winner!"
-
-[node name="MainMenuBtn" type="Button" parent="End Screen"]
-offset_left = 736.0
-offset_top = 394.0
-offset_right = 1107.0
-offset_bottom = 530.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 60
-text = "Main Menu"
-
-[node name="ShowBoardBtn" type="Button" parent="End Screen"]
-offset_left = 744.0
-offset_top = 567.0
-offset_right = 1099.0
-offset_bottom = 739.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 60
-text = "Show Board"
-
-[node name="ExitBtn" type="Button" parent="End Screen"]
-offset_left = 797.0
-offset_top = 785.0
-offset_right = 1040.0
-offset_bottom = 922.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 60
-text = "Exit
-"
-
-[connection signal="pressed" from="MovementOverlay/FinishButton" to="MovementOverlay" method="_on_finish_button_pressed"]
+[connection signal="gui_input" from="UI Layer/UI/Win Dialogue/PanelContainer" to="UI Layer/UI/Win Dialogue" method="_on_toolbar_input"]

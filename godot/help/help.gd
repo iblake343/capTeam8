@@ -6,6 +6,7 @@ func _on_exit_button_pressed() -> void:
 var button_down = false
 func _on_toolbar_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
+		print("mousedown on " + name)
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			button_down = event.pressed
 	if event is InputEventMouseMotion:

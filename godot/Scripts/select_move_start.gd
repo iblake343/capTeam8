@@ -1,14 +1,14 @@
 extends Node
 
-@onready var highlights: TileMapLayer = $"../Center/HoverHighlightLayer"
-@onready var static_lights: TileMapLayer = $"../Center/HighlightLayer"
-@onready var numbers: TileMapLayer = $"../Center/NumberLayer"
-@onready var game = $".."
-@onready var overlay = $"../MovementOverlay"
-@onready var button = $"../MovementOverlay/FinishButton"
-@onready var cancel_button = $"../MovementOverlay/CancelButton"
-@onready var plus_button = $"../MovementOverlay/PlusButton"
-@onready var minus_button = $"../MovementOverlay/MinusButton"
+@onready var highlights: TileMapLayer = $"/root/Game/Center/HoverHighlightLayer"
+@onready var static_lights: TileMapLayer = $"/root/Game/Center/HighlightLayer"
+@onready var numbers: TileMapLayer = $"/root/Game/Center/NumberLayer"
+@onready var game = $"/root/Game"
+@onready var overlay = $"/root/Game/MovementOverlay"
+@onready var button = $"/root/Game/MovementOverlay/FinishButton"
+@onready var cancel_button = $"/root/Game/MovementOverlay/CancelButton"
+@onready var plus_button = $"/root/Game/MovementOverlay/PlusButton"
+@onready var minus_button = $"/root/Game/MovementOverlay/MinusButton"
 var legal_locations
 var is_right_click_held = false
 var state = 0
@@ -53,7 +53,7 @@ func _process(_delta):
 	if state == 2:
 		numbers.set_cell(end_loc, amount - 1, Vector2i(0, 0))
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if not event.pressed: return
 		if event.button_index == MOUSE_BUTTON_LEFT:
