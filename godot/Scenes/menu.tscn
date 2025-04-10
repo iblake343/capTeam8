@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dypm60rngwoqn"]
+[gd_scene load_steps=18 format=3 uid="uid://dypm60rngwoqn"]
 
 [ext_resource type="Script" path="res://Scripts/menu.gd" id="2_4tmug"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="2_c3pgp"]
@@ -41,8 +41,6 @@ ambient_light_energy = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x7wps"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wgpxs"]
-
 [node name="Menu" type="CanvasLayer"]
 script = ExtResource("2_4tmug")
 
@@ -56,12 +54,14 @@ camera_attributes = SubResource("CameraAttributesPractical_ke15x")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(1280, 720)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
@@ -83,11 +83,103 @@ theme_override_font_sizes/font_size = 150
 text = "Atlantic  Attrition"
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(120, 196)
-scale = Vector2(0.123333, 0.0956667)
+position = Vector2(210, 238)
+scale = Vector2(0.2, 0.156)
 texture = ExtResource("3_q8its")
 
-[node name="StartGameBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967798"]
+[node name="SinglePlayerBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967798"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2470.0
+offset_top = -1763.0
+offset_right = -550.0
+offset_bottom = -1278.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_c3pgp")
+theme_override_font_sizes/font_size = 500
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
+text = "Single Player"
+
+[node name="—pngtree—buttonStone6967801" type="Sprite2D" parent="VBoxContainer"]
+position = Vector2(210, 375)
+scale = Vector2(0.2, 0.156)
+texture = ExtResource("3_q8its")
+
+[node name="TwoPlayerBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967801"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2570.0
+offset_top = -1742.0
+offset_right = -500.0
+offset_bottom = -1257.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_c3pgp")
+theme_override_font_sizes/font_size = 500
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
+text = "Two player"
+
+[node name="—pngtree—buttonStone6967802" type="Sprite2D" parent="VBoxContainer"]
+position = Vector2(210, 520)
+scale = Vector2(0.2, 0.156)
+texture = ExtResource("3_q8its")
+
+[node name="OnlinePlayerBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967802"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -126,11 +218,11 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "Start Game"
+text = "Online"
 
 [node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(118, 294)
-scale = Vector2(0.123333, 0.0956667)
+position = Vector2(210, 667)
+scale = Vector2(0.2, 0.156)
 texture = ExtResource("3_q8its")
 
 [node name="SettingsBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967799"]
@@ -139,10 +231,10 @@ anchor_left = 0.501
 anchor_top = 0.5
 anchor_right = 0.501
 anchor_bottom = 0.5
-offset_left = -2484.08
-offset_top = -1824.04
-offset_right = -514.081
-offset_bottom = -1176.04
+offset_left = -2484.0
+offset_top = -1824.0
+offset_right = -558.0
+offset_bottom = -1176.0
 size_flags_horizontal = 0
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -173,8 +265,8 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Settings"
 
 [node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(117, 389)
-scale = Vector2(0.123333, 0.0956667)
+position = Vector2(210, 814)
+scale = Vector2(0.2, 0.156)
 texture = ExtResource("3_q8its")
 
 [node name="QuitBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967800"]
@@ -200,100 +292,16 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Quit"
+metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="."]
-offset_left = 329.0
-offset_top = 240.0
-offset_right = 479.0
-offset_bottom = 383.0
-size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_wgpxs")
-
-[node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="Panel"]
-position = Vector2(140, 123)
-scale = Vector2(0.1425, 0.391667)
-texture = ExtResource("3_q8its")
-
-[node name="StartGameSubMenu" type="VBoxContainer" parent="Panel"]
-layout_mode = 0
-offset_left = 29.0
-offset_top = 16.0
-offset_right = 265.0
-offset_bottom = 225.0
-
-[node name="Single Player" type="Button" parent="Panel/StartGameSubMenu"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_c3pgp")
-theme_override_font_sizes/font_size = 60
-theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "Single Player"
-
-[node name="Two Player" type="Button" parent="Panel/StartGameSubMenu"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_c3pgp")
-theme_override_font_sizes/font_size = 60
-theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "Two Player"
-
-[node name="Online" type="Button" parent="Panel/StartGameSubMenu"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_c3pgp")
-theme_override_font_sizes/font_size = 60
-theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "Online"
-
-[connection signal="mouse_entered" from="VBoxContainer/—pngtree—buttonStone6967798/StartGameBtn" to="." method="_on_start_game_btn_mouse_entered"]
-[connection signal="mouse_exited" from="VBoxContainer/—pngtree—buttonStone6967798/StartGameBtn" to="." method="_on_start_game_btn_mouse_exited"]
-[connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967798/StartGameBtn" to="." method="_on_start_game_btn_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/—pngtree—buttonStone6967798/SinglePlayerBtn" to="." method="_on_start_game_btn_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/—pngtree—buttonStone6967798/SinglePlayerBtn" to="." method="_on_start_game_btn_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967798/SinglePlayerBtn" to="." method="_on_single_player_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/—pngtree—buttonStone6967801/TwoPlayerBtn" to="." method="_on_start_game_btn_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/—pngtree—buttonStone6967801/TwoPlayerBtn" to="." method="_on_start_game_btn_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967801/TwoPlayerBtn" to="." method="_on_two_player_btn_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/—pngtree—buttonStone6967802/OnlinePlayerBtn" to="." method="_on_start_game_btn_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/—pngtree—buttonStone6967802/OnlinePlayerBtn" to="." method="_on_start_game_btn_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967802/OnlinePlayerBtn" to="." method="_on_online_pressed"]
 [connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967799/SettingsBtn" to="." method="_on_settings_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967800/QuitBtn" to="." method="_on_quit_btn_pressed"]
-[connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
-[connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]
-[connection signal="mouse_entered" from="Panel/StartGameSubMenu/Single Player" to="." method="_on_single_player_mouse_entered"]
-[connection signal="pressed" from="Panel/StartGameSubMenu/Single Player" to="." method="_on_single_player_pressed"]
-[connection signal="mouse_entered" from="Panel/StartGameSubMenu/Two Player" to="." method="_on_two_player_mouse_entered"]
-[connection signal="pressed" from="Panel/StartGameSubMenu/Two Player" to="." method="_on_two_player_pressed"]
-[connection signal="mouse_entered" from="Panel/StartGameSubMenu/Online" to="." method="_on_online_mouse_entered"]
-[connection signal="pressed" from="Panel/StartGameSubMenu/Online" to="." method="_on_online_pressed"]

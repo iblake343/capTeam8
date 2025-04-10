@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://b3x4o5yx4oov3"]
 
-[ext_resource type="Script" path="res://Scripts/credits.gd" id="1_yjmoj"]
+[ext_resource type="Script" uid="uid://1kjc8n04017k" path="res://Scripts/credits.gd" id="1_yjmoj"]
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="2_4t2s3"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="2_cy4bn"]
 
@@ -104,8 +104,8 @@ offset_right = 964.379
 offset_bottom = 250.676
 size_flags_horizontal = 0
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
 theme_override_fonts/font = ExtResource("2_cy4bn")
 theme_override_font_sizes/font_size = 500
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cfx2j")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://mteuu06hu0g1"]
 
-[ext_resource type="Script" path="res://Scripts/core/app.gd" id="1_ouome"]
-[ext_resource type="Script" path="res://Scripts/core/Board.cs" id="2_mq0xf"]
+[ext_resource type="Script" uid="uid://b24l12nsu1rlr" path="res://Scripts/core/app.gd" id="1_ouome"]
+[ext_resource type="Script" uid="uid://7o0a5eq7os25" path="res://Scripts/core/Board.cs" id="2_mq0xf"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_ouome")

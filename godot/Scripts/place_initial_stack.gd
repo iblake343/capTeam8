@@ -1,8 +1,8 @@
 extends Node
 
-@onready var highlights: TileMapLayer = $"../HoverHighlightLayer"
-@onready var static_lights: TileMapLayer = $"../HighlightLayer"
-@onready var game = $".."
+@onready var game = $"/root/Game"
+@onready var highlights: TileMapLayer = $"/root/Game/Center/HoverHighlightLayer"
+@onready var static_lights: TileMapLayer = $"/root/Game/Center/HighlightLayer"
 var legal_locations
 var is_right_click_held = false
 
@@ -27,7 +27,7 @@ func _process(_delta):
 	
 	highlights.set_cell(tile_pos, 4, Vector2i(0, 0))  # hover tile
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var mouse_pos = highlights.get_local_mouse_position()
 		var tile_pos = highlights.local_to_map(mouse_pos)

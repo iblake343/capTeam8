@@ -5,7 +5,6 @@ public partial class Character : Node2D
 {
 	public override void _Ready()
 	{
-		// Runs when the scene is loaded
 	}
 
 	public override void _Process(double delta)
@@ -22,7 +21,6 @@ public partial class Character : Node2D
 	private void OnButton2Pressed()
 	{
 		Globals.players[0] = 1;
-		
 		GetTree().ChangeSceneToFile("res://Scenes/Game.tscn");
 	}
 

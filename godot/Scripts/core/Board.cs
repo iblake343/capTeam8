@@ -16,6 +16,12 @@ public partial class Board : GodotObject {
 		data = new byte[size];
 		InitBoard(data);
 		}
+	public Board(Board b) {
+		this.data = new List<byte>(b.data).ToArray();
+		}
+	public Board Clone() {
+		return new(this);
+		}
 	public int CurrentPlayer() {
 		return xCurrentPlayer(data);
 		}
@@ -33,6 +39,13 @@ public partial class Board : GodotObject {
 		if (cell == 0) return new(Color.Blue, 0);
 		if (cell == 1) return new(Color.Blue, -1);
 		return new((Color) ((cell / 100) - 1), cell % 100);
+		}
+	public bool IsCoast(Vector2I loc) {
+		for (int i = 0; i < 6; ++i) {
+			Vector2I probe = loc + ((Direction)i).Vector();
+			if (xAt(data, probe.X, probe.Y) != 1) return true;
+		}
+		return false;
 		}
 	public (Vector2I min, Vector2I max) Frame() {
 		var coords = new int[4];

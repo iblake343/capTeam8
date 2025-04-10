@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://coawf4r6b0ni3"]
 
-[ext_resource type="Script" path="res://Scripts/Character.cs" id="1_d5kgi"]
+[ext_resource type="Script" uid="uid://c4phh7g247os8" path="res://Scripts/Character.cs" id="1_d5kgi"]
 [ext_resource type="Texture2D" uid="uid://dssymgf626cv8" path="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg" id="2_vr5pl"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_2irgd"]
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="4_o48re"]
@@ -32,11 +32,12 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tlkh7"]
 
 [node name="Node2D" type="Node2D"]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_d5kgi")
 
 [node name="Coral-reef-background-wnbdw3Mzqnjgwlzz" type="Sprite2D" parent="."]
-position = Vector2(639.5, 359.5)
-scale = Vector2(0.666146, 0.665741)
+position = Vector2(643.333, 359.5)
+scale = Vector2(0.670139, 0.665741)
 texture = ExtResource("2_vr5pl")
 
 [node name="Label" type="Label" parent="Coral-reef-background-wnbdw3Mzqnjgwlzz"]
@@ -48,7 +49,7 @@ size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_2irgd")
 theme_override_font_sizes/font_size = 150
-text = "Choose Your Character
+text = "Player One Choose Your Character
 "
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="."]

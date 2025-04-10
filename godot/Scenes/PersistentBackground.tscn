@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cy7eww6cypw2s"]
 
 [ext_resource type="PackedScene" uid="uid://q85gakxkk7yn" path="res://Scenes/shark_cage/scene.gltf" id="1_7bkn5"]
-[ext_resource type="Script" path="res://Scripts/persistent_background.gd" id="2_a6rlq"]
+[ext_resource type="Script" uid="uid://bjthlrprq6c8v" path="res://Scripts/persistent_background.gd" id="2_a6rlq"]
 
 [node name="Sketchfab_Scene" instance=ExtResource("1_7bkn5")]
 script = ExtResource("2_a6rlq")
