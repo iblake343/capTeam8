@@ -512,7 +512,6 @@ text = "Exit
 [node name="MovementOverlay" type="Node2D" parent="."]
 visible = false
 position = Vector2(1000, 500)
-scale = Vector2(1, 1)
 
 [node name="FinishButton" type="Button" parent="MovementOverlay"]
 offset_left = 65.0
@@ -593,3 +592,6 @@ text = "+"
 icon = ExtResource("32_yjerq")
 
 [connection signal="gui_input" from="UI Layer/UI/Win Dialogue/PanelContainer" to="UI Layer/UI/Win Dialogue" method="_on_toolbar_input"]
+[connection signal="pressed" from="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MainMenuBtn" to="UI Layer/UI/Win Dialogue" method="_on_main_menu_btn_pressed"]
+[connection signal="pressed" from="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ShowBoardBtn" to="UI Layer/UI/Win Dialogue" method="_on_show_board_btn_pressed"]
+[connection signal="pressed" from="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ExitBtn" to="UI Layer/UI/Win Dialogue" method="_on_exit_btn_pressed"]

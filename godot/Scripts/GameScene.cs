@@ -26,7 +26,6 @@ public partial class GameScene : Node, Display, Player {
 		TileMapLayer chip_layer = GetNode<TileMapLayer>("Center/ChipLayer");
 		TileMapLayer number_layer = GetNode<TileMapLayer>("Center/NumberLayer");
 		var frame = board.Frame();
-		
 		GD.Print($"expected move kind is {board.ExpectedMoveKind()}");
 		
 		
