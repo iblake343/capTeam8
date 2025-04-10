@@ -3,6 +3,8 @@ extends Node2D
 func _on_exit_button_pressed() -> void:
 	queue_free()
 
+
+
 var button_down = false
 func _on_toolbar_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -13,3 +15,7 @@ func _on_toolbar_input(event: InputEvent) -> void:
 		if button_down:
 			position = position + event.relative
 		
+
+
+func _on_visibility_changed() -> void:
+	position = get_parent().size * 0.5;

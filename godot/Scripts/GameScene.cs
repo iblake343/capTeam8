@@ -9,8 +9,8 @@ public partial class GameScene : Node, Display, Player {
 	
 	private bool move_camera = false;
 	private Control game_layer;
-	private CenterContainer p1;
-	private CenterContainer p2;
+	private Hero p1;
+	private Hero p2;
 	
 	public override void _Ready() {
 		board = new Board();
@@ -27,10 +27,10 @@ public partial class GameScene : Node, Display, Player {
 		
 		Globals.players = new int[] {0, 3};
 		
-		TextureRect p1 = GetNode<CenterContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1");
-		p1.GetChild(1).Texture = character_tokens[Globals.players[0]];
-		TextureRect p2 = GetNode<CenterContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2");
-		p2.GetChild(1).Texture = character_tokens[Globals.players[1]];
+		p1 = GetNode<Hero>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1");
+		p1.Face().Texture = character_tokens[Globals.players[0]];
+		p2 = GetNode<Hero>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2");
+		p2.Face().Texture = character_tokens[Globals.players[1]];
 		
 		var game = new Game(
 			new Player[] {this, this},
@@ -47,11 +47,12 @@ public partial class GameScene : Node, Display, Player {
 		var frame = board.Frame();
 		
 		if (board.CurrentPlayer() == 0) {
-			p1.GetChild(0).SetVisible(true);
-			p2.GetChild(0).SetVisible(false);
+			var x = p1.GetNode<PanelContainer>("Outline");
+			x.SetVisible(true);
+			p2.Outline().SetVisible(false);
 		} else {
-			p1.GetChild(0).SetVisible(false);
-			p2.GetChild(0).SetVisible(true);
+			p1.Outline().SetVisible(false);
+			p2.Outline().SetVisible(true);
 		}
 		
 		if (move_camera) {

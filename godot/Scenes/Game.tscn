@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=111 format=3 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://assets/Water one.png" id="3_axe2o"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://bey8mn0g4kwr8" path="res://assets/Numbers/9.png" id="29_eimfn"]
 [ext_resource type="PackedScene" uid="uid://cnhwf45kagtwd" path="res://Scenes/overlay_tile.tscn" id="29_hur8m"]
 [ext_resource type="Texture2D" uid="uid://cb83e1v5j0yxw" path="res://assets/Numbers/10.png" id="30_h5qa7"]
+[ext_resource type="Script" path="res://Scripts/Hero.cs" id="30_iihbx"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="31_8lr7v"]
 [ext_resource type="PackedScene" uid="uid://cp1cs34j8r2ok" path="res://help/help_button.tscn" id="31_jlvti"]
 [ext_resource type="Texture2D" uid="uid://bv3ynjodr000g" path="res://assets/OtherAssets/downButton.png" id="31_rflwh"]
@@ -430,6 +431,7 @@ layout_mode = 2
 [node name="P1" type="CenterContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
+script = ExtResource("30_iihbx")
 
 [node name="Outline" type="PanelContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1"]
 visible = false
@@ -448,6 +450,7 @@ expand_mode = 1
 [node name="P2" type="CenterContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
+script = ExtResource("30_iihbx")
 
 [node name="Outline" type="PanelContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2"]
 visible = false
@@ -494,12 +497,22 @@ mouse_filter = 1
 theme_override_font_sizes/font_size = 30
 
 [node name="Win Dialogue" type="Node2D" parent="UI Layer/UI"]
-visible = false
 script = ExtResource("32_46k6p")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI Layer/UI/Win Dialogue"]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -351.0
+offset_top = -195.0
+offset_right = 351.0
+offset_bottom = 195.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_default_cursor_shape = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="UI Layer/UI/Win Dialogue/PanelContainer"]
@@ -526,19 +539,19 @@ size_flags_horizontal = 4
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 45
-text = "Main Menu"
+text = " Main Menu "
 
 [node name="ShowBoardBtn" type="Button" parent="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 45
-text = "Show Board"
+text = " Show Board "
 
 [node name="ExitBtn" type="Button" parent="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 45
-text = "Exit
+text = " Exit 
 "
 
 [node name="MovementOverlay" type="Node2D" parent="."]
@@ -623,4 +636,5 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_twghq")
 text = "+"
 icon = ExtResource("32_yjerq")
 
+[connection signal="visibility_changed" from="UI Layer/UI/Win Dialogue" to="UI Layer/UI/Win Dialogue" method="_on_visibility_changed"]
 [connection signal="gui_input" from="UI Layer/UI/Win Dialogue/PanelContainer" to="UI Layer/UI/Win Dialogue" method="_on_toolbar_input"]
