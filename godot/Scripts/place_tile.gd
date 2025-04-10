@@ -28,10 +28,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var mouse_pos = highlights.get_local_mouse_position()
 		var tile_pos = highlights.local_to_map(mouse_pos)
-		game.board.PlaceTile(tile_pos, dir)
-		 # Will need to decide how to keep up with how many tiles have been placed and by who
-		# kill self
-		queue_free()
+		if game.board.PlaceTile(tile_pos, dir):
+			queue_free()
 
 	# Check if the "R" key is pressed to switch the pattern
 	if event is InputEventKey and event.pressed and event.keycode == Key.KEY_R:

@@ -64,10 +64,9 @@ fn indexFromPoiChar(char: u8) !usize {
 
 pub const Orientation = enum { ur, ul, flat, r, l };
 
-pub const PlaceHexesError = error{ oob, collision, not_adjacent_to_land };
-pub const PlaceTokensError = error{ oob, invalid_location };
+pub const PlaceHexesError = error{ collision, not_adjacent_to_land };
+pub const PlaceTokensError = error{invalid_location};
 pub const MoveTokensError = error{
-    oob,
     cell_is_not_stack,
     wrong_color,
     not_enough_tokens,
@@ -391,9 +390,35 @@ pub const Board = struct {
         return true;
     }
 
-    // TODO does this fn need to do validation?
-    fn placeTokens(b: *Board, loc: Location) PlaceTokensError!void {
-        b.at(loc).* = .{ .stack = .{ .color = b.current_player, .count = 15 } };
+    fn placeTokens(b: *Board, tloc: Location) PlaceTokensError!void {
+        // validate loc
+        block: {
+            const w, const h = b.size;
+            const start = b: for (0..h) |dy| (for (0..w) |dx| {
+                const loc = b.location(dx, dy);
+                if (b.get(loc) == .empty) break :b loc;
+            }) else unreachable;
+            if (eql(start, tloc)) break :block;
+
+            var dir: Direction = .ne;
+            var loc: Location = start;
+            while (!std.meta.eql(start, b: {
+                // find next cell
+                for (0..6) |_| {
+                    dir = dir.right();
+                    if (b.get(loc + dir.vector()) != .illegal) {
+                        loc += dir.vector();
+                        dir = dir.back();
+                        break :b loc;
+                    }
+                } else unreachable;
+            })) {
+                if (b.get(loc) == .empty)
+                    if (eql(loc, tloc)) break :block;
+            }
+            return error.invalid_location;
+        }
+        b.at(tloc).* = .{ .stack = .{ .color = b.current_player, .count = 15 } };
         b.initial_stack_count += 1;
     }
 

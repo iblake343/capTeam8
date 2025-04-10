@@ -32,10 +32,8 @@ func _unhandled_input(event):
 		var mouse_pos = highlights.get_local_mouse_position()
 		var tile_pos = highlights.local_to_map(mouse_pos)
 		
-		game.board.PlaceInitialStack(tile_pos)
-
-		# kill self
-		queue_free()
+		if game.board.PlaceInitialStack(tile_pos):
+			queue_free()
 	
 func _exit_tree():
 	highlights.clear()
