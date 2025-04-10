@@ -15,11 +15,20 @@ On your turn, you may place a reef tile adjacent to any other reef tile. Rotate 
 After the reef is built, each player will place a stack of their creatures on any external edge of the board. This will end the placing stage and begin the moving stage.
 
 = Claiming Territory
-On your turn you may move any number of your creatures from one stack into an empty tile. The creatures can move only in a straight line, subject to the following rules:
-- You cannot vacate a tile---that is, whatever stack you move creatures from, that stack must retain at least one creature after you move; stacks with only one creature cannot move.
-- The tile that the creatures move to must be empty: you cannot share a tile with another type of sea creature, nor can you add your creatures to another existing stack of your creatures.
-- The creatures move in a straight line as far as possible until they are blocked by another stack or the edge of the board. You cannot move a stack of creatures into the middle of the reef; there must be something to stop the creatures' motion.
+On your turn you may move any number of your creatures from one stack into an empty cell. The creatures can move only in a straight line, subject to the following rules:
+- When the creatures move, at least one must stay behind in the original cell.
+- The cell that the creatures move to must be empty: you cannot share a cell with another type of sea creature, nor can you add your creatures to another existing stack of your creatures.
+- The creatures must move in a straight line as far as possible until they are blocked by another stack(!) or the edge of the board. You cannot move a stack of creatures into the middle of the reef; there must be something to stop the creatures' motion.
 
 [picture of the legal move destinations of a stack, demonstrating this last rule]
 
-To move your creatures, first select the creatures you want to move by clicking. Then select one of the highlighted cells for the destination. Then click the up and down arrows or use the arrow keys or number keys to insert the number of creatures to move. Remember: you cannot move all of the creatures in the stack; you need to leave at least one.
+To move your creatures, first click on the creatures you want to move, then on one of the available destinations (highlighted in yellow). To change the number of sea creatures moved, click the arrow buttons, use the arrow keys on the keyboard, scroll the mouse wheel, or type the number. Submit your move using the green check mark button or the enter key. Remember: you cannot move all of the creatures on a cell; you need to leave at least one.
+
+= Camera Controls
+shift + scroll wheel to zoom (or use the + and - buttons on the side)
+shift + click to pan
+
+= Exiting the game
+There is no escape. You will surely die (Genesis 2:6).
+
+Are you stuck? The menu buttons in the corner are here to rescue you from eternal fire. Click the third button from the top to schedule a baptism from a local congregation.

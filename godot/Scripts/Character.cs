@@ -15,12 +15,14 @@ public partial class Character : Node2D
 	private void OnButtonPressed()
 	{
 		Globals.players[0] = 0;
+		Globals.players[1] = 3;
 		GetTree().ChangeSceneToFile("res://Scenes/Game.tscn");
 	}
 
 	private void OnButton2Pressed()
 	{
 		Globals.players[0] = 1;
+		Globals.players[1] = 3;
 		GetTree().ChangeSceneToFile("res://Scenes/Game.tscn");
 	}
 
@@ -34,6 +36,7 @@ public partial class Character : Node2D
 	private void OnButton4Pressed()
 	{
 		Globals.players[0] = 3;
+		Globals.players[1] = 2;
 		GetTree().ChangeSceneToFile("res://Scenes/Game.tscn");
 	}
 }

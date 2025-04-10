@@ -15,6 +15,7 @@ public partial class GameScene : Node, Display, Player {
 	public override void _Ready() {
 		board = new Board();
  		Player player1 = new AIPlayer();
+ 		Player player2 = new RandPlayer();
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles").Show();
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles").Show();
 		game_layer = GetNode<Control>("UI Layer/UI/GameLayer");
@@ -25,16 +26,29 @@ public partial class GameScene : Node, Display, Player {
 		character_tokens.Add(GD.Load("res://assets/CharacterTiles/Octopus Disk0 (1).png") as Texture2D);
 		character_tokens.Add(GD.Load("res://assets/CharacterTiles/Shark disk1 (1).png") as Texture2D);
 		
-		Globals.players = new int[] {0, 3};
+		var names = new[] {
+			"Clownfish",
+			"Crabs",
+			"Octopodes",
+			"Sharks"
+		};
+		
+		Globals.players = new int[] {1, 3};
+		
 		
 		p1 = GetNode<Hero>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1");
 		p1.Face().Texture = character_tokens[Globals.players[0]];
 		p2 = GetNode<Hero>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2");
 		p2.Face().Texture = character_tokens[Globals.players[1]];
 		
+		var player_names = new string[]{
+			names[Globals.players[0]],
+			names[Globals.players[1]],
+		};
+		
 		var game = new Game(
-			new Player[] {this, this},
-			new string[] {"Human", "Computer"},
+			new Player[] {player1, player2},
+			player_names,
 			board, this);
 		game.StartGame();
 	}
@@ -47,8 +61,7 @@ public partial class GameScene : Node, Display, Player {
 		var frame = board.Frame();
 		
 		if (board.CurrentPlayer() == 0) {
-			var x = p1.GetNode<PanelContainer>("Outline");
-			x.SetVisible(true);
+			p1.Outline().SetVisible(true);
 			p2.Outline().SetVisible(false);
 		} else {
 			p1.Outline().SetVisible(false);
@@ -109,11 +122,13 @@ public partial class GameScene : Node, Display, Player {
 	public void DeclareWinner(string name) {
 		if(board.ExpectedMoveKind() < 0) {
 			GetNode<Node2D>("UI Layer/UI/Win Dialogue").Show();
+			GetNode<Label>("UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/Label").Text = name + " are the winners!";
 		}
 	}
 	public void DeclareTie() {
 		if(board.ExpectedMoveKind() < 0) {
 			GetNode<Node2D>("UI Layer/UI/Win Dialogue").Show();
+			GetNode<Label>("UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/Label").Text = "Both players win!";
 		}
 	}
 	
