@@ -5,16 +5,35 @@ using System.Threading.Tasks;
 public partial class GameScene : Node, Display, Player {
 	public Board board;
 	public Board GetBoard() {return board;}
+	public Godot.Collections.Array<Texture2D> character_tokens;
+	
 	private bool move_camera = false;
 	private Control game_layer;
+	private CenterContainer p1;
+	private CenterContainer p2;
+	
 	public override void _Ready() {
 		board = new Board();
  		Player player1 = new AIPlayer();
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles").Show();
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles").Show();
 		game_layer = GetNode<Control>("UI Layer/UI/GameLayer");
+		
+		character_tokens = new();
+		character_tokens.Add(GD.Load("res://assets/CharacterTiles/Clownfish disk1 (1).png") as Texture2D);
+		character_tokens.Add(GD.Load("res://assets/CharacterTiles/Crab Disk0 (1).png") as Texture2D);
+		character_tokens.Add(GD.Load("res://assets/CharacterTiles/Octopus Disk0 (1).png") as Texture2D);
+		character_tokens.Add(GD.Load("res://assets/CharacterTiles/Shark disk1 (1).png") as Texture2D);
+		
+		Globals.players = new int[] {0, 3};
+		
+		TextureRect p1 = GetNode<CenterContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1");
+		p1.GetChild(1).Texture = character_tokens[Globals.players[0]];
+		TextureRect p2 = GetNode<CenterContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2");
+		p2.GetChild(1).Texture = character_tokens[Globals.players[1]];
+		
 		var game = new Game(
-			new Player[] {player1, this},
+			new Player[] {this, this},
 			new string[] {"Human", "Computer"},
 			board, this);
 		game.StartGame();
@@ -27,8 +46,20 @@ public partial class GameScene : Node, Display, Player {
 		TileMapLayer number_layer = GetNode<TileMapLayer>("Center/NumberLayer");
 		var frame = board.Frame();
 		
-		GD.Print($"expected move kind is {board.ExpectedMoveKind()}");
+		if (board.CurrentPlayer() == 0) {
+			p1.GetChild(0).SetVisible(true);
+			p2.GetChild(0).SetVisible(false);
+		} else {
+			p1.GetChild(0).SetVisible(false);
+			p2.GetChild(0).SetVisible(true);
+		}
 		
+		if (move_camera) {
+			Camera2D camera = GetNode<Camera2D>("Center/Camera");
+			Vector2 center = (base_layer.MapToLocal(frame.min) + base_layer.MapToLocal(frame.max)) * 0.5f;
+			camera.Position = base_layer.ToGlobal(center);
+		}
+		move_camera = board.ExpectedMoveKind() == 0;
 		
 		number_layer.Clear();
 		base_layer.Clear();
@@ -93,12 +124,6 @@ public partial class GameScene : Node, Display, Player {
 		game_layer.CallDeferred("add_child", node);
 		await ToSignal(GetTree(), "node_removed");
 		
-		var frame = board.Frame();
-		
-		TileMapLayer base_layer = GetNode<TileMapLayer>("Center/HexLayer");
-		Camera2D camera = GetNode<Camera2D>("Center/Camera");
-		Vector2 center = (base_layer.MapToLocal(frame.min) + base_layer.MapToLocal(frame.max)) * 0.5f;
-		camera.Position = base_layer.ToGlobal(center);
 		
 		return 0;
 	}

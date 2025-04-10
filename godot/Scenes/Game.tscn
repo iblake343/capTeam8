@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=110 format=3 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://assets/Water one.png" id="3_axe2o"]
@@ -204,6 +204,15 @@ sources/2 = SubResource("TileSetAtlasSource_rn4y6")
 sources/1 = SubResource("TileSetAtlasSource_k8vjh")
 sources/15 = SubResource("TileSetAtlasSource_q140h")
 
+[sub_resource type="Curve2D" id="Curve2D_plfrm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tuxpv"]
+bg_color = Color(0.145098, 0.352941, 1, 1)
+corner_radius_top_left = 38
+corner_radius_top_right = 38
+corner_radius_bottom_right = 38
+corner_radius_bottom_left = 38
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_to03m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qp8ab"]
@@ -359,6 +368,9 @@ tile_set = SubResource("TileSet_qnt7o")
 scale = Vector2(0.3, 0.3)
 tile_set = SubResource("TileSet_il8kw")
 
+[node name="Path2D" type="Path2D" parent="Center"]
+curve = SubResource("Curve2D_plfrm")
+
 [node name="UI Layer" type="CanvasLayer" parent="."]
 
 [node name="UI" type="MarginContainer" parent="UI Layer"]
@@ -415,16 +427,36 @@ layout_mode = 2
 custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
-[node name="P1" type="TextureRect" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="P1" type="CenterContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(82, 82)
+layout_mode = 2
+
+[node name="Outline" type="PanelContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1"]
+visible = false
+custom_minimum_size = Vector2(82, 82)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tuxpv")
+
+[node name="Texture" type="TextureRect" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1"]
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("8_p5cit")
 expand_mode = 1
 
-[node name="P2" type="TextureRect" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="P2" type="CenterContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(82, 82)
+layout_mode = 2
+
+[node name="Outline" type="PanelContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2"]
+visible = false
+custom_minimum_size = Vector2(82, 82)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tuxpv")
+
+[node name="Texture" type="TextureRect" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2"]
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -512,7 +544,6 @@ text = "Exit
 [node name="MovementOverlay" type="Node2D" parent="."]
 visible = false
 position = Vector2(1000, 500)
-scale = Vector2(1, 1)
 
 [node name="FinishButton" type="Button" parent="MovementOverlay"]
 offset_left = 65.0
