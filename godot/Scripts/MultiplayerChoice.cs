@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Xml.Resolvers;
 
 public partial class MultiplayerChoice : CanvasLayer
 {
@@ -57,7 +58,7 @@ public partial class MultiplayerChoice : CanvasLayer
 	
 	private void _on_back_btn_pressed()
 	{
-		GetTree().ChangeSceneToFile("res://Scenes/select_net_ai.tscn"); //fix 
+		GetTree().ChangeSceneToFile("res://Scenes/select_net_ai.tscn"); //on back cancel connection for both
 	}
 
 	public void _on_host_pressed() { 
@@ -87,22 +88,21 @@ public partial class MultiplayerChoice : CanvasLayer
 		GD.Print("Joining Game");
 		statusLbl.Text = "Joining  Game";
 
-
 	}
 
 	public void _on_start_pressed() { 
 		Rpc("startGame");
+        GD.Print("switched scene");
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void startGame() { 
-		// take them through these scenes after lobby filled 
-		// coin flip
-		// p1 chooses character then p2 
+		// sync button clicks and allow two choices
+        // host chooses character then p2
+        // coin flip
+        // start game
 
-		var scene = ResourceLoader.Load<PackedScene>("res://Scenes/character.tscn").Instantiate<Node2D>(); 
-		GetTree().Root.AddChild(scene);
-		this.Hide();
+        GetTree().ChangeSceneToFile("res://Scenes/character.tscn");
 	}
 	
 }
