@@ -5,6 +5,8 @@ public partial class CharacterPlayer1 : Node2D
 {
 	public override void _Ready()
 	{
+		Globals.player_kinds[0] = PlayerKind.Human;
+		Globals.player_kinds[1] = PlayerKind.Human;
 	}
 
 	public override void _Process(double delta)

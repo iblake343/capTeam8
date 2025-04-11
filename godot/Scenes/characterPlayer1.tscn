@@ -53,7 +53,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ylkth"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_xnqic")
 

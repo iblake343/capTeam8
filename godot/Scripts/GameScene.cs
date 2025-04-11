@@ -31,9 +31,6 @@ public partial class GameScene : Node, Display, Player {
 			"Sharks"
 		};
 		
-		Globals.players = new int[] {1, 3};
-		
-		
 		p1 = GetNode<Hero>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1");
 		p1.Face().Texture = character_tokens[Globals.players[0]];
 		p2 = GetNode<Hero>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2");

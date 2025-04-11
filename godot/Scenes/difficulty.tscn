@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://d1jj5hpu5x80c"]
+[gd_scene load_steps=17 format=3 uid="uid://d1jj5hpu5x80c"]
 
 [ext_resource type="Texture2D" uid="uid://7obvt8os7lpe" path="res://assets/group-of-sharks-swimming-in-ocean-background-free-photo.jpg" id="1_a8lqh"]
-[ext_resource type="Script" uid="uid://b40qx3ckx5gge" path="res://Scripts/difficulty.gd" id="1_lm332"]
+[ext_resource type="Script" path="res://Scripts/difficulty.gd" id="1_lm332"]
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="2_un1i3"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_c4fk0"]
+[ext_resource type="Script" path="res://Scenes/SetAI.cs" id="5_gnogu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_niqas"]
 
@@ -27,7 +28,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tm1tc"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 script = ExtResource("1_lm332")
 
 [node name="Group-of-sharks-swimming-in-ocean-background-free-photo" type="Sprite2D" parent="."]
@@ -41,7 +42,8 @@ offset_top = -437.322
 offset_right = -39.0563
 offset_bottom = -290.322
 size_flags_horizontal = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_c4fk0")
 theme_override_font_sizes/font_size = 150
 text = "Atlantic  Attrition"
@@ -65,9 +67,9 @@ size_flags_horizontal = 0
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_c4fk0")
 theme_override_font_sizes/font_size = 500
 theme_override_styles/focus = SubResource("StyleBoxEmpty_niqas")
@@ -100,8 +102,8 @@ offset_right = -681.354
 offset_bottom = -1159.85
 size_flags_horizontal = 0
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_c4fk0")
 theme_override_font_sizes/font_size = 500
 theme_override_styles/focus = SubResource("StyleBoxEmpty_niqas")
@@ -134,8 +136,8 @@ offset_right = -640.786
 offset_bottom = -1446.85
 size_flags_horizontal = 0
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_c4fk0")
 theme_override_font_sizes/font_size = 500
 theme_override_styles/focus = SubResource("StyleBoxEmpty_niqas")
@@ -184,6 +186,9 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_858mf")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_2jelp")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tm1tc")
 text = "Back"
+
+[node name="Globals Setter" type="Node" parent="."]
+script = ExtResource("5_gnogu")
 
 [connection signal="pressed" from="—pngtree—buttonStone6967798/StartGameBtn" to="." method="_on_start_game_btn_pressed"]
 [connection signal="pressed" from="—pngtree—buttonStone6967799/StartGameBtn2" to="." method="_on_start_game_btn_2_pressed"]
