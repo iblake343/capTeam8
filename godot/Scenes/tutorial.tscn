@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://baoccbssof75k"]
 
-[ext_resource type="Script" uid="uid://17kcthd8gc1c" path="res://Scripts/tutorial.gd" id="1_47v7t"]
+[ext_resource type="Script" path="res://Scripts/tutorial.gd" id="1_47v7t"]
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="1_78131"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="2_mc1pk"]
 
