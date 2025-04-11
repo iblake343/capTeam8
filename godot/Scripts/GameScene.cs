@@ -14,8 +14,6 @@ public partial class GameScene : Node, Display, Player {
 	
 	public override void _Ready() {
 		board = new Board();
- 		Player player1 = new AIPlayer();
- 		Player player2 = new RandPlayer();
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles").Show();
 		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles").Show();
 		game_layer = GetNode<Control>("UI Layer/UI/GameLayer");
@@ -47,7 +45,10 @@ public partial class GameScene : Node, Display, Player {
 		};
 		
 		var game = new Game(
-			new Player[] {player1, player2},
+			new Player[] {
+				Globals.player_kinds[0].NewPlayer(this),
+				Globals.player_kinds[1].NewPlayer(this),
+			},
 			player_names,
 			board, this);
 		game.StartGame();
