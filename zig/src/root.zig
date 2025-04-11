@@ -85,6 +85,8 @@ pub const Board = struct {
     size: @Vector(2, u31) = .{ 1, 1 },
     out_of_moves: PArray = PArray.initFill(false),
 
+    fn parse(src: []const u8) Board {}
+
     const PArray = std.EnumArray(Player, bool);
     pub const max_size = 30;
     pub const count_players = std.meta.fields(Player).len;
