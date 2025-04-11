@@ -176,4 +176,8 @@ public partial class GameScene : Node, Display, Player {
 		if (val >= high) return high;
 		return val;
 	}
+	
+	public void QuitToMenu() {
+		GetTree().ChangeSceneToFile("res://Scenes/menu.tscn");
+	}
 }

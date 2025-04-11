@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=112 format=3 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://assets/Water one.png" id="3_axe2o"]
@@ -213,6 +213,8 @@ corner_radius_top_left = 38
 corner_radius_top_right = 38
 corner_radius_bottom_right = 38
 corner_radius_bottom_left = 38
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l83tm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_to03m"]
 
@@ -492,11 +494,21 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_l83tm")
 
-[node name="HelpButton" parent="UI Layer/UI/Bottom Right UI" instance=ExtResource("31_jlvti")]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI Layer/UI/Bottom Right UI"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HelpButton" parent="UI Layer/UI/Bottom Right UI/VBoxContainer" instance=ExtResource("31_jlvti")]
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 30
+
+[node name="Escape" type="Button" parent="UI Layer/UI/Bottom Right UI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " Quit to Menu "
 
 [node name="Win Dialogue" type="Node2D" parent="UI Layer/UI"]
 visible = false
@@ -639,6 +651,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_twghq")
 text = "+"
 icon = ExtResource("32_yjerq")
 
+[connection signal="pressed" from="UI Layer/UI/Bottom Right UI/VBoxContainer/Escape" to="." method="QuitToMenu"]
 [connection signal="visibility_changed" from="UI Layer/UI/Win Dialogue" to="UI Layer/UI/Win Dialogue" method="_on_visibility_changed"]
 [connection signal="gui_input" from="UI Layer/UI/Win Dialogue/PanelContainer" to="UI Layer/UI/Win Dialogue" method="_on_toolbar_input"]
 [connection signal="pressed" from="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MainMenuBtn" to="UI Layer/UI/Win Dialogue" method="_on_main_menu_btn_pressed"]
