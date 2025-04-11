@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=3 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=113 format=3 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://assets/Water one.png" id="3_axe2o"]
@@ -36,6 +36,7 @@
 [ext_resource type="Script" path="res://help/help.gd" id="32_46k6p"]
 [ext_resource type="Texture2D" uid="uid://bvjiht70yvg23" path="res://assets/OtherAssets/cancelButton.png" id="32_nq18a"]
 [ext_resource type="Texture2D" uid="uid://prsfqbjm7im8" path="res://assets/OtherAssets/upButton.png" id="32_yjerq"]
+[ext_resource type="PackedScene" uid="uid://drm4vemkuehrv" path="res://help/help.tscn" id="33_fysoo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_em2xf"]
 texture = ExtResource("3_i628i")
@@ -502,7 +503,6 @@ theme_override_constants/separation = 10
 
 [node name="HelpButton" parent="UI Layer/UI/Bottom Right UI/VBoxContainer" instance=ExtResource("31_jlvti")]
 layout_mode = 2
-mouse_filter = 1
 theme_override_font_sizes/font_size = 30
 
 [node name="Escape" type="Button" parent="UI Layer/UI/Bottom Right UI/VBoxContainer"]
@@ -568,6 +568,9 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 45
 text = " Exit 
 "
+
+[node name="Help" parent="UI Layer/UI" instance=ExtResource("33_fysoo")]
+position = Vector2(2136.5, 831.544)
 
 [node name="MovementOverlay" type="Node2D" parent="."]
 visible = false
@@ -651,9 +654,11 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_twghq")
 text = "+"
 icon = ExtResource("32_yjerq")
 
+[connection signal="visibility_changed" from="UI Layer/UI/Bottom Right UI/VBoxContainer/HelpButton" to="UI Layer/UI/Bottom Right UI/VBoxContainer/HelpButton" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI Layer/UI/Bottom Right UI/VBoxContainer/Escape" to="." method="QuitToMenu"]
 [connection signal="visibility_changed" from="UI Layer/UI/Win Dialogue" to="UI Layer/UI/Win Dialogue" method="_on_visibility_changed"]
 [connection signal="gui_input" from="UI Layer/UI/Win Dialogue/PanelContainer" to="UI Layer/UI/Win Dialogue" method="_on_toolbar_input"]
 [connection signal="pressed" from="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MainMenuBtn" to="UI Layer/UI/Win Dialogue" method="_on_main_menu_btn_pressed"]
 [connection signal="pressed" from="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ShowBoardBtn" to="UI Layer/UI/Win Dialogue" method="_on_show_board_btn_pressed"]
 [connection signal="pressed" from="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ExitBtn" to="UI Layer/UI/Win Dialogue" method="_on_exit_btn_pressed"]
+[connection signal="visibility_changed" from="UI Layer/UI/Help" to="UI Layer/UI/Help" method="_on_visibility_changed"]

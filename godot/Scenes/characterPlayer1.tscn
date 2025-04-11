@@ -71,7 +71,7 @@ size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_b15ok")
 theme_override_font_sizes/font_size = 150
-text = "Player two Choose Your Character
+text = "Player one, Choose Your Character
 "
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="."]

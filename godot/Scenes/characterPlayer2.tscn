@@ -31,7 +31,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tlkh7"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_5ii2w")
 
@@ -49,7 +49,7 @@ size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_4kble")
 theme_override_font_sizes/font_size = 150
-text = "Player two Choose Your Character
+text = "Player two, Choose Your Character
 "
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="."]
