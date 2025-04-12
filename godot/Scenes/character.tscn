@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="4_o48re"]
 [ext_resource type="Texture2D" uid="uid://qtaxa6w0sylj" path="res://assets/Clownfish1.png" id="5_5drpt"]
 [ext_resource type="Texture2D" uid="uid://mppe6pdlfd6h" path="res://assets/Crab0.png" id="6_4lbnn"]
-[ext_resource type="Texture2D" uid="uid://bk80y4ooxit5f" path="res://assets/Octopus0.png" id="7_nkq03"]
+[ext_resource type="Texture2D" uid="uid://bi8c3e7e8quew" path="res://assets/Octopus1.png" id="7_fctvd"]
 [ext_resource type="Texture2D" uid="uid://c2wdhlyoikr3g" path="res://assets/Shark1 (1).png" id="8_n1koy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfkqx"]
@@ -127,7 +127,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
-icon = ExtResource("7_nkq03")
+icon = ExtResource("7_fctvd")
 
 [node name="Button4" type="Button" parent="."]
 offset_left = 974.0

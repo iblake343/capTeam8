@@ -21,7 +21,7 @@ public partial class GameScene : Node, Display, Player {
 		character_tokens = new();
 		character_tokens.Add(GD.Load("res://assets/CharacterTiles/Clownfish disk1 (1).png") as Texture2D);
 		character_tokens.Add(GD.Load("res://assets/CharacterTiles/Crab Disk0 (1).png") as Texture2D);
-		character_tokens.Add(GD.Load("res://assets/CharacterTiles/Octopus Disk0 (1).png") as Texture2D);
+		character_tokens.Add(GD.Load("res://assets/CharacterTiles/octopus disk.png") as Texture2D);
 		character_tokens.Add(GD.Load("res://assets/CharacterTiles/Shark disk1 (1).png") as Texture2D);
 		
 		var names = new[] {

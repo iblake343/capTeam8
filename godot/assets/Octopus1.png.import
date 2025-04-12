@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chfqb3c5d0au8"
-path="res://.godot/imported/sharkHighlightChip.png-1974ded456815c9d7c7b635bfb6e892f.ctex"
+uid="uid://bi8c3e7e8quew"
+path="res://.godot/imported/Octopus1.png-810819f014a3356ebd32ec0ab917673c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/CharacterTiles/sharkHighlightChip.png"
-dest_files=["res://.godot/imported/sharkHighlightChip.png-1974ded456815c9d7c7b635bfb6e892f.ctex"]
+source_file="res://assets/Octopus1.png"
+dest_files=["res://.godot/imported/Octopus1.png-810819f014a3356ebd32ec0ab917673c.ctex"]
 
 [params]
 
