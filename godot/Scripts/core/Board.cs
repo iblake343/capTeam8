@@ -19,6 +19,14 @@ public partial class Board : GodotObject {
 	public Board(Board b) {
 		this.data = new List<byte>(b.data).ToArray();
 		}
+	public Board Parse(char[] src) {
+		var size = BoardSize();
+		data = new byte[size];
+		if (!xParse(data, src)) {
+			GD.Print("error while parsing Board state");
+		}
+		return new Board(data);
+		}
 	public Board Clone() {
 		return new(this);
 		}
@@ -170,6 +178,8 @@ public partial class Board : GodotObject {
 	private extern static bool xMoveTokens(byte[] data, int x1, int y1, int x2, int y2, int amt);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static bool xGetFrame(byte[] data, int[] coords);
+	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
+	private extern static bool xParse(byte[] data, char[] src);
 }
 
 public partial class Cell : GodotObject {
