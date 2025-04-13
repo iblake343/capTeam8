@@ -937,6 +937,14 @@ export fn xGetFrame(board: *Board, coords: *[4]int) callconv(.C) void {
     };
 }
 
+export fn xCountStacks(board: *const Board, player: int) callconv(.C) int {
+    return @intCast(@divFloor(board.scorePlayer(@enumFromInt((player))), 16));
+}
+
+export fn xCountContiguousStacks(board: *const Board, player: int) callconv(.C) int {
+    return @intCast(board.scorePlayer(@enumFromInt((player))) % 16);
+}
+
 fn factorDirection(a: Location, b: Location) ?Direction {
     const dx = std.math.order(b[0], a[0]);
     const dy = std.math.order(b[1], a[1]);
