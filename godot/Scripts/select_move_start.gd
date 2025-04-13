@@ -60,21 +60,21 @@ func _unhandled_input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			var mouse_pos = highlights.get_local_mouse_position()
 			var tile_pos = highlights.local_to_map(mouse_pos)
-
+			var player = game.board.CurrentPlayer()
+			var cell = game.board.At(tile_pos);
 			if state == 0: # pick start location
 				state = 1
 				start_loc = tile_pos
-				legal_locations = game.board.LegalDestLocations(start_loc)
-				static_lights.clear()
-				for loc in legal_locations:
-					static_lights.set_cell(loc, 4, Vector2i(0, 0))
+				if cell.color == player:
+					legal_locations = game.board.LegalDestLocations(start_loc)
+					static_lights.clear()
+					for loc in legal_locations:
+						static_lights.set_cell(loc, 4, Vector2i(0, 0))
 				return
 
 			if state == 1: # pick end location 
 				if tile_pos == start_loc:
 					return
-				var player = game.board.CurrentPlayer()
-				var cell = game.board.At(tile_pos);
 				if cell.count > 1 and cell.color == player:
 					print("Restarting from a new starting tile.")
 					start_loc = tile_pos
