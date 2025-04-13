@@ -6,18 +6,17 @@ public partial class MultiplayerChoice : CanvasLayer
 {
 
 	[Export]
-	private int port = 8888;
+	private int port = 9999;
 	
 	[Export]
 	private string address = "127.0.0.1";
 
 	private ENetMultiplayerPeer peer;
-	// Called when the node enters the scene tree for the first time.
 
-	[Export]
-	public PackedScene PlayerFieldScene;
-	[Export] 
-	public PackedScene OpponentFieldScene;
+	//[Export]
+	//public PackedScene PlayerFieldScene;
+	//[Export] 
+	//public PackedScene OpponentFieldScene;
 
 	Label statusLbl;
 	public override void _Ready()
@@ -47,15 +46,16 @@ public partial class MultiplayerChoice : CanvasLayer
 	private void PeerDisconnected(long id)
 	{
 		GD.Print("Player disconnected: " + id.ToString());
+		Multiplayer.MultiplayerPeer = null;
 	}
 
 	private void PeerConnected(long id)
 	{
 		GD.Print("Player Connected: " + id.ToString());
 		statusLbl.Text = "Player  Connected";
+		Rpc("startGame");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}
@@ -100,8 +100,10 @@ public partial class MultiplayerChoice : CanvasLayer
         // host chooses character then p2
         // coin flip
         // start game
-
-        GetTree().ChangeSceneToFile("res://Scenes/ntwrkCharSel.tscn");
+		//var gameScene = ResourceLoader.Load<PackedScene>("res://Scenes/Game.tscn").Instantiate<Node>();
+		//GetTree().Root.AddChild(gameScene);
+		GetTree().ChangeSceneToFile("res://Scenes/Game.tscn");
+		this.Hide(); 
 	}
 	
 }

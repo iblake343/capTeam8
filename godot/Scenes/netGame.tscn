@@ -1,63 +1,63 @@
-[gd_scene load_steps=108 format=3 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=108 format=3 uid="uid://cg2vcd6utadgl"]
 
-[ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
-[ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://assets/Water one.png" id="3_axe2o"]
-[ext_resource type="Texture2D" uid="uid://byyrmxcvwua5x" path="res://assets/SandTiles/Tiles1.png" id="3_i628i"]
-[ext_resource type="Texture2D" uid="uid://dc0frbdqh4tp3" path="res://assets/SandTiles/Tiles3.png" id="4_ivlxu"]
-[ext_resource type="Texture2D" uid="uid://cspt0b2ade8bf" path="res://assets/SandTiles/Tiles4.png" id="5_s6ei0"]
-[ext_resource type="Texture2D" uid="uid://cb7oftst6mnpx" path="res://assets/SandTiles/Tiles5.png" id="6_fw2e7"]
-[ext_resource type="Texture2D" uid="uid://b8nybsk7m7mff" path="res://assets/SandTiles/Tiles2 (1).png" id="7_hauh5"]
-[ext_resource type="Texture2D" uid="uid://d2ans6o8phhs" path="res://assets/CharacterTiles/Clownfish disk1 (1).png" id="8_p5cit"]
-[ext_resource type="Texture2D" uid="uid://maisrery10qr" path="res://assets/CharacterTiles/Crab Disk0 (1).png" id="9_51wn1"]
-[ext_resource type="Texture2D" uid="uid://yu42skovw4q2" path="res://assets/CharacterTiles/Octopus Disk0 (1).png" id="10_ioss3"]
-[ext_resource type="Texture2D" uid="uid://bepqvktbctpk3" path="res://assets/CharacterTiles/Shark disk1 (1).png" id="11_cghng"]
-[ext_resource type="Texture2D" uid="uid://cwgohkycb474x" path="res://assets/Numbers/1.png" id="16_d4kvs"]
-[ext_resource type="Texture2D" uid="uid://ds7eq0sq3sxjr" path="res://assets/Numbers/2.png" id="17_soqeu"]
-[ext_resource type="Texture2D" uid="uid://cinlk52iguwce" path="res://assets/Numbers/11.png" id="18_xh0ii"]
-[ext_resource type="Texture2D" uid="uid://bhbnfc1aysjrj" path="res://assets/Numbers/16.png" id="19_5o6td"]
-[ext_resource type="Texture2D" uid="uid://dh2gxngcwkclm" path="res://assets/Numbers/12.png" id="19_r427g"]
-[ext_resource type="Texture2D" uid="uid://b0m17r1mf6yt" path="res://assets/Numbers/13.png" id="20_20m5l"]
-[ext_resource type="Texture2D" uid="uid://ce10uiu0es4qg" path="res://assets/Numbers/14.png" id="21_5hh3s"]
-[ext_resource type="Texture2D" uid="uid://844v0l1n3xcu" path="res://assets/Numbers/15.png" id="22_lo0pg"]
-[ext_resource type="Texture2D" uid="uid://dd8rpf36i14pv" path="res://assets/Numbers/3.png" id="23_m7cr4"]
-[ext_resource type="Texture2D" uid="uid://4bw2a6k07yd5" path="res://assets/Numbers/4.png" id="24_hj4o2"]
-[ext_resource type="Texture2D" uid="uid://catbaw14inwwe" path="res://assets/Numbers/5.png" id="25_vjjlx"]
-[ext_resource type="Texture2D" uid="uid://b3htdyhraee8a" path="res://assets/Numbers/6.png" id="26_cqi8x"]
-[ext_resource type="Texture2D" uid="uid://hj8jcd7l7iig" path="res://assets/Numbers/7.png" id="27_1dp5b"]
-[ext_resource type="Texture2D" uid="uid://dxafy1fey7wtv" path="res://assets/Numbers/8.png" id="28_sblrm"]
-[ext_resource type="Texture2D" uid="uid://bey8mn0g4kwr8" path="res://assets/Numbers/9.png" id="29_eimfn"]
-[ext_resource type="PackedScene" uid="uid://cnhwf45kagtwd" path="res://Scenes/overlay_tile.tscn" id="29_hur8m"]
-[ext_resource type="Texture2D" uid="uid://cb83e1v5j0yxw" path="res://assets/Numbers/10.png" id="30_h5qa7"]
-[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="31_8lr7v"]
-[ext_resource type="PackedScene" uid="uid://cp1cs34j8r2ok" path="res://help/help_button.tscn" id="31_jlvti"]
-[ext_resource type="Texture2D" uid="uid://bv3ynjodr000g" path="res://assets/OtherAssets/downButton.png" id="31_rflwh"]
-[ext_resource type="Texture2D" uid="uid://cwh6qr2egkar" path="res://assets/OtherAssets/checkButton.png" id="31_w0cmx"]
-[ext_resource type="Script" path="res://help/help.gd" id="32_46k6p"]
-[ext_resource type="Texture2D" uid="uid://bvjiht70yvg23" path="res://assets/OtherAssets/cancelButton.png" id="32_nq18a"]
-[ext_resource type="Texture2D" uid="uid://prsfqbjm7im8" path="res://assets/OtherAssets/upButton.png" id="32_yjerq"]
+[ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_3m3pw"]
+[ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://assets/Water one.png" id="2_u0jj0"]
+[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="3_k5dxt"]
+[ext_resource type="Texture2D" uid="uid://byyrmxcvwua5x" path="res://assets/SandTiles/Tiles1.png" id="4_v2ndf"]
+[ext_resource type="Texture2D" uid="uid://dc0frbdqh4tp3" path="res://assets/SandTiles/Tiles3.png" id="5_v2v5g"]
+[ext_resource type="Texture2D" uid="uid://cspt0b2ade8bf" path="res://assets/SandTiles/Tiles4.png" id="6_dgntp"]
+[ext_resource type="Texture2D" uid="uid://cb7oftst6mnpx" path="res://assets/SandTiles/Tiles5.png" id="7_04fkm"]
+[ext_resource type="Texture2D" uid="uid://b8nybsk7m7mff" path="res://assets/SandTiles/Tiles2 (1).png" id="8_bo2ku"]
+[ext_resource type="Texture2D" uid="uid://d2ans6o8phhs" path="res://assets/CharacterTiles/Clownfish disk1 (1).png" id="9_tj423"]
+[ext_resource type="Texture2D" uid="uid://maisrery10qr" path="res://assets/CharacterTiles/Crab Disk0 (1).png" id="10_cbm5l"]
+[ext_resource type="Texture2D" uid="uid://yu42skovw4q2" path="res://assets/CharacterTiles/Octopus Disk0 (1).png" id="11_ludr2"]
+[ext_resource type="Texture2D" uid="uid://bepqvktbctpk3" path="res://assets/CharacterTiles/Shark disk1 (1).png" id="12_55lks"]
+[ext_resource type="Texture2D" uid="uid://cwgohkycb474x" path="res://assets/Numbers/1.png" id="13_nxtm0"]
+[ext_resource type="Texture2D" uid="uid://ds7eq0sq3sxjr" path="res://assets/Numbers/2.png" id="14_nq7sj"]
+[ext_resource type="Texture2D" uid="uid://cinlk52iguwce" path="res://assets/Numbers/11.png" id="15_aan0j"]
+[ext_resource type="Texture2D" uid="uid://dh2gxngcwkclm" path="res://assets/Numbers/12.png" id="16_ug7r0"]
+[ext_resource type="Texture2D" uid="uid://b0m17r1mf6yt" path="res://assets/Numbers/13.png" id="17_r0xft"]
+[ext_resource type="Texture2D" uid="uid://ce10uiu0es4qg" path="res://assets/Numbers/14.png" id="18_6cg1x"]
+[ext_resource type="Texture2D" uid="uid://844v0l1n3xcu" path="res://assets/Numbers/15.png" id="19_3yy3o"]
+[ext_resource type="Texture2D" uid="uid://bhbnfc1aysjrj" path="res://assets/Numbers/16.png" id="20_loe2h"]
+[ext_resource type="Texture2D" uid="uid://dd8rpf36i14pv" path="res://assets/Numbers/3.png" id="21_5ksko"]
+[ext_resource type="Texture2D" uid="uid://4bw2a6k07yd5" path="res://assets/Numbers/4.png" id="22_jo1fj"]
+[ext_resource type="Texture2D" uid="uid://catbaw14inwwe" path="res://assets/Numbers/5.png" id="23_abl12"]
+[ext_resource type="Texture2D" uid="uid://b3htdyhraee8a" path="res://assets/Numbers/6.png" id="24_pajq4"]
+[ext_resource type="Texture2D" uid="uid://hj8jcd7l7iig" path="res://assets/Numbers/7.png" id="25_s3cde"]
+[ext_resource type="Texture2D" uid="uid://dxafy1fey7wtv" path="res://assets/Numbers/8.png" id="26_jv7gb"]
+[ext_resource type="Texture2D" uid="uid://bey8mn0g4kwr8" path="res://assets/Numbers/9.png" id="27_4ihf0"]
+[ext_resource type="Texture2D" uid="uid://cb83e1v5j0yxw" path="res://assets/Numbers/10.png" id="28_jxqxm"]
+[ext_resource type="PackedScene" uid="uid://cnhwf45kagtwd" path="res://Scenes/overlay_tile.tscn" id="29_0gpd4"]
+[ext_resource type="PackedScene" uid="uid://cp1cs34j8r2ok" path="res://help/help_button.tscn" id="30_bd81s"]
+[ext_resource type="Script" path="res://help/help.gd" id="31_tu1xg"]
+[ext_resource type="Texture2D" uid="uid://cwh6qr2egkar" path="res://assets/OtherAssets/checkButton.png" id="32_ylu3g"]
+[ext_resource type="Texture2D" uid="uid://bvjiht70yvg23" path="res://assets/OtherAssets/cancelButton.png" id="33_lusjc"]
+[ext_resource type="Texture2D" uid="uid://bv3ynjodr000g" path="res://assets/OtherAssets/downButton.png" id="34_vnq8c"]
+[ext_resource type="Texture2D" uid="uid://prsfqbjm7im8" path="res://assets/OtherAssets/upButton.png" id="35_lnkmo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_em2xf"]
-texture = ExtResource("3_i628i")
+texture = ExtResource("4_v2ndf")
 texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5l3iq"]
-texture = ExtResource("4_ivlxu")
+texture = ExtResource("5_v2v5g")
 texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hwq0y"]
-texture = ExtResource("5_s6ei0")
+texture = ExtResource("6_dgntp")
 texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2jd2"]
-texture = ExtResource("6_fw2e7")
+texture = ExtResource("7_04fkm")
 texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2nilv"]
-texture = ExtResource("7_hauh5")
+texture = ExtResource("8_bo2ku")
 texture_region_size = Vector2i(600, 520)
 0:0/0 = 0
 
@@ -73,22 +73,22 @@ sources/4 = SubResource("TileSetAtlasSource_h2jd2")
 sources/5 = SubResource("TileSetAtlasSource_2nilv")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocjaf"]
-texture = ExtResource("8_p5cit")
+texture = ExtResource("9_tj423")
 texture_region_size = Vector2i(400, 400)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n7iet"]
-texture = ExtResource("9_51wn1")
+texture = ExtResource("10_cbm5l")
 texture_region_size = Vector2i(400, 400)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k8bq1"]
-texture = ExtResource("10_ioss3")
+texture = ExtResource("11_ludr2")
 texture_region_size = Vector2i(400, 400)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7tbx5"]
-texture = ExtResource("11_cghng")
+texture = ExtResource("12_55lks")
 texture_region_size = Vector2i(400, 400)
 0:0/0 = 0
 
@@ -103,82 +103,82 @@ sources/2 = SubResource("TileSetAtlasSource_k8bq1")
 sources/3 = SubResource("TileSetAtlasSource_7tbx5")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_givid"]
-texture = ExtResource("16_d4kvs")
+texture = ExtResource("13_nxtm0")
 texture_region_size = Vector2i(114, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k8vjh"]
-texture = ExtResource("17_soqeu")
+texture = ExtResource("14_nq7sj")
 texture_region_size = Vector2i(226, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_76jmi"]
-texture = ExtResource("18_xh0ii")
+texture = ExtResource("15_aan0j")
 texture_region_size = Vector2i(179, 200)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gy6po"]
-texture = ExtResource("19_r427g")
+texture = ExtResource("16_ug7r0")
 texture_region_size = Vector2i(254, 200)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q6adg"]
-texture = ExtResource("20_20m5l")
+texture = ExtResource("17_r0xft")
 texture_region_size = Vector2i(250, 200)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_351ob"]
-texture = ExtResource("21_5hh3s")
+texture = ExtResource("18_6cg1x")
 texture_region_size = Vector2i(289, 200)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_16svn"]
-texture = ExtResource("22_lo0pg")
+texture = ExtResource("19_3yy3o")
 texture_region_size = Vector2i(253, 200)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q140h"]
-texture = ExtResource("19_5o6td")
+texture = ExtResource("20_loe2h")
 texture_region_size = Vector2i(256, 200)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rn4y6"]
-texture = ExtResource("23_m7cr4")
+texture = ExtResource("21_5ksko")
 texture_region_size = Vector2i(224, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q2fk3"]
-texture = ExtResource("24_hj4o2")
+texture = ExtResource("22_jo1fj")
 texture_region_size = Vector2i(265, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vmefu"]
-texture = ExtResource("25_vjjlx")
+texture = ExtResource("23_abl12")
 texture_region_size = Vector2i(224, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_70ah7"]
-texture = ExtResource("26_cqi8x")
+texture = ExtResource("24_pajq4")
 texture_region_size = Vector2i(229, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o4xno"]
-texture = ExtResource("27_1dp5b")
+texture = ExtResource("25_s3cde")
 texture_region_size = Vector2i(228, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cjvgr"]
-texture = ExtResource("28_sblrm")
+texture = ExtResource("26_jv7gb")
 texture_region_size = Vector2i(235, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cxglc"]
-texture = ExtResource("29_eimfn")
+texture = ExtResource("27_4ihf0")
 texture_region_size = Vector2i(228, 300)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jurln"]
-texture = ExtResource("30_h5qa7")
+texture = ExtResource("28_jxqxm")
 texture_region_size = Vector2i(273, 200)
 0:0/0 = 0
 
@@ -293,9 +293,8 @@ sources/15 = SubResource("TileSetAtlasSource_q140h")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_twghq"]
 
 [node name="Game" type="Node2D"]
-position = Vector2(0, -1)
 scale = Vector2(0.455, 0.455)
-script = ExtResource("1_vno3s")
+script = ExtResource("1_3m3pw")
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -319,7 +318,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.18, 0.18)
 size_flags_horizontal = 0
-texture = ExtResource("3_axe2o")
+texture = ExtResource("2_u0jj0")
 stretch_mode = 4
 
 [node name="Center" type="Control" parent="."]
@@ -331,7 +330,7 @@ size_flags_vertical = 4
 [node name="Camera" type="Camera2D" parent="Center"]
 zoom = Vector2(1.495, 1.495)
 position_smoothing_enabled = true
-script = ExtResource("31_8lr7v")
+script = ExtResource("3_k5dxt")
 
 [node name="BackLayer" type="TileMapLayer" parent="Center"]
 modulate = Color(0.184316, 0.604083, 0.693123, 1)
@@ -400,19 +399,19 @@ theme_override_constants/separation = 40
 [node name="P1 Tiles" type="HBoxContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Control1" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_hur8m")]
+[node name="Control1" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_0gpd4")]
 custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
-[node name="Control2" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_hur8m")]
+[node name="Control2" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_0gpd4")]
 custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
-[node name="Control3" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_hur8m")]
+[node name="Control3" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_0gpd4")]
 custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
-[node name="Control4" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_hur8m")]
+[node name="Control4" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles" instance=ExtResource("29_0gpd4")]
 custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
@@ -421,7 +420,7 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("8_p5cit")
+texture = ExtResource("9_tj423")
 expand_mode = 1
 
 [node name="P2" type="TextureRect" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
@@ -429,25 +428,25 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("10_ioss3")
+texture = ExtResource("11_ludr2")
 expand_mode = 1
 
 [node name="P2 Tiles" type="HBoxContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Control4" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_hur8m")]
+[node name="Control4" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_0gpd4")]
 custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
-[node name="Control3" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_hur8m")]
+[node name="Control3" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_0gpd4")]
 custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
-[node name="Control2" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_hur8m")]
+[node name="Control2" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_0gpd4")]
 custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
-[node name="Control1" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_hur8m")]
+[node name="Control1" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_0gpd4")]
 custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
@@ -457,14 +456,14 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 mouse_filter = 1
 
-[node name="HelpButton" parent="UI Layer/UI/Bottom Right UI" instance=ExtResource("31_jlvti")]
+[node name="HelpButton" parent="UI Layer/UI/Bottom Right UI" instance=ExtResource("30_bd81s")]
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 30
 
 [node name="Win Dialogue" type="Node2D" parent="UI Layer/UI"]
 visible = false
-script = ExtResource("32_46k6p")
+script = ExtResource("31_tu1xg")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI Layer/UI/Win Dialogue"]
 offset_right = 40.0
@@ -531,7 +530,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_rhusn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ux3k8")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_bn088")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_11in0")
-icon = ExtResource("31_w0cmx")
+icon = ExtResource("32_ylu3g")
 
 [node name="CancelButton" type="Button" parent="MovementOverlay"]
 offset_left = 65.0
@@ -550,7 +549,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_njkiw")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_37ua6")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_72ey0")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tcewl")
-icon = ExtResource("32_nq18a")
+icon = ExtResource("33_lusjc")
 
 [node name="MinusButton" type="Button" parent="MovementOverlay"]
 offset_left = -75.0
@@ -570,7 +569,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_pjpjc")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_qp2ns")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rwysv")
 text = "-"
-icon = ExtResource("31_rflwh")
+icon = ExtResource("34_vnq8c")
 
 [node name="PlusButton" type="Button" parent="MovementOverlay"]
 offset_left = -75.0
@@ -590,6 +589,6 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_0efiw")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_h8lul")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_twghq")
 text = "+"
-icon = ExtResource("32_yjerq")
+icon = ExtResource("35_lnkmo")
 
 [connection signal="gui_input" from="UI Layer/UI/Win Dialogue/PanelContainer" to="UI Layer/UI/Win Dialogue" method="_on_toolbar_input"]
