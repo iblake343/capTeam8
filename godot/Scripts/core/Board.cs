@@ -16,8 +16,8 @@ public partial class Board : GodotObject {
 		data = new byte[size];
 		InitBoard(data);
 		}
-	public Board(Board b) {
-		this.data = new List<byte>(b.data).ToArray();
+	public Board(byte[] data) {
+		this.data = new List<byte>(data).ToArray();
 		}
 	public Board Parse(char[] src) {
 		var size = BoardSize();
@@ -28,7 +28,7 @@ public partial class Board : GodotObject {
 		return new Board(data);
 		}
 	public Board Clone() {
-		return new(this);
+		return new(new List<byte>(data).ToArray());
 		}
 	public int CurrentPlayer() {
 		return xCurrentPlayer(data);
