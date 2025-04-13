@@ -60,7 +60,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(1280, 720)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Background/SubViewportContainer/SubViewport"]
@@ -82,8 +82,8 @@ theme_override_font_sizes/font_size = 150
 text = "Atlantic  Attrition"
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(120, 196)
-scale = Vector2(0.123333, 0.0956667)
+position = Vector2(210, 238)
+scale = Vector2(0.2, 0.156)
 texture = ExtResource("2_bd4b0")
 
 [node name="StartGameBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967798"]
@@ -126,10 +126,11 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "tutorial"
+metadata/_edit_use_anchors_ = true
 
 [node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(118, 294)
-scale = Vector2(0.123333, 0.0956667)
+position = Vector2(210, 375)
+scale = Vector2(0.2, 0.156)
 texture = ExtResource("2_bd4b0")
 
 [node name="SettingsBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967799"]
@@ -170,10 +171,11 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Credits"
+metadata/_edit_use_anchors_ = true
 
 [node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(117, 389)
-scale = Vector2(0.123333, 0.0956667)
+position = Vector2(210, 520)
+scale = Vector2(0.2, 0.156)
 texture = ExtResource("2_bd4b0")
 
 [node name="QuitBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967800"]

@@ -25,7 +25,19 @@ public class RandPlayer : Player {
 	}
 	
 	public async Task<int> MoveTokens(Board board) {
+		var options = board.LegalStartStacks();
+		var loc = options[Random.Shared.Next(options.Count)];
 		
+		var dest_options = board.LegalDestLocations(loc);
+		var dest = dest_options[Random.Shared.Next(dest_options.Count)];
+
+		var stack_size = board.At(loc).count;
+		if (stack_size < 2) GD.Print($"stack_size = {stack_size}");
+		var amt = Random.Shared.Next(1,stack_size);
+
+		board.MoveTokens(loc, dest, amt);
+		GD.Print($"Moved {amt} tokens from ({loc.X}, {loc.Y}) to ({dest.X}, {dest.Y})");
+		return 0;
 	}
 
 }

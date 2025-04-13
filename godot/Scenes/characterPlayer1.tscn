@@ -1,13 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://coawf4r6b0ni3"]
+[gd_scene load_steps=31 format=3 uid="uid://djpdru3dox7jy"]
 
-[ext_resource type="Script" path="res://Scripts/Character.cs" id="1_d5kgi"]
-[ext_resource type="Texture2D" uid="uid://dssymgf626cv8" path="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg" id="2_vr5pl"]
-[ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_2irgd"]
-[ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="4_o48re"]
-[ext_resource type="Texture2D" uid="uid://qtaxa6w0sylj" path="res://assets/Clownfish1.png" id="5_5drpt"]
-[ext_resource type="Texture2D" uid="uid://mppe6pdlfd6h" path="res://assets/Crab0.png" id="6_4lbnn"]
-[ext_resource type="Texture2D" uid="uid://bk80y4ooxit5f" path="res://assets/Octopus0.png" id="7_nkq03"]
-[ext_resource type="Texture2D" uid="uid://c2wdhlyoikr3g" path="res://assets/Shark1 (1).png" id="8_n1koy"]
+[ext_resource type="Script" path="res://Scripts/CharacterPlayer1.cs" id="1_xnqic"]
+[ext_resource type="Texture2D" uid="uid://dssymgf626cv8" path="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg" id="2_sfsko"]
+[ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_b15ok"]
+[ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="4_yeh2h"]
+[ext_resource type="Texture2D" uid="uid://qtaxa6w0sylj" path="res://assets/Clownfish1.png" id="5_hvjw2"]
+[ext_resource type="Texture2D" uid="uid://mppe6pdlfd6h" path="res://assets/Crab0.png" id="6_jg71w"]
+[ext_resource type="Texture2D" uid="uid://bk80y4ooxit5f" path="res://assets/Octopus0.png" id="7_q5frg"]
+[ext_resource type="Texture2D" uid="uid://c2wdhlyoikr3g" path="res://assets/Shark1 (1).png" id="8_aq53t"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfkqx"]
 
@@ -31,14 +31,36 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tlkh7"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2d4an"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cqnjv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jij7c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_50w0t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gqdlc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d3l5s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vkdk1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_agcgq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yswex"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f5dps"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ylkth"]
+
 [node name="Node2D" type="Node2D"]
 scale = Vector2(1.5, 1.5)
-script = ExtResource("1_d5kgi")
+script = ExtResource("1_xnqic")
 
 [node name="Coral-reef-background-wnbdw3Mzqnjgwlzz" type="Sprite2D" parent="."]
-position = Vector2(643.333, 359.5)
-scale = Vector2(0.670139, 0.665741)
-texture = ExtResource("2_vr5pl")
+position = Vector2(641.333, 359.5)
+scale = Vector2(0.668056, 0.665741)
+texture = ExtResource("2_sfsko")
 
 [node name="Label" type="Label" parent="Coral-reef-background-wnbdw3Mzqnjgwlzz"]
 offset_left = -850.414
@@ -47,30 +69,30 @@ offset_right = 306.586
 offset_bottom = -257.933
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_2irgd")
+theme_override_fonts/font = ExtResource("3_b15ok")
 theme_override_font_sizes/font_size = 150
-text = "Player One Choose Your Character
+text = "Player two Choose Your Character
 "
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="."]
 position = Vector2(203, 361)
 scale = Vector2(0.0938333, 0.396667)
-texture = ExtResource("4_o48re")
+texture = ExtResource("4_yeh2h")
 
 [node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="."]
 position = Vector2(476, 369)
 scale = Vector2(0.0938333, 0.396667)
-texture = ExtResource("4_o48re")
+texture = ExtResource("4_yeh2h")
 
 [node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="."]
 position = Vector2(757, 362)
 scale = Vector2(0.0938333, 0.396667)
-texture = ExtResource("4_o48re")
+texture = ExtResource("4_yeh2h")
 
 [node name="—pngtree—buttonStone6967801" type="Sprite2D" parent="."]
 position = Vector2(1052, 376)
 scale = Vector2(0.0938333, 0.396667)
-texture = ExtResource("4_o48re")
+texture = ExtResource("4_yeh2h")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 125.0
@@ -89,7 +111,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
-icon = ExtResource("5_5drpt")
+icon = ExtResource("5_hvjw2")
 
 [node name="Button2" type="Button" parent="."]
 offset_left = 394.0
@@ -108,7 +130,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
-icon = ExtResource("6_4lbnn")
+icon = ExtResource("6_jg71w")
 
 [node name="Button3" type="Button" parent="."]
 offset_left = 680.0
@@ -127,7 +149,7 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
-icon = ExtResource("7_nkq03")
+icon = ExtResource("7_q5frg")
 
 [node name="Button4" type="Button" parent="."]
 offset_left = 974.0
@@ -146,9 +168,39 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
-icon = ExtResource("8_n1koy")
+icon = ExtResource("8_aq53t")
+
+[node name="—pngtree—buttonStone6967802" type="Sprite2D" parent="."]
+position = Vector2(125.333, 662)
+scale = Vector2(0.0823934, 0.0636892)
+texture = ExtResource("4_yeh2h")
+
+[node name="QuitBtn" type="Button" parent="—pngtree—buttonStone6967802"]
+offset_left = -633.088
+offset_top = -227.248
+offset_right = 709.912
+offset_bottom = 284.752
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_b15ok")
+theme_override_font_sizes/font_size = 500
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2d4an")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_cqnjv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_jij7c")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_50w0t")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_gqdlc")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_d3l5s")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vkdk1")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_agcgq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yswex")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_f5dps")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ylkth")
+text = "Back"
 
 [connection signal="pressed" from="Button" to="." method="OnButtonPressed"]
 [connection signal="pressed" from="Button2" to="." method="OnButton2Pressed"]
 [connection signal="pressed" from="Button3" to="." method="OnButton3Pressed"]
 [connection signal="pressed" from="Button4" to="." method="OnButton4Pressed"]
+[connection signal="pressed" from="—pngtree—buttonStone6967802/QuitBtn" to="." method="on_quit_btn_pressed"]
