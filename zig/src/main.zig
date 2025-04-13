@@ -9,10 +9,22 @@ pub fn main() !void {
 
     var board: Board = .{};
 
+    var gpa_impl: std.heap.GeneralPurposeAllocator(.{}) = .init;
+    defer std.debug.assert(gpa_impl.deinit() == .ok);
+    const gpa = gpa_impl.allocator();
+
+    var args = try std.process.argsWithAllocator(gpa);
+    defer args.deinit();
+
+    _ = args.skip();
+    if (args.next()) |src| {
+        board = try .parse(src);
+    }
+
     var maybe_err: ?anyerror = null;
     while (true) {
         const poi = board.pointsOfInterest(&poi_buf);
-        try drawBoard(board, poi, stdout, config);
+        try lib.drawBoard(&board, poi, stdout, config);
 
         if (maybe_err) |err| {
             try stdout.print("error: {s}\n", .{@errorName(err)});
@@ -27,7 +39,7 @@ pub fn main() !void {
             }
             break;
         };
-        const player = board.current_player;
+        const player = board.current_player.?;
 
         try stdout.print("{s} {s}> ", .{ @tagName(player), @tagName(kind) });
         const line = (try stdin.readUntilDelimiterOrEof(&line_buf, '\n')) orelse {
@@ -69,7 +81,7 @@ pub fn drawBoard(board: Board, poi_list: []Location, writer: anytype, color: std
         for (0..w) |dx| {
             const loc = board.location(dx, dy);
 
-            switch (board.get(loc)) {
+            switch (board.cells.get(loc)) {
                 .illegal => {
                     try color.setColor(writer, .dim);
                     if (ixOf(poi_list, loc)) |ix| {
