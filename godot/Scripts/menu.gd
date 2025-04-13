@@ -2,7 +2,6 @@ extends CanvasLayer
 static var background_scene = null
 
 func _ready():
-
 	# Check if background_scene is already in the scene tree
 	if not is_instance_valid(background_scene):
 		background_scene = load("res://Scenes/PersistentBackground.tscn").instantiate()

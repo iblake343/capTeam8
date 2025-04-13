@@ -25,20 +25,17 @@ func _input(event):
 		var delta = event.position - last_mouse_pos
 		position -= delta * drag_speed  # Move the camera based on drag
 		last_mouse_pos = event.position  # Update the last mouse position
+	if event is InputEventMouseButton:
+		if Input.is_key_pressed(KEY_SHIFT):
+			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				var zoom_factor = 1.0
+				zoom_factor = 1 - zoom_step  # Zoom out
+				zoom.x = clamp(zoom.x * zoom_factor, min_zoom, max_zoom)
+				zoom.y = clamp(zoom.y * zoom_factor, min_zoom, max_zoom)
+			elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				var zoom_factor = 1.0
+				zoom_factor = 1 + zoom_step  # Zoom out
 
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-		# Zoom in and out using the scroll wheel
-		var zoom_factor = 1.0
-		zoom_factor = 1 - zoom_step  # Zoom out
-
-		# Apply zoom and clamp each component (x and y) separately
-		zoom.x = clamp(zoom.x * zoom_factor, min_zoom, max_zoom)
-		zoom.y = clamp(zoom.y * zoom_factor, min_zoom, max_zoom)
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP:
-		# Zoom in and out using the scroll wheel
-		var zoom_factor = 1.0
-		zoom_factor = 1 + zoom_step  # Zoom out
-
-		# Apply zoom and clamp each component (x and y) separately
-		zoom.x = clamp(zoom.x * zoom_factor, min_zoom, max_zoom)
-		zoom.y = clamp(zoom.y * zoom_factor, min_zoom, max_zoom)
+				# Apply zoom and clamp each component (x and y) separately
+				zoom.x = clamp(zoom.x * zoom_factor, min_zoom, max_zoom)
+				zoom.y = clamp(zoom.y * zoom_factor, min_zoom, max_zoom)
