@@ -1,6 +1,6 @@
 [gd_scene load_steps=118 format=3 uid="uid://bvkeb6sq5gutb"]
 
-[ext_resource type="Script" uid="uid://cy2bifumku17r" path="res://Scripts/GameScene.cs" id="1_vno3s"]
+[ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
 [ext_resource type="Texture2D" uid="uid://rlu8ecytgr3s" path="res://assets/Background1.png" id="2_wdm6a"]
 [ext_resource type="Texture2D" uid="uid://byyrmxcvwua5x" path="res://assets/SandTiles/Tiles1.png" id="3_i628i"]
 [ext_resource type="Texture2D" uid="uid://dc0frbdqh4tp3" path="res://assets/SandTiles/Tiles3.png" id="4_ivlxu"]
@@ -29,7 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://bey8mn0g4kwr8" path="res://assets/Numbers/9.png" id="29_eimfn"]
 [ext_resource type="PackedScene" uid="uid://cnhwf45kagtwd" path="res://Scenes/overlay_tile.tscn" id="29_hur8m"]
 [ext_resource type="Texture2D" uid="uid://cb83e1v5j0yxw" path="res://assets/Numbers/10.png" id="30_h5qa7"]
-[ext_resource type="Script" uid="uid://bcyddha1n6vr0" path="res://Scripts/camera_2d.gd" id="31_8lr7v"]
+[ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="31_8lr7v"]
 [ext_resource type="Texture2D" uid="uid://bv3ynjodr000g" path="res://assets/OtherAssets/downButton.png" id="31_rflwh"]
 [ext_resource type="Texture2D" uid="uid://cwh6qr2egkar" path="res://assets/OtherAssets/checkButton.png" id="31_w0cmx"]
 [ext_resource type="Texture2D" uid="uid://bvjiht70yvg23" path="res://assets/OtherAssets/cancelButton.png" id="32_nq18a"]
