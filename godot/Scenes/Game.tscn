@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://bvkeb6sq5gutb"]
+[gd_scene load_steps=113 format=3 uid="uid://bvkeb6sq5gutb"]
 
 [ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_vno3s"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://assets/Water one.png" id="3_axe2o"]
@@ -35,7 +35,6 @@
 [ext_resource type="Texture2D" uid="uid://cwh6qr2egkar" path="res://assets/OtherAssets/checkButton.png" id="31_w0cmx"]
 [ext_resource type="Script" path="res://help/help.gd" id="32_46k6p"]
 [ext_resource type="Texture2D" uid="uid://bvjiht70yvg23" path="res://assets/OtherAssets/cancelButton.png" id="32_nq18a"]
-[ext_resource type="Script" path="res://Scenes/escape.gd" id="32_uctug"]
 [ext_resource type="Texture2D" uid="uid://prsfqbjm7im8" path="res://assets/OtherAssets/upButton.png" id="32_yjerq"]
 [ext_resource type="PackedScene" uid="uid://drm4vemkuehrv" path="res://help/help.tscn" id="33_fysoo"]
 
@@ -511,7 +510,6 @@ theme_override_font_sizes/font_size = 30
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = " Quit to Menu "
-script = ExtResource("32_uctug")
 
 [node name="Win Dialogue" type="Node2D" parent="UI Layer/UI"]
 visible = false
