@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://coawf4r6b0ni3"]
 
-[ext_resource type="Script" path="res://Scripts/Character.cs" id="1_d5kgi"]
+[ext_resource type="Script" uid="uid://c4phh7g247os8" path="res://Scripts/Character.cs" id="1_d5kgi"]
 [ext_resource type="Texture2D" uid="uid://dssymgf626cv8" path="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg" id="2_vr5pl"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_2irgd"]
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="4_o48re"]

@@ -1054,6 +1054,11 @@ export fn xGetFrame(board: *const Board, coords: *[4]int) callconv(.C) void {
     };
 }
 
+export fn xParse(board: *Board, src: [*c]u8) callconv(.C) bool {
+    data.* = .parse(std.mem.span(src)) orelse return false;
+    return true;
+}
+
 fn factorDirection(a: Location, b: Location) ?Direction {
     const dx = std.math.order(b[0], a[0]);
     const dy = std.math.order(b[1], a[1]);
