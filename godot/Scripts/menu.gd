@@ -30,7 +30,7 @@ func _on_two_player_btn_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/characterPlayer1.tscn")
 
 func _on_online_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/character.tscn")
+	get_tree().change_scene_to_file("res://Scenes/NetworkChoice.tscn")
 
 func _on_settings_btn_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/settings.tscn")

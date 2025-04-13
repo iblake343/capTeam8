@@ -1,0 +1,154 @@
+[gd_scene load_steps=20 format=3 uid="uid://bfr704mg0l1vc"]
+
+[ext_resource type="Script" path="res://Scripts/Character.cs" id="1_y8daa"]
+[ext_resource type="Texture2D" uid="uid://dssymgf626cv8" path="res://assets/coral-reef-background-wnbdw3mzqnjgwlzz.jpg" id="2_nffkh"]
+[ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_qeaw3"]
+[ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="4_6or6k"]
+[ext_resource type="Texture2D" uid="uid://qtaxa6w0sylj" path="res://assets/Clownfish1.png" id="5_j6wos"]
+[ext_resource type="Texture2D" uid="uid://mppe6pdlfd6h" path="res://assets/Crab0.png" id="6_xsfov"]
+[ext_resource type="Texture2D" uid="uid://bk80y4ooxit5f" path="res://assets/Octopus0.png" id="7_wgcej"]
+[ext_resource type="Texture2D" uid="uid://c2wdhlyoikr3g" path="res://assets/Shark1 (1).png" id="8_paee0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfkqx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bs2ck"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qly5n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jss17"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjbll"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rf2bb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yucmy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u2yb4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bns6h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kkx57"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tlkh7"]
+
+[node name="Node2D" type="Node2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_y8daa")
+
+[node name="Coral-reef-background-wnbdw3Mzqnjgwlzz" type="Sprite2D" parent="."]
+position = Vector2(643.333, 359.5)
+scale = Vector2(0.670139, 0.665741)
+texture = ExtResource("2_nffkh")
+
+[node name="Label" type="Label" parent="Coral-reef-background-wnbdw3Mzqnjgwlzz"]
+offset_left = -850.414
+offset_top = -491.933
+offset_right = 306.586
+offset_bottom = -257.933
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_qeaw3")
+theme_override_font_sizes/font_size = 150
+text = "Player One Choose Your Character
+"
+
+[node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="."]
+position = Vector2(203, 361)
+scale = Vector2(0.0938333, 0.396667)
+texture = ExtResource("4_6or6k")
+
+[node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="."]
+position = Vector2(476, 369)
+scale = Vector2(0.0938333, 0.396667)
+texture = ExtResource("4_6or6k")
+
+[node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="."]
+position = Vector2(757, 362)
+scale = Vector2(0.0938333, 0.396667)
+texture = ExtResource("4_6or6k")
+
+[node name="—pngtree—buttonStone6967801" type="Sprite2D" parent="."]
+position = Vector2(1052, 376)
+scale = Vector2(0.0938333, 0.396667)
+texture = ExtResource("4_6or6k")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 125.0
+offset_top = 296.0
+offset_right = 1625.0
+offset_bottom = 1796.0
+scale = Vector2(0.1, 0.1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lfkqx")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_bs2ck")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qly5n")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_jss17")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_vjbll")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_rf2bb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yucmy")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
+icon = ExtResource("5_j6wos")
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 394.0
+offset_top = 291.0
+offset_right = 1894.0
+offset_bottom = 1791.0
+scale = Vector2(0.1, 0.1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lfkqx")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_bs2ck")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qly5n")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_jss17")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_vjbll")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_rf2bb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yucmy")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
+icon = ExtResource("6_xsfov")
+
+[node name="Button3" type="Button" parent="."]
+offset_left = 680.0
+offset_top = 283.0
+offset_right = 2180.0
+offset_bottom = 1783.0
+scale = Vector2(0.1, 0.1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lfkqx")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_bs2ck")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qly5n")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_jss17")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_vjbll")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_rf2bb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yucmy")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
+icon = ExtResource("7_wgcej")
+
+[node name="Button4" type="Button" parent="."]
+offset_left = 974.0
+offset_top = 296.0
+offset_right = 2474.0
+offset_bottom = 1796.0
+scale = Vector2(0.1, 0.1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lfkqx")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_bs2ck")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qly5n")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_jss17")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_vjbll")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_rf2bb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yucmy")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2yb4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bns6h")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_kkx57")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tlkh7")
+icon = ExtResource("8_paee0")
+
+[connection signal="pressed" from="Button" to="." method="OnButtonPressed"]
+[connection signal="pressed" from="Button2" to="." method="OnButton2Pressed"]
+[connection signal="pressed" from="Button3" to="." method="OnButton3Pressed"]
+[connection signal="pressed" from="Button4" to="." method="OnButton4Pressed"]
