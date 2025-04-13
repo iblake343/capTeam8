@@ -14,6 +14,11 @@ public partial class MultiplayerChoice : CanvasLayer
 	private ENetMultiplayerPeer peer;
 	// Called when the node enters the scene tree for the first time.
 
+	[Export]
+	public PackedScene PlayerFieldScene;
+	[Export] 
+	public PackedScene OpponentFieldScene;
+
 	Label statusLbl;
 	public override void _Ready()
 	{
@@ -48,7 +53,6 @@ public partial class MultiplayerChoice : CanvasLayer
 	{
 		GD.Print("Player Connected: " + id.ToString());
 		statusLbl.Text = "Player  Connected";
-
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -90,11 +94,6 @@ public partial class MultiplayerChoice : CanvasLayer
 
 	}
 
-	public void _on_start_pressed() { 
-		Rpc("startGame");
-        GD.Print("switched scene");
-	}
-
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void startGame() { 
 		// sync button clicks and allow two choices
@@ -102,7 +101,7 @@ public partial class MultiplayerChoice : CanvasLayer
         // coin flip
         // start game
 
-        GetTree().ChangeSceneToFile("res://Scenes/character.tscn");
+        GetTree().ChangeSceneToFile("res://Scenes/ntwrkCharSel.tscn");
 	}
 	
 }
