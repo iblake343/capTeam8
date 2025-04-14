@@ -29,7 +29,6 @@ public partial class CharacterPlayer1 : Node2D
 	private void OnButton3Pressed()
 	{
 		Globals.players[0] = 2;
-		Globals.players[1] = 3;
 		GetTree().ChangeSceneToFile("res://Scenes/characterPlayer2.tscn");
 	}
 
