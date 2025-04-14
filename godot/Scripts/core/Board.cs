@@ -27,6 +27,13 @@ public partial class Board : GodotObject {
 		}
 		return new Board(data);
 		}
+	public Vector2I Center() {
+		var frame = Frame();
+		return new Vector2I(
+			(frame.min.X + frame.max.X) / 2,
+			(frame.min.Y + frame.max.Y) / 2
+		);
+	}
 	public Board Clone() {
 		return new(new List<byte>(data).ToArray());
 		}
