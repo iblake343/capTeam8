@@ -17,13 +17,71 @@ public class AIPlayer : Player {
 	}
 	
 	public async Task<int> PlaceInitialStack(Board board) {
-		var options = board.LegalInitialStackLocations();
-		var ix = Random.Shared.Next(options.Count);
-		var loc = options[ix];
-		board.PlaceInitialStack(loc);
-		GD.Print($"Placed initial stack at ({loc.X}, {loc.Y})");
-		return 0;
+	var options = board.LegalInitialStackLocations();
+	Vector2I center = board.Center(); // midpoint of min/max frame
+
+	int bestScore = int.MinValue;
+	Vector2I bestLoc = options[0];
+
+	foreach (var loc in options) {
+		int reachability = CountReachableEmptyTiles(board, loc, 3); // in 3 moves
+		int distFromCenter = Math.Abs(loc.X - center.X) + Math.Abs(loc.Y - center.Y);
+		int neighborBonus = CountImmediateEmptyNeighbors(board, loc);
+
+		int score = (reachability * 10) + (neighborBonus * 5) - (distFromCenter * 2);
+
+		GD.Print($"📍 {loc} — reach: {reachability}, neighbors: {neighborBonus}, dist: {distFromCenter} => score {score}");
+
+		if (score > bestScore) {
+			bestScore = score;
+			bestLoc = loc;
+		}
 	}
+
+	board.PlaceInitialStack(bestLoc);
+	GD.Print($"✅ Chose initial stack at {bestLoc} with score {bestScore}");
+	return 0;
+}
+private int CountReachableEmptyTiles(Board board, Vector2I start, int maxMoves) {
+	var visited = new HashSet<Vector2I>();
+	var queue = new Queue<(Vector2I pos, int depth)>();
+
+	visited.Add(start);
+	queue.Enqueue((start, 0));
+	int count = 0;
+
+	while (queue.Count > 0) {
+		var (current, depth) = queue.Dequeue();
+
+		if (depth >= maxMoves) continue;
+
+		for (int i = 0; i < 6; i++) {
+			Vector2I neighbor = current + ((Direction)i).Vector();
+
+			if (visited.Contains(neighbor)) continue;
+
+			var cell = board.At(neighbor);
+			if (cell.count != 0) continue; // not an empty tile
+
+			visited.Add(neighbor);
+			queue.Enqueue((neighbor, depth + 1));
+			count++;
+		}
+	}
+
+	return count;
+}
+private int CountImmediateEmptyNeighbors(Board board, Vector2I loc) {
+	int count = 0;
+	for (int i = 0; i < 6; i++) {
+		Vector2I neighbor = loc + ((Direction)i).Vector();
+		if (board.At(neighbor).count == 0)
+			count++;
+	}
+	return count;
+}
+
+
 
 public async Task<int> MoveTokens(Board board) {
 	var options = board.LegalStartStacks();
@@ -85,7 +143,13 @@ private int AlphaBeta(Board board, int depth, int alpha, int beta, bool maximizi
 				for (int amt = 1; amt < stackSize; amt++) {
 					var simBoard = board.Clone();
 					simBoard.MoveTokens(loc, dest, amt);
-					int eval = AlphaBeta(simBoard, depth - 1, alpha, beta, false, aiPlayer);
+
+					// After the AI moves, simulate the opponent's best response
+					int opponentEval = SimulateOpponentMove(simBoard, aiPlayer);
+
+					// Combine AI score and opponent's response
+					int eval = AlphaBeta(simBoard, depth - 1, alpha, beta, false, aiPlayer) - opponentEval;
+
 					maxEval = Math.Max(maxEval, eval);
 					alpha = Math.Max(alpha, eval);
 					if (beta <= alpha) break;
@@ -103,7 +167,13 @@ private int AlphaBeta(Board board, int depth, int alpha, int beta, bool maximizi
 				for (int amt = 1; amt < stackSize; amt++) {
 					var simBoard = board.Clone();
 					simBoard.MoveTokens(loc, dest, amt);
-					int eval = AlphaBeta(simBoard, depth - 1, alpha, beta, true, aiPlayer);
+
+					// After the AI moves, simulate the opponent's best response
+					int opponentEval = SimulateOpponentMove(simBoard, aiPlayer);
+
+					// Combine AI score and opponent's response
+					int eval = AlphaBeta(simBoard, depth - 1, alpha, beta, true, aiPlayer) + opponentEval;
+
 					minEval = Math.Min(minEval, eval);
 					beta = Math.Min(beta, eval);
 					if (beta <= alpha) break;
@@ -113,6 +183,34 @@ private int AlphaBeta(Board board, int depth, int alpha, int beta, bool maximizi
 		return minEval;
 	}
 }
+private int SimulateOpponentMove(Board simBoard, int aiPlayer) {
+	int opponent = 1 - aiPlayer;  // The opponent is always the opposite player
+	
+	// Get the best possible move for the opponent using a simplified evaluation
+	int bestOpponentScore = int.MinValue;
+
+	var opponentOptions = simBoard.LegalStartStacks();
+	foreach (var loc in opponentOptions) {
+		var destOptions = simBoard.LegalDestLocations(loc);
+		int stackSize = simBoard.At(loc).count;
+
+		foreach (var dest in destOptions) {
+			for (int amt = 1; amt < stackSize; amt++) {
+				var opponentSimBoard = simBoard.Clone();
+				opponentSimBoard.MoveTokens(loc, dest, amt);
+
+				// Evaluate the position after the opponent's move
+				int opponentEval = Evaluate(opponentSimBoard, opponent);
+
+				bestOpponentScore = Math.Max(bestOpponentScore, opponentEval);
+			}
+		}
+	}
+
+	// Return the opponent's best score
+	return bestOpponentScore;
+}
+
 private int Evaluate(Board board, int aiPlayer) {
 	int opponent = 1 - aiPlayer;
 
@@ -189,17 +287,147 @@ for (int x = frame.min.X; x <= frame.max.X; x++) {
 		var destOptions = board.LegalDestLocations(loc);
 		if (destOptions.Count == 0) {
 			// Apply penalty for each additional stranded token
-			strandedPenalty += cell.count - 1;
+			strandedPenalty += 2 * cell.count - 1;
 		}
 	}
 }
 
 score -= 10 * strandedPenalty; // Tweak multiplier as needed
 
+//Add area control awareness
+score += AreaControlBonus(board, aiPlayer);
 
 	return score;
 }
+private int AreaControlBonus(Board board, int aiPlayer) {
+	var visited = new HashSet<Vector2I>();
+	int bonus = 0;
+	var frame = board.Frame();
+
+	for (int x = frame.min.X; x <= frame.max.X; x++) {
+		for (int y = frame.min.Y; y <= frame.max.Y; y++) {
+			var start = new Vector2I(x, y);
+			if (visited.Contains(start)) continue;
+
+			var cell = board.At(start);
+			if (cell.count != 0) continue; // not empty
+
+			// Start flood fill of an empty region
+			var region = FloodFillEmptyRegion(board, start, visited);
+			int size = region.Count;
+
+			var (canReachAI, canReachOpponent) = TokensThatCanReach(board, region, aiPlayer);
+			int tokenCount = CountTokensInRegion(board, region, aiPlayer);
+
+			if (canReachAI && !canReachOpponent) {
+				int regionBonus = tokenCount * 3;
+				if (tokenCount == size) regionBonus += size >= 6 ? 20 : 10;
+
+				GD.Print($"✅ AI-only region (size: {size}), tokens: {tokenCount}, bonus: {regionBonus}");
+				bonus += regionBonus;
+			}
+			else if (canReachAI && canReachOpponent) {
+				GD.Print($"⚖️ Shared region (size: {size}) — no bonus");
+			}
+			else if (!canReachAI && canReachOpponent) {
+				GD.Print($"🚫 Opponent-only region (size: {size}) — skipping");
+			}
+			else {
+				GD.Print($"🟨 Inaccessible region (size: {size}) — skipping");
+			}
+		}
+	}
+
+	GD.Print($"🧠 Total area control bonus: {bonus}");
+	return bonus;
+}
+
+private HashSet<Vector2I> FloodFillEmptyRegion(Board board, Vector2I start, HashSet<Vector2I> visited) {
+	var region = new HashSet<Vector2I>();
+	var queue = new Queue<Vector2I>();
+
+	queue.Enqueue(start);
+	visited.Add(start);
+	region.Add(start);
+
+	while (queue.Count > 0) {
+		var current = queue.Dequeue();
+
+		for (int i = 0; i < 6; i++) {
+			Vector2I neighbor = current + ((Direction)i).Vector();
+
+			// Skip if already visited
+			if (visited.Contains(neighbor)) continue;
+
+			// Check if it's empty
+			var cell = board.At(neighbor);
+			if (cell.count != 0) continue; // not an empty tile
+
+			// Add to region and continue search
+			visited.Add(neighbor);
+			region.Add(neighbor);
+			queue.Enqueue(neighbor);
+		}
+	}
+
+	// Debug output to check regions
+	GD.Print($"Flood filled region starting from {start}, total size: {region.Count}");
+
+	return region;
+}
+private (bool canReachAI, bool canReachOpponent) TokensThatCanReach(Board board, HashSet<Vector2I> region, int aiPlayer) {
+	bool canReachAI = false;
+	bool canReachOpponent = false;
+
+	for (int i = 0; i < 2; i++) {
+		if ((i == aiPlayer && canReachAI) || (i != aiPlayer && canReachOpponent)) {
+			continue;
+		}
+
+		var stacks = board.LegalStartStacks();
+		foreach (var loc in stacks) {
+			var cell = board.At(loc);
+			if ((int)cell.color != i || cell.count == 0) continue;
+
+			foreach (var dest in board.LegalDestLocations(loc)) {
+				if (region.Contains(dest)) {
+					// Debug output to see if the AI or opponent can reach a region
+					GD.Print($"🧭 Player {i} can reach region from {loc} to {dest}");
+
+					if (i == aiPlayer) canReachAI = true;
+					else canReachOpponent = true;
+					break;
+				}
+			}
+
+			if ((i == aiPlayer && canReachAI) || (i != aiPlayer && canReachOpponent)) {
+				break;
+			}
+		}
+
+		if (i == aiPlayer && !canReachAI)
+			GD.Print($"❌ AI player {i} cannot reach region");
+		if (i != aiPlayer && !canReachOpponent)
+			GD.Print($"❌ Opponent player {i} cannot reach region");
+	}
+
+	// Print final values to verify
+	GD.Print($"canReachAI: {canReachAI}, canReachOpponent: {canReachOpponent}");
+	return (canReachAI, canReachOpponent);
+}
 
 
+private int CountTokensInRegion(Board board, HashSet<Vector2I> region, int aiPlayer) {
+	int totalTokens = 0;
+
+	foreach (var loc in region) {
+		var cell = board.At(loc);
+		if ((int)cell.color == aiPlayer && cell.count > 0) {
+			totalTokens += cell.count;
+		}
+	}
+
+	return totalTokens;
+}
 
 }
