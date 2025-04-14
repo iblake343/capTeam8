@@ -603,6 +603,7 @@ text = " Exit
 "
 
 [node name="Help" parent="UI Layer/UI" instance=ExtResource("33_fysoo")]
+visible = false
 position = Vector2(2136.5, 831.544)
 
 [node name="MovementOverlay" type="Node2D" parent="."]
