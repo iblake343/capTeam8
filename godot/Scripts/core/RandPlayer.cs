@@ -39,4 +39,5 @@ public class RandPlayer : Player {
 		GD.Print($"Moved {amt} tokens from ({loc.X}, {loc.Y}) to ({dest.X}, {dest.Y})");
 		return 0;
 	}
+
 }

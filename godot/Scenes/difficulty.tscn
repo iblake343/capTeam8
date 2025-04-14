@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://d1jj5hpu5x80c"]
 
 [ext_resource type="Texture2D" uid="uid://7obvt8os7lpe" path="res://assets/group-of-sharks-swimming-in-ocean-background-free-photo.jpg" id="1_a8lqh"]
-[ext_resource type="Script" uid="uid://b40qx3ckx5gge" path="res://Scripts/difficulty.gd" id="1_lm332"]
+[ext_resource type="Script" path="res://Scripts/difficulty.gd" id="1_lm332"]
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="2_un1i3"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="3_c4fk0"]
 [ext_resource type="Script" path="res://Scenes/SetAI.cs" id="5_gnogu"]
@@ -67,9 +67,9 @@ size_flags_horizontal = 0
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_c4fk0")
 theme_override_font_sizes/font_size = 500
 theme_override_styles/focus = SubResource("StyleBoxEmpty_niqas")
@@ -102,8 +102,8 @@ offset_right = -681.354
 offset_bottom = -1159.85
 size_flags_horizontal = 0
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_c4fk0")
 theme_override_font_sizes/font_size = 500
 theme_override_styles/focus = SubResource("StyleBoxEmpty_niqas")
@@ -136,8 +136,8 @@ offset_right = -640.786
 offset_bottom = -1446.85
 size_flags_horizontal = 0
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_c4fk0")
 theme_override_font_sizes/font_size = 500
 theme_override_styles/focus = SubResource("StyleBoxEmpty_niqas")

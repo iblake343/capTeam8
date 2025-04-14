@@ -33,6 +33,12 @@ public partial class Board : GodotObject {
 	public int CurrentPlayer() {
 		return xCurrentPlayer(data);
 		}
+	public int CountStacks(int player) {
+		return xCountStacks(data, player);
+	}
+	public int CountContiguousStacks(int player) {
+		return xCountContiguousStacks(data, player);
+	}
 	public int Winner() {
 		return xWinner(data);
 		}
@@ -144,6 +150,10 @@ public partial class Board : GodotObject {
 	private extern static int xCurrentPlayer(byte[] data);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static int xCountTilesPlaced(byte[] data);
+	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
+	private extern static int xCountStacks(byte[] data, int player);
+	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
+	private extern static int xCountContiguousStacks(byte[] data, int player);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static int xWinner(byte[] data);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
