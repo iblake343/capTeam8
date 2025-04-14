@@ -413,6 +413,20 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 theme_override_constants/separation = 40
 
+[node name="P1 Score" type="HBoxContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ContiguousScore" type="Label" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Score"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 20
+text = "100"
+
+[node name="Score" type="Label" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Score"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "100"
+
 [node name="P1 Tiles" type="HBoxContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
@@ -488,6 +502,20 @@ layout_mode = 2
 [node name="Control1" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles" instance=ExtResource("29_hur8m")]
 custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
+
+[node name="P2 Score" type="HBoxContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Score"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "100"
+
+[node name="ContiguousScore" type="Label" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Score"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 20
+text = "100"
 
 [node name="Node2D" type="Node2D" parent="UI Layer/UI/Bottom UI/MarginContainer"]
 
@@ -576,7 +604,6 @@ position = Vector2(2136.5, 831.544)
 [node name="MovementOverlay" type="Node2D" parent="."]
 visible = false
 position = Vector2(1000, 500)
-scale = Vector2(1, 1)
 
 [node name="FinishButton" type="Button" parent="MovementOverlay"]
 offset_left = 65.0

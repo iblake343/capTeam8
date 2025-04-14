@@ -17,8 +17,6 @@ public partial class Game {
 	public async void StartGame() {
 		while (true) {
 			display.DrawBoard(board);
-			int ix_player = board.CurrentPlayer();
-			Player player = players[ix_player];
 			int k = board.ExpectedMoveKind();
 
 			if (k == -1) {
@@ -30,6 +28,8 @@ public partial class Game {
 				}
 				return;
 			}
+			int ix_player = board.CurrentPlayer();
+			Player player = players[ix_player];
 
 			Console.WriteLine($"{names[ix_player]}'s turn");
 			MoveKind j = (MoveKind) k;

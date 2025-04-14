@@ -58,6 +58,8 @@ public partial class GameScene : Node, Display, Player {
 		TileMapLayer number_layer = GetNode<TileMapLayer>("Center/NumberLayer");
 		var frame = board.Frame();
 		
+		var moveKind = board.ExpectedMoveKind();
+		
 		if (board.CurrentPlayer() == 0) {
 			p1.Outline().SetVisible(true);
 			p2.Outline().SetVisible(false);
@@ -71,8 +73,25 @@ public partial class GameScene : Node, Display, Player {
 			Vector2 center = (base_layer.MapToLocal(frame.min) + base_layer.MapToLocal(frame.max)) * 0.5f;
 			camera.Position = base_layer.ToGlobal(center);
 		}
-		move_camera = board.ExpectedMoveKind() == 0;
+		move_camera = moveKind == 0;
 		
+		if (moveKind == 1) {
+			GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles").Hide();
+			GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles").Hide();
+			
+			// the score displays
+			GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Score").Show();
+			GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Score").Show();
+		}
+		
+		Label P1Score = GetNode<Label>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Score/Score");
+		Label P2Score = GetNode<Label>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Score/Score");
+		Label P1ContScore = GetNode<Label>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Score/ContiguousScore");
+		Label P2ContScore = GetNode<Label>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Score/ContiguousScore");
+		P1Score.Text = board.CountStacks(0).ToString();
+		P2Score.Text = board.CountStacks(1).ToString();
+		P1ContScore.Text = board.CountContiguousStacks(0).ToString();
+		P2ContScore.Text = board.CountContiguousStacks(1).ToString();
 		number_layer.Clear();
 		base_layer.Clear();
 		chip_layer.Clear();
@@ -148,9 +167,6 @@ public partial class GameScene : Node, Display, Player {
 		node.SetScript(GD.Load<Script>("res://Scripts/place_initial_stack.gd"));
 		node = (Node)InstanceFromId(nodeId);
 		game_layer.CallDeferred("add_child", node);
-		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Tiles").Hide();
-		GetNode<HBoxContainer>("UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Tiles").Hide();
-		
 		await ToSignal(GetTree(), "node_removed");
 		return 0;
 	}

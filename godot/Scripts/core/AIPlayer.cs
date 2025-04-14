@@ -27,6 +27,7 @@ public class AIPlayer : Player {
 
 public async Task<int> MoveTokens(Board board)
 {
+	return 0;
 }
 
 }
