@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://betysqbv1b3es"]
 
-[ext_resource type="Script" uid="uid://b24l12nsu1rlr" path="res://Scripts/core/app.gd" id="1_ouome"]
-[ext_resource type="Script" uid="uid://7o0a5eq7os25" path="res://Scripts/core/Board.cs" id="2_mq0xf"]
-[ext_resource type="Script" uid="uid://cr54fc0ly741o" path="res://Scripts/core/Game.cs" id="3_ehmet"]
+[ext_resource type="Script" path="res://Scripts/core/app.gd" id="1_ouome"]
+[ext_resource type="Script" path="res://Scripts/core/Board.cs" id="2_mq0xf"]
+[ext_resource type="Script" path="res://Scripts/core/Game.cs" id="3_ehmet"]
 
 [node name="App" type="Node"]
 script = ExtResource("1_ouome")
