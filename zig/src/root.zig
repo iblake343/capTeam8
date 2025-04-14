@@ -1064,7 +1064,10 @@ export fn xCountStacks(board: *const Board, player: int) callconv(.C) int {
 }
 
 export fn xCountContiguousStacks(board: *const Board, player: int) callconv(.C) int {
-    return @intCast(board.scorePlayer(@enumFromInt((player))) % 16);
+    return @intCast(switch (board.scorePlayer(@enumFromInt((player))) % 16) {
+        0 => 16,
+        else => |x| x,
+    });
 }
 
 fn factorDirection(a: Location, b: Location) ?Direction {
