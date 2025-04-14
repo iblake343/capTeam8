@@ -415,6 +415,7 @@ layout_mode = 2
 theme_override_constants/separation = 40
 
 [node name="P1 Score" type="HBoxContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ContiguousScore" type="Label" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P1 Score"]
@@ -505,6 +506,7 @@ custom_minimum_size = Vector2(55, 70)
 layout_mode = 2
 
 [node name="P2 Score" type="HBoxContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Score" type="Label" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer/P2 Score"]

@@ -30,11 +30,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		var tile_pos = highlights.local_to_map(mouse_pos)
 		if game.board.PlaceTile(tile_pos, dir):
 			queue_free()
-
-	# Check if the "R" key is pressed to switch the pattern
+			
 	if event is InputEventKey and event.pressed and event.keycode == Key.KEY_R:
 		cycle_pattern()
-	
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP:
+		if event.shift_pressed:
+			pass 
+		else:
+			cycle_pattern()
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		if event.shift_pressed:
+			pass
+		else:
+			cycle_pattern()
+
 func _exit_tree():
 	highlights.clear()
 

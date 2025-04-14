@@ -8,7 +8,6 @@ func _on_pressed() -> void:
 	if x > 0: $"../../../GameLayer".get_child(0).queue_free()
 	else:
 		get_tree().change_scene_to_file.bind("res://Scenes/menu.tscn").call_deferred()
-		
 
 func to_menu():
 	get_tree().change_scene_to_file.bind("res://Scenes/menu.tscn").call_deferred()
