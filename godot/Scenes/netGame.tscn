@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://cg2vcd6utadgl"]
+[gd_scene load_steps=107 format=3 uid="uid://cg2vcd6utadgl"]
 
 [ext_resource type="Script" path="res://Scripts/GameScene.cs" id="1_3m3pw"]
 [ext_resource type="Texture2D" uid="uid://cga40shp4ll1k" path="res://assets/Water one.png" id="2_u0jj0"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://b8nybsk7m7mff" path="res://assets/SandTiles/Tiles2 (1).png" id="8_bo2ku"]
 [ext_resource type="Texture2D" uid="uid://d2ans6o8phhs" path="res://assets/CharacterTiles/Clownfish disk1 (1).png" id="9_tj423"]
 [ext_resource type="Texture2D" uid="uid://maisrery10qr" path="res://assets/CharacterTiles/Crab Disk0 (1).png" id="10_cbm5l"]
-[ext_resource type="Texture2D" uid="uid://yu42skovw4q2" path="res://assets/CharacterTiles/Octopus Disk0 (1).png" id="11_ludr2"]
 [ext_resource type="Texture2D" uid="uid://bepqvktbctpk3" path="res://assets/CharacterTiles/Shark disk1 (1).png" id="12_55lks"]
 [ext_resource type="Texture2D" uid="uid://cwgohkycb474x" path="res://assets/Numbers/1.png" id="13_nxtm0"]
 [ext_resource type="Texture2D" uid="uid://ds7eq0sq3sxjr" path="res://assets/Numbers/2.png" id="14_nq7sj"]
@@ -83,7 +82,6 @@ texture_region_size = Vector2i(400, 400)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k8bq1"]
-texture = ExtResource("11_ludr2")
 texture_region_size = Vector2i(400, 400)
 0:0/0 = 0
 
@@ -428,7 +426,6 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("11_ludr2")
 expand_mode = 1
 
 [node name="P2 Tiles" type="HBoxContainer" parent="UI Layer/UI/Bottom UI/MarginContainer/HBoxContainer"]

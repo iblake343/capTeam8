@@ -25,33 +25,6 @@ public class AIPlayer : Player {
  		return 0;
  	}
  
- public async Task<int> MoveTokens(Board board)
- {
-	var options = board.LegalInitialStackLocations();
-	Vector2I center = board.Center(); // midpoint of min/max frame
-
-	int bestScore = int.MinValue;
-	Vector2I bestLoc = options[0];
-
-	foreach (var loc in options) {
-		int reachability = CountReachableEmptyTiles(board, loc, 3); // in 3 moves
-		int distFromCenter = Math.Abs(loc.X - center.X) + Math.Abs(loc.Y - center.Y);
-		int neighborBonus = CountImmediateEmptyNeighbors(board, loc);
-
-		int score = (reachability * 10) + (neighborBonus * 5) - (distFromCenter * 2);
-
-		GD.Print($"📍 {loc} — reach: {reachability}, neighbors: {neighborBonus}, dist: {distFromCenter} => score {score}");
-
-		if (score > bestScore) {
-			bestScore = score;
-			bestLoc = loc;
-		}
-	}
-
-	board.PlaceInitialStack(bestLoc);
-	GD.Print($"✅ Chose initial stack at {bestLoc} with score {bestScore}");
-	return 0;
-}
 private int CountReachableEmptyTiles(Board board, Vector2I start, int maxMoves) {
 	var visited = new HashSet<Vector2I>();
 	var queue = new Queue<(Vector2I pos, int depth)>();

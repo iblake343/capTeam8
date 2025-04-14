@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using System.Collections.Generic;
 using Godot;
+using System.Reflection.Metadata;
 
 //using Location = Vector2I;
 //using Cell = (Color color, byte count);
@@ -19,10 +20,14 @@ public partial class Board : GodotObject {
 	public Board(byte[] bytes) {
 		this.data = bytes;
 		}
-	public Board Parse(char[] src) {
+	public static Board Parse(char[] src) {
 		var size = BoardSize();
-		data = new byte[size];
-		if (!xParse(data, src)) {
+		var data = new byte[size];
+		var src_8 = new byte[src.Length];
+		for (int i = 0; i < src.Length; ++i) {
+			src_8[i] = (byte) src[i];
+		}
+		if (!xParse(data, src_8)) {
 			GD.Print("error while parsing Board state");
 		}
 		return new Board(data);
@@ -196,7 +201,7 @@ public partial class Board : GodotObject {
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static bool xGetFrame(byte[] data, int[] coords);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
-	private extern static bool xParse(byte[] data, char[] src);
+	private extern static bool xParse(byte[] data, byte[] src);
 }
 
 public partial class Cell : GodotObject {
