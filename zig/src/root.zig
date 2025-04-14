@@ -1055,7 +1055,7 @@ export fn xGetFrame(board: *const Board, coords: *[4]int) callconv(.C) void {
 }
 
 export fn xParse(board: *Board, src: [*c]u8) callconv(.C) bool {
-    data.* = .parse(std.mem.span(src)) orelse return false;
+    board.* = Board.parse(std.mem.span(src)) catch return false;
     return true;
 }
 
