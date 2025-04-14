@@ -1060,7 +1060,7 @@ export fn xParse(board: *Board, src: [*c]u8) callconv(.C) bool {
 }
 
 export fn xCountStacks(board: *const Board, player: int) callconv(.C) int {
-    return @intCast(@divFloor(board.scorePlayer(@enumFromInt((player))), 16));
+    return @intCast(@min(@divFloor(board.scorePlayer(@enumFromInt((player))), 16), 16));
 }
 
 export fn xCountContiguousStacks(board: *const Board, player: int) callconv(.C) int {
