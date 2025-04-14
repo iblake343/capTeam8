@@ -6,6 +6,7 @@ public interface Display {
 	void DrawBoard(Board board);
 	void DeclareWinner(string name);
 	void DeclareTie();
+	void ExitPremature();
 }
 
 public class TuiDisplay : Display {
@@ -21,4 +22,5 @@ public class TuiDisplay : Display {
 	public void DeclareTie() {
 		GD.Print("The game is tied");
 	}
+	public void ExitPremature() {}
 }

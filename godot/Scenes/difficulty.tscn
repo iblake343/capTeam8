@@ -46,10 +46,10 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_c4fk0")
 theme_override_font_sizes/font_size = 150
-text = "Atlantic  Attrition"
+text = "D IffIC Ulty"
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="."]
-position = Vector2(300, 330)
+position = Vector2(350, 500)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("2_un1i3")
 
@@ -86,7 +86,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_tm1tc")
 text = "EASY"
 
 [node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="."]
-position = Vector2(300, 490)
+position = Vector2(960, 500)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("2_un1i3")
 
@@ -120,7 +120,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_tm1tc")
 text = "Medium"
 
 [node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="."]
-position = Vector2(300, 650)
+position = Vector2(1570, 500)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("2_un1i3")
 
@@ -154,8 +154,8 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_tm1tc")
 text = "Hard"
 
 [node name="—pngtree—buttonStone6967801" type="Sprite2D" parent="."]
-position = Vector2(300, 810)
-scale = Vector2(0.2, 0.156)
+position = Vector2(207, 983)
+scale = Vector2(0.139333, 0.115)
 texture = ExtResource("2_un1i3")
 
 [node name="StartGameBtn3" type="Button" parent="—pngtree—buttonStone6967801"]

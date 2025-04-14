@@ -20,7 +20,7 @@ func _on_visibility_changed() -> void:
 	position = get_parent().size * 0.5;
 
 func _on_main_menu_btn_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/menu.tscn")
+	get_tree().change_scene_to_file.bind("res://Scenes/menu.tscn").call_deferred()
 
 func _on_show_board_btn_pressed() -> void:
 	$"../Win Dialogue".hide()

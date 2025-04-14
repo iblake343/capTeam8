@@ -62,7 +62,7 @@ public partial class MultiplayerChoice : CanvasLayer
 	
 	private void _on_back_btn_pressed()
 	{
-		GetTree().ChangeSceneToFile("res://Scenes/select_net_ai.tscn"); //on back cancel connection for both
+		GetTree().ChangeSceneToFile("res://Scenes/menu.tscn"); //on back cancel connection for both
 	}
 
 	public void _on_host_pressed() { 
@@ -97,9 +97,9 @@ public partial class MultiplayerChoice : CanvasLayer
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void startGame() { 
 		// sync button clicks and allow two choices
-        // host chooses character then p2
-        // coin flip
-        // start game
+		// host chooses character then p2
+		// coin flip
+		// start game
 		//var gameScene = ResourceLoader.Load<PackedScene>("res://Scenes/Game.tscn").Instantiate<Node>();
 		//GetTree().Root.AddChild(gameScene);
 		GetTree().ChangeSceneToFile("res://Scenes/Game.tscn");

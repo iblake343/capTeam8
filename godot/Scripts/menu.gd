@@ -16,7 +16,7 @@ func add_background_scene():
 	# Add background to the root
 	get_tree().root.add_child(background_scene)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# Ensure background animation continues if not playing
 	var animation_player = background_scene.get_node_or_null("AnimationPlayer")
 	if animation_player and not animation_player.is_playing():

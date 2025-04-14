@@ -1,7 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4qx35wd0hvbj"]
+[gd_scene load_steps=16 format=3 uid="uid://c4qx35wd0hvbj"]
 
 [ext_resource type="Script" path="res://Scripts/MultiplayerChoice.cs" id="1_ncd5c"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="2_7wgvj"]
+[ext_resource type="Texture2D" uid="uid://7obvt8os7lpe" path="res://assets/group-of-sharks-swimming-in-ocean-background-free-photo.jpg" id="2_wg7am"]
+[ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="3_uuwkr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qhpf1"]
 
@@ -28,6 +30,11 @@
 [node name="Settings" type="CanvasLayer"]
 script = ExtResource("1_ncd5c")
 
+[node name="Group-of-sharks-swimming-in-ocean-background-free-photo" type="Sprite2D" parent="."]
+position = Vector2(959, 540)
+scale = Vector2(1.30748, 1.10204)
+texture = ExtResource("2_wg7am")
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -36,39 +43,39 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BackBtn" type="Button" parent="Control"]
-layout_mode = 2
-offset_right = 109.0
-offset_bottom = 59.0
-size_flags_horizontal = 0
-theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+[node name="status" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 214.0
+theme_override_colors/font_color = Color(0, 0.482353, 0, 1)
 theme_override_fonts/font = ExtResource("2_7wgvj")
-theme_override_font_sizes/font_size = 60
-theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "Back"
+theme_override_font_sizes/font_size = 200
+text = "NETWORK
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="host" type="Button" parent="Control"]
-layout_mode = 2
-offset_left = 341.0
-offset_top = 430.0
-offset_right = 881.0
-offset_bottom = 730.0
+[node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="Control"]
+position = Vector2(555, 553)
+scale = Vector2(0.2, 0.156)
+texture = ExtResource("3_uuwkr")
+
+[node name="host" type="Button" parent="Control/—pngtree—buttonStone6967799"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.497
+anchor_right = 0.5
+anchor_bottom = 0.497
+offset_left = -2510.0
+offset_top = -1837.0
+offset_right = -495.0
+offset_bottom = -1207.0
 size_flags_horizontal = 4
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_7wgvj")
-theme_override_font_sizes/font_size = 200
+theme_override_font_sizes/font_size = 650
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
@@ -83,17 +90,22 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Host
 "
 
-[node name="join" type="Button" parent="Control"]
-layout_mode = 2
-offset_left = 1109.0
-offset_top = 416.0
-offset_right = 1639.0
-offset_bottom = 731.0
+[node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="Control"]
+position = Vector2(1291, 553)
+scale = Vector2(0.2, 0.156)
+texture = ExtResource("3_uuwkr")
+
+[node name="join" type="Button" parent="Control/—pngtree—buttonStone6967800"]
+offset_left = -830.0
+offset_top = -378.205
+offset_right = 875.0
+offset_bottom = 300.795
 size_flags_horizontal = 4
 theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_7wgvj")
-theme_override_font_sizes/font_size = 200
+theme_override_font_sizes/font_size = 650
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
@@ -108,20 +120,35 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "JOIN
 "
 
-[node name="status" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 695.0
-offset_top = 141.0
-offset_right = 1192.0
-offset_bottom = 371.0
-theme_override_colors/font_color = Color(0, 0.482353, 0, 1)
-theme_override_fonts/font = ExtResource("2_7wgvj")
-theme_override_font_sizes/font_size = 100
-text = "status text
-"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="—pngtree—buttonStone6967801" type="Sprite2D" parent="Control"]
+position = Vector2(207, 983)
+scale = Vector2(0.139333, 0.115)
+texture = ExtResource("3_uuwkr")
 
-[connection signal="pressed" from="Control/BackBtn" to="." method="_on_back_btn_pressed"]
-[connection signal="pressed" from="Control/host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="Control/join" to="." method="_on_join_pressed"]
+[node name="BackBtn" type="Button" parent="Control/—pngtree—buttonStone6967801"]
+offset_left = -1112.0
+offset_top = -522.0
+offset_right = 1041.0
+offset_bottom = 548.0
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7wgvj")
+theme_override_font_sizes/font_size = 650
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
+text = "Back"
+
+[connection signal="pressed" from="Control/—pngtree—buttonStone6967799/host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Control/—pngtree—buttonStone6967800/join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Control/—pngtree—buttonStone6967801/BackBtn" to="." method="_on_back_btn_pressed"]

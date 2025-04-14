@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Godot;
 
 public partial class Game {
 	private Player[] players;
@@ -33,13 +34,16 @@ public partial class Game {
 
 			Console.WriteLine($"{names[ix_player]}'s turn");
 			MoveKind j = (MoveKind) k;
-			if (j == MoveKind.PlaceTile)
-				await Task.Run(() => player.PlaceTile(board));
-			else if (j == MoveKind.PlaceInitialStack)
-				await Task.Run(() => player.PlaceInitialStack(board));
-			else if (j == MoveKind.MoveTokens)
-				await Task.Run(() => player.MoveTokens(board));
+			if (j == MoveKind.PlaceTile) {
+				if (await Task.Run(() => player.PlaceTile(board)) == 1) break;
+			} else if (j == MoveKind.PlaceInitialStack) {
+				if (await Task.Run(() => player.PlaceInitialStack(board)) == 1) break;
+			} else if (j == MoveKind.MoveTokens) {
+				if (await Task.Run(() => player.MoveTokens(board)) == 1) break;
+			}
 		}
+		GD.Print("Game Ended Premeaekjlewrly");
+		display.ExitPremature();
 	}
 }
 

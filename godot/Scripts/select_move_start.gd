@@ -63,14 +63,14 @@ func _unhandled_input(event):
 			var player = game.board.CurrentPlayer()
 			var cell = game.board.At(tile_pos);
 			if state == 0: # pick start location
-				state = 1
-				start_loc = tile_pos
-				if cell.color == player:
+				if cell.color == player and cell.count > 1:
+					state = 1
+					start_loc = tile_pos
 					legal_locations = game.board.LegalDestLocations(start_loc)
 					static_lights.clear()
 					for loc in legal_locations:
 						static_lights.set_cell(loc, 4, Vector2i(0, 0))
-				return
+					return
 
 			if state == 1: # pick end location 
 				if tile_pos == start_loc:

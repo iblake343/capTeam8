@@ -6,6 +6,7 @@ public partial class GameScene : Node, Display, Player {
 	public Board board;
 	public Board GetBoard() {return board;}
 	public Godot.Collections.Array<Texture2D> character_tokens;
+	public bool fail = false;
 	
 	private bool move_camera = false;
 	private Control game_layer;
@@ -149,6 +150,10 @@ public partial class GameScene : Node, Display, Player {
 		}
 	}
 	
+	public void ExitPremature() {
+		GetNode<Node>("UI Layer/UI/Bottom Right UI/VBoxContainer/Escape").Call("to_menu");
+	}
+	
 	public async Task<int> PlaceTile(Board board) {
 		Control node = new();
 		ulong nodeId = node.GetInstanceId();
@@ -157,7 +162,7 @@ public partial class GameScene : Node, Display, Player {
 		game_layer.CallDeferred("add_child", node);
 		await ToSignal(GetTree(), "node_removed");
 		
-		
+		if (fail) return 1;
 		return 0;
 	}
 
@@ -168,6 +173,7 @@ public partial class GameScene : Node, Display, Player {
 		node = (Node)InstanceFromId(nodeId);
 		game_layer.CallDeferred("add_child", node);
 		await ToSignal(GetTree(), "node_removed");
+		if (fail) return 1;
 		return 0;
 	}
 	
@@ -179,6 +185,7 @@ public partial class GameScene : Node, Display, Player {
 		game_layer.CallDeferred("add_child", node);
 		
 		await ToSignal(GetTree(), "node_removed");
+		if (fail) return 1;
 		return 0;
 	}
 	
@@ -191,9 +198,5 @@ public partial class GameScene : Node, Display, Player {
 		if (val <= low) return low;
 		if (val >= high) return high;
 		return val;
-	}
-	private void _on_escape_pressed()
-	{
-		GetTree().ChangeSceneToFile("res://Scenes/menu.tscn");
 	}
 }
