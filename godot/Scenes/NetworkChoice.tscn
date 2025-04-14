@@ -110,10 +110,10 @@ text = "JOIN
 
 [node name="status" type="Label" parent="Control"]
 layout_mode = 0
-offset_left = 695.0
-offset_top = 141.0
-offset_right = 1192.0
-offset_bottom = 371.0
+offset_left = 699.0
+offset_top = 144.0
+offset_right = 1196.0
+offset_bottom = 374.0
 theme_override_colors/font_color = Color(0, 0.482353, 0, 1)
 theme_override_fonts/font = ExtResource("2_7wgvj")
 theme_override_font_sizes/font_size = 100

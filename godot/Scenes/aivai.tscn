@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://br0slwg6njk7y"]
+
+[ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="1_45sjd"]
+[ext_resource type="Script" path="res://Scripts/Aivai.cs" id="1_hduj6"]
+
+[node name="Aivai" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hduj6")
+
+[node name="back" type="Button" parent="."]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 82.0
+theme_override_fonts/font = ExtResource("1_45sjd")
+theme_override_font_sizes/font_size = 75
+text = "Back"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 535.0
+offset_top = 368.0
+offset_right = 1487.0
+offset_bottom = 704.0
+theme_override_fonts/font = ExtResource("1_45sjd")
+theme_override_font_sizes/font_size = 200
+text = "Playing  In 
+Ai Tournament"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]
