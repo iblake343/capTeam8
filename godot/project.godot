@@ -13,7 +13,13 @@ config_version=5
 config/name="capTeam8"
 run/main_scene="res://Scenes/menu.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
-config/icon="res://assets/icon.svg"
+boot_splash/bg_color=Color(0.171897, 0.394681, 0.44622, 1)
+boot_splash/image="res://assets/Shark1 (1).png"
+config/icon="res://assets/Shark1 (1).png"
+
+[autoload]
+
+Music="*res://Scenes/music.tscn"
 
 [display]
 

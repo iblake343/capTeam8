@@ -2,6 +2,8 @@ extends CanvasLayer
 static var background_scene = null
 
 func _ready():
+	if !Music.isPlaying:
+		Music.startSound()
 	# Check if background_scene is already in the scene tree
 	if not is_instance_valid(background_scene):
 		background_scene = load("res://Scenes/PersistentBackground.tscn").instantiate()
@@ -23,13 +25,17 @@ func _process(_delta: float) -> void:
 		animation_player.play("Animation", 0, true)
 
 func _on_online_pressed() -> void:
+	Music.playButtonPress()
 	get_tree().change_scene_to_file.bind("res://Scenes/NetworkChoice.tscn").call_deferred();
 
 func _on_settings_btn_pressed() -> void:
+	Music.playButtonPress()
 	get_tree().change_scene_to_file.bind("res://Scenes/settings.tscn").call_deferred();
 
 func _on_quit_btn_pressed() -> void:
+	Music.playButtonPress()
 	get_tree().quit()
 
 func _on_single_player_btn_pressed() -> void:
+	Music.playButtonPress()
 	get_tree().change_scene_to_file.bind("res://Scenes/LocalSetup.tscn").call_deferred();

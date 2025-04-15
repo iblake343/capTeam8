@@ -1,6 +1,7 @@
 extends Node2D
 
 func _on_exit_button_pressed() -> void:
+	Music.playButtonPress()
 	set_visible(!is_visible())
 
 var button_down = false
@@ -20,10 +21,13 @@ func _on_visibility_changed() -> void:
 	position = get_parent().size * 0.5;
 
 func _on_main_menu_btn_pressed() -> void:
+	Music.playButtonPress()
 	get_tree().change_scene_to_file.bind("res://Scenes/menu.tscn").call_deferred()
 
 func _on_show_board_btn_pressed() -> void:
+	Music.playButtonPress()
 	$"../Win Dialogue".hide()
 
 func _on_exit_btn_pressed() -> void:
+	Music.playButtonPress()
 	get_tree().quit()

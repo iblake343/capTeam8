@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://d21e20r8jje0t"]
+
+[ext_resource type="Script" path="res://Scripts/music.gd" id="1_uo4cf"]
+[ext_resource type="AudioStream" uid="uid://taqcqm84c8o0" path="res://assets/Music/bubble.mp3" id="3_is4jc"]
+[ext_resource type="AudioStream" uid="uid://d2n1m8f080ct4" path="res://assets/Music/Underwater B.mp3" id="3_jltao"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_uo4cf")
+
+[node name="UnderwaterB" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_jltao")
+
+[node name="Bubble" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_is4jc")

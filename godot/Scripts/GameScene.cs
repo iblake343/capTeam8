@@ -49,9 +49,6 @@ public partial class GameScene : Node, Display, Player {
 			},
 			player_names,
 			board, this);
-		GD.Print($"Player 1 is: {Globals.player_kinds[0]}");
-		GD.Print($"Player 2 is: {Globals.player_kinds[1]}");
-		
 		game.StartGame();
 	}
 	

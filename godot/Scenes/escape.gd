@@ -3,6 +3,7 @@ extends Button
 
 
 func _on_pressed() -> void:
+	Music.playButtonPress()
 	$"../../../../..".fail = true;
 	var x = $"../../../GameLayer".get_child_count()
 	if x > 0: $"../../../GameLayer".get_child(0).queue_free()
