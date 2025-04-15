@@ -79,20 +79,20 @@ offset_bottom = 720.0
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_c3pgp")
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 200
 text = "Atlantic  Attrition"
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(210, 238)
-scale = Vector2(0.2, 0.156)
+position = Vector2(320, 330)
+scale = Vector2(0.25, 0.195)
 texture = ExtResource("3_q8its")
 
 [node name="SinglePlayerBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967798"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = -1
+anchor_left = 0.460667
+anchor_top = 0.473
+anchor_right = 0.544667
+anchor_bottom = 0.545667
 offset_left = -2470.0
 offset_top = -1763.0
 offset_right = -550.0
@@ -126,19 +126,20 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "Play"
+text = "L ocal"
+metadata/_edit_use_anchors_ = true
 
 [node name="—pngtree—buttonStone6967802" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(210, 520)
-scale = Vector2(0.2, 0.156)
+position = Vector2(320, 530)
+scale = Vector2(0.25, 0.195)
 texture = ExtResource("3_q8its")
 
 [node name="OnlinePlayerBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967802"]
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_top = 0.461
+anchor_right = 0.533
+anchor_bottom = 0.535333
 offset_left = -2570.0
 offset_top = -1742.0
 offset_right = -543.0
@@ -172,18 +173,19 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "Online"
+text = "Onl ine"
+metadata/_edit_use_anchors_ = true
 
 [node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(210, 667)
-scale = Vector2(0.2, 0.156)
+position = Vector2(320, 730)
+scale = Vector2(0.25, 0.195)
 texture = ExtResource("3_q8its")
 
 [node name="SettingsBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967799"]
 anchors_preset = -1
-anchor_left = 0.501
-anchor_top = 0.5
-anchor_right = 0.501
+anchor_left = 0.468
+anchor_top = 0.485
+anchor_right = 0.534
 anchor_bottom = 0.5
 offset_left = -2484.0
 offset_top = -1824.0
@@ -217,13 +219,14 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Settings"
+metadata/_edit_use_anchors_ = true
 
-[node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(210, 814)
-scale = Vector2(0.2, 0.156)
+[node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="."]
+position = Vector2(1700, 972)
+scale = Vector2(0.15, 0.117)
 texture = ExtResource("3_q8its")
 
-[node name="QuitBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967800"]
+[node name="QuitBtn" type="Button" parent="—pngtree—buttonStone6967800"]
 offset_left = -1045.95
 offset_top = -282.23
 offset_right = 940.054
@@ -233,7 +236,7 @@ theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_c3pgp")
-theme_override_font_sizes/font_size = 500
+theme_override_font_sizes/font_size = 600
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
@@ -255,4 +258,4 @@ metadata/_edit_use_anchors_ = true
 [connection signal="mouse_exited" from="VBoxContainer/—pngtree—buttonStone6967802/OnlinePlayerBtn" to="." method="_on_start_game_btn_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967802/OnlinePlayerBtn" to="." method="_on_online_pressed"]
 [connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967799/SettingsBtn" to="." method="_on_settings_btn_pressed"]
-[connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967800/QuitBtn" to="." method="_on_quit_btn_pressed"]
+[connection signal="pressed" from="—pngtree—buttonStone6967800/QuitBtn" to="." method="_on_quit_btn_pressed"]

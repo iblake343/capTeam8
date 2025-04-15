@@ -50,6 +50,13 @@ public partial class Board : GodotObject {
 		string s = Encoding.UTF8.GetString(bytes.TakeWhile(b => !b.Equals(0)).ToArray());
 		return s;
 	}
+	public void ParseAndDoTurn(string turn) {
+		var bytes = Encoding.ASCII.GetBytes(turn);
+		if(!xParseAndDoTurn(data, bytes)) {
+			GD.Print("error while calling ParseAndDoTurn");
+			GD.Print($"failed state: [{turn}]");
+		}
+	}
 	public Board Clone() {
 		return new(new List<byte>(data).ToArray());
 		}
@@ -215,6 +222,8 @@ public partial class Board : GodotObject {
 	private extern static bool xParse(byte[] data, byte[] src);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static bool xDiffAsString(byte[] board1, byte[] board2, byte[] str);
+	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
+	private extern static bool xParseAndDoTurn(byte[] board1, byte[] turn);
 
 	// stackoverflow 144176
 	private static string cstr_to_string( byte[] data, int code_page) {

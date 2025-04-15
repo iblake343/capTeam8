@@ -58,7 +58,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="Control"]
-position = Vector2(555, 553)
+position = Vector2(593, 449)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("3_uuwkr")
 
@@ -93,7 +93,7 @@ text = "Host
 "
 
 [node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="Control"]
-position = Vector2(1291, 553)
+position = Vector2(1329, 449)
 scale = Vector2(0.2, 0.156)
 texture = ExtResource("3_uuwkr")
 
@@ -151,6 +151,42 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Back"
 
+[node name="—pngtree—buttonStone6967802" type="Sprite2D" parent="Control"]
+position = Vector2(960, 684)
+scale = Vector2(0.2, 0.156)
+texture = ExtResource("3_uuwkr")
+
+[node name="aiBtn" type="Button" parent="Control/—pngtree—buttonStone6967802"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.497
+anchor_right = 0.5
+anchor_bottom = 0.497
+offset_left = -2500.0
+offset_top = -1804.95
+offset_right = -485.0
+offset_bottom = -1174.95
+size_flags_horizontal = 4
+theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7wgvj")
+theme_override_font_sizes/font_size = 550
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
+text = "Ai Tournament
+"
+
 [connection signal="pressed" from="Control/—pngtree—buttonStone6967799/host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Control/—pngtree—buttonStone6967800/join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Control/—pngtree—buttonStone6967801/BackBtn" to="." method="_on_back_btn_pressed"]
+[connection signal="pressed" from="Control/—pngtree—buttonStone6967802/aiBtn" to="." method="_on_ai_btn_pressed"]

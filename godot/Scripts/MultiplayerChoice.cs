@@ -107,20 +107,9 @@ public partial class MultiplayerChoice : CanvasLayer, Player
 		statusLbl.Text = "Joining  Game";
 
 	}
-
-	private int GetOtherPeerId(int myId)
-	{
-		foreach (int id in Multiplayer.GetPeers())
-		{
-			if (id != myId)
-				return id;
-		}
-
-		// If you're the only one, return yourself (or handle as error)
-		GD.PrintErr("No other peers connected.");
-		return myId;
+	public void _on_ai_btn_pressed(){
+		GetTree().ChangeSceneToFile("res://Scenes/aivai.tscn");
 	}
-
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void startGame() { 
 

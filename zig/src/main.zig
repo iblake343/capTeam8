@@ -47,24 +47,27 @@ pub fn main() !void {
         };
 
         var tokens = std.mem.tokenizeAny(u8, line, " \t\r");
-        if (std.ascii.eqlIgnoreCase(tokens.next() orelse "", "quit")) break;
-
-        const turn = Turn.parse(kind, line, poi) catch |err| {
-            maybe_err = err;
-            continue;
-        };
-
-        if (turn != kind) {
-            maybe_err = error.unexpected_move_kind;
-            continue;
-        }
+        const token = tokens.next().?;
+        if (std.ascii.eqlIgnoreCase(token, "quit")) break;
 
         const old: Board = board;
 
-        board.doTurn(turn) catch |err| {
-            maybe_err = err;
-            continue;
-        };
+        try lib.parseAndDoTurn(&board, token);
+
+        // const turn = Turn.parse(kind, line, poi) catch |err| {
+        //     maybe_err = err;
+        //     continue;
+        // };
+
+        // if (turn != kind) {
+        //     maybe_err = error.unexpected_move_kind;
+        //     continue;
+        // }
+
+        // board.doTurn(turn) catch |err| {
+        //     maybe_err = err;
+        //     continue;
+        // };
 
         var str: [31:0]u8 = undefined;
         try lib.diffAsString(&old, &board, &str);

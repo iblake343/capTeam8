@@ -75,6 +75,16 @@ pub const MoveTokensError = error{
 };
 pub const TurnError = PlaceHexesError || PlaceTokensError || MoveTokensError;
 
+fn parseLoc(src: []const u8) !Location {
+    var it = std.mem.splitScalar(u8, src, ',');
+    const x_src = it.next() orelse return error.missing_x_coordinate;
+    const y_src = it.next() orelse return error.missing_y_coordinate;
+    if (it.next() != null) return error.too_many_coordinates;
+    const x = try std.fmt.parseInt(i32, x_src, 10);
+    const y = try std.fmt.parseInt(i32, y_src, 10);
+    return .{ x, y };
+}
+
 pub const Board = struct {
     cells: ModMatrix(max_size, Cell) = .fill(.illegal),
     current_player: ?Player = @enumFromInt(0),
@@ -83,15 +93,6 @@ pub const Board = struct {
     origin: Location = .{ 0, 0 },
     size: @Vector(2, u31) = .{ 0, 0 },
 
-    fn parseLoc(src: []const u8) !Location {
-        var it = std.mem.splitScalar(u8, src, ',');
-        const x_src = it.next() orelse return error.missing_x_coordinate;
-        const y_src = it.next() orelse return error.missing_y_coordinate;
-        if (it.next() != null) return error.too_many_coordinates;
-        const x = try std.fmt.parseInt(i32, x_src, 10);
-        const y = try std.fmt.parseInt(i32, y_src, 10);
-        return .{ x, y };
-    }
     pub fn parse(src_r: []const u8) !Board {
         var board: Board = .{};
         if (src_r.len < 2) {
@@ -1144,9 +1145,42 @@ export fn xParseAndDoTurn(board: *Board, turn_src: *const [M:0]u8) bool {
 }
 
 pub fn parseAndDoTurn(board: *Board, turn_src: []const u8) !void {
-    _ = board;
-    _ = turn_src;
-    return error.not_implemented;
+    var it = std.mem.splitScalar(u8, turn_src, '|');
+    const str1 = it.next() orelse unreachable;
+
+    if (it.next()) |str2| {
+        const str3 = it.next() orelse return error.too_few_pipes;
+        if (it.next()) |str4| {
+            // tile placement
+            std.debug.print(
+                "[{s}] [{s}] [{s}] [{s}]\n",
+                .{ str1, str2, str3, str4 },
+            );
+            std.debug.print("potato", .{});
+            board.addHex(try parseLoc(str1));
+            std.debug.print("potat2o", .{});
+            board.addHex(try parseLoc(str2));
+            std.debug.print("potato3", .{});
+            board.addHex(try parseLoc(str3));
+            std.debug.print("pot4ato", .{});
+            board.addHex(try parseLoc(str4));
+            std.debug.print("pota5to", .{});
+            return;
+        }
+        // is a tile placement
+        const loc1 = try parseLoc(str1);
+        const loc2 = try parseLoc(str3);
+        const amt: Count = @truncate(try std.fmt.parseInt(usize, str2, 10));
+        const dir = factorDirection(loc1, loc2) orelse return error.invalid_direction;
+
+        try board.moveTokens(loc1, dir, amt);
+        return;
+    }
+
+    // is a PlaceInitialStack
+
+    const loc = try parseLoc(str1);
+    try board.placeTokens(loc);
 }
 
 fn factorDirection(a: Location, b: Location) ?Direction {
