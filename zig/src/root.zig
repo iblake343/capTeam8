@@ -978,9 +978,9 @@ fn legalTileArrangements(comptime action: enum { count, get }, b: *const Board, 
     };
 
     switch (action) {
-        .count => return @max(count, 6),
+        .count => return @max(count, 3),
         .get => {
-            if (count == 0) for (0..6) |diri| {
+            if (count == 0) for (0..3) |diri| {
                 options.?[diri] = .{ 0, 0, @intCast(diri) };
             };
         },
