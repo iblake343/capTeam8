@@ -116,6 +116,11 @@ public partial class MultiplayerChoice : CanvasLayer
 		this.Hide(); 
 	}
 
-	
+	private void sendPlayerInfo(string move, int id){ 
+
+		if(Multiplayer.IsServer()) { 
+			Rpc("sendPlayerInfo", move, id);
+		}
+	}
 	
 }

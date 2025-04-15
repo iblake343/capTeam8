@@ -19,8 +19,8 @@ public partial class Aivai : Control
 	{
 		string stateUrl = BASE_URL + "play-state";
 
-		for (int i = 0; i < TEST_IT; i++)
-		//while (INF_LOOP)
+		//for (int i = 0; i < TEST_IT; i++)
+		while (INF_LOOP)
 		{
 			var getStateObj = new
 			{
@@ -60,7 +60,7 @@ public partial class Aivai : Control
 
 				var board_copy = board.Clone();
 				var emk = board.ExpectedMoveKind();
-				Player player = new RandPlayer();
+				Player player = new AIPlayer();
 
 				if (emk == 0) {
 					await player.PlaceTile(board_copy);
