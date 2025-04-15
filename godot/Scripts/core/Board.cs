@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Godot;
 using System.Reflection.Metadata;
+using System.Linq;
+using System.Text;
 
 //using Location = Vector2I;
 //using Cell = (Color color, byte count);
@@ -29,6 +31,7 @@ public partial class Board : GodotObject {
 		}
 		if (!xParse(data, src_8)) {
 			GD.Print("error while parsing Board state");
+			GD.Print($"failed state: [{new string(src)}], length = {src.Length}");
 		}
 		return new Board(data);
 		}
@@ -38,6 +41,21 @@ public partial class Board : GodotObject {
 			(frame.min.X + frame.max.X) / 2,
 			(frame.min.Y + frame.max.Y) / 2
 		);
+	}
+	public static string DiffAsString(Board old, Board newb) {
+		var bytes = new byte[32];
+		xDiffAsString(old.data, newb.data, bytes);
+		
+		// stackoverflow 144176
+		string s = Encoding.UTF8.GetString(bytes.TakeWhile(b => !b.Equals(0)).ToArray());
+		return s;
+	}
+	public void ParseAndDoTurn(string turn) {
+		var bytes = Encoding.ASCII.GetBytes(turn);
+		if(!xParseAndDoTurn(data, bytes)) {
+			GD.Print("error while calling ParseAndDoTurn");
+			GD.Print($"failed state: [{turn}]");
+		}
 	}
 	public Board Clone() {
 		return new(new List<byte>(data).ToArray());
@@ -202,6 +220,20 @@ public partial class Board : GodotObject {
 	private extern static bool xGetFrame(byte[] data, int[] coords);
 	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
 	private extern static bool xParse(byte[] data, byte[] src);
+	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
+	private extern static bool xDiffAsString(byte[] board1, byte[] board2, byte[] str);
+	[DllImport("core.dll", CallingConvention = CallingConvention.Cdecl)]
+	private extern static bool xParseAndDoTurn(byte[] board1, byte[] turn);
+
+	// stackoverflow 144176
+	private static string cstr_to_string( byte[] data, int code_page) {
+		Encoding Enc = Encoding.GetEncoding(code_page);  
+		int inx = Array.FindIndex(data, 0, (x) => x == 0);//search for 0
+		if (inx >= 0)
+		  return (Enc.GetString(data, 0, inx));
+		else 
+		  return (Enc.GetString(data)); 
+	}
 }
 
 public partial class Cell : GodotObject {

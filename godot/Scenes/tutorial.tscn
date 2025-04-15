@@ -97,25 +97,4 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w0dkt")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tv1gp")
 text = "Back"
 
-[node name="Label" type="Label" parent="."]
-offset_left = 343.0
-offset_top = 26.0
-offset_right = 981.0
-offset_bottom = 173.0
-size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("2_mc1pk")
-theme_override_font_sizes/font_size = 150
-text = "Atlantic  Attrition"
-
-[node name="Label2" type="Label" parent="."]
-offset_left = 343.0
-offset_top = 195.0
-offset_right = 981.0
-offset_bottom = 342.0
-size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("2_mc1pk")
-theme_override_font_sizes/font_size = 120
-text = "How To pL ay ?
-"
-
 [connection signal="pressed" from="Background/SubViewportContainer/—pngtree—buttonStone6967800/QuitBtn" to="." method="_on_quit_btn_pressed"]

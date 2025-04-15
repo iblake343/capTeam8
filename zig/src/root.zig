@@ -75,6 +75,16 @@ pub const MoveTokensError = error{
 };
 pub const TurnError = PlaceHexesError || PlaceTokensError || MoveTokensError;
 
+fn parseLoc(src: []const u8) !Location {
+    var it = std.mem.splitScalar(u8, src, ',');
+    const x_src = it.next() orelse return error.missing_x_coordinate;
+    const y_src = it.next() orelse return error.missing_y_coordinate;
+    if (it.next() != null) return error.too_many_coordinates;
+    const x = try std.fmt.parseInt(i32, x_src, 10);
+    const y = try std.fmt.parseInt(i32, y_src, 10);
+    return .{ x, y };
+}
+
 pub const Board = struct {
     cells: ModMatrix(max_size, Cell) = .fill(.illegal),
     current_player: ?Player = @enumFromInt(0),
@@ -83,15 +93,6 @@ pub const Board = struct {
     origin: Location = .{ 0, 0 },
     size: @Vector(2, u31) = .{ 0, 0 },
 
-    fn parseLoc(src: []const u8) !Location {
-        var it = std.mem.splitScalar(u8, src, ',');
-        const x_src = it.next() orelse return error.missing_x_coordinate;
-        const y_src = it.next() orelse return error.missing_y_coordinate;
-        if (it.next() != null) return error.too_many_coordinates;
-        const x = try std.fmt.parseInt(i32, x_src, 10);
-        const y = try std.fmt.parseInt(i32, y_src, 10);
-        return .{ x, y };
-    }
     pub fn parse(src_r: []const u8) !Board {
         var board: Board = .{};
         if (src_r.len < 2) {
@@ -136,7 +137,7 @@ pub const Board = struct {
                     't' => 1,
                     else => return error.invalid_ht,
                 }));
-                const amount = try std.fmt.parseInt(Count, amount_src, 10) - 1;
+                const amount: Count = @truncate(try std.fmt.parseInt(usize, amount_src, 10) - 1);
                 board.cells.at(loc).* = .{ .stack = .{ .color = player, .count = amount } };
             } else {
                 return board;
@@ -219,6 +220,9 @@ pub const Board = struct {
                         list.appendAssumeCapacity(loc);
                     }
                 };
+                if (b.size[0] == 0) {
+                    list.appendAssumeCapacity(splat(0));
+                }
             },
             .place_tokens => {
                 // find all .empty cells on the outside;
@@ -975,9 +979,9 @@ fn legalTileArrangements(comptime action: enum { count, get }, b: *const Board, 
     };
 
     switch (action) {
-        .count => return @max(count, 6),
+        .count => return @max(count, 3),
         .get => {
-            if (count == 0) for (0..6) |diri| {
+            if (count == 0) for (0..3) |diri| {
                 options.?[diri] = .{ 0, 0, @intCast(diri) };
             };
         },
@@ -1069,6 +1073,114 @@ export fn xCountContiguousStacks(board: *const Board, player: int) callconv(.C) 
         0 => if (i == 0) 0 else 16,
         else => |x| x,
     };
+}
+
+const M = "-10,-10|-10,-10|-10,-10|-10,-10".len; // 31
+export fn xDiffAsString(board1: *const Board, board2: *const Board, str: *[M:0]u8) callconv(.C) bool {
+    diffAsString(board1, board2, str) catch return false;
+    return true;
+}
+
+pub fn diffAsString(board1: *const Board, board2: *const Board, str: *[M:0]u8) !void {
+    // assuming that board2 is the new board, its frame must contain board1's frame.
+
+    var poi_buf: [4]Loc = undefined;
+    var fba = std.heap.FixedBufferAllocator.init(ptrCast(&poi_buf));
+    var list = std.ArrayList(Location).initCapacity(fba.allocator(), poi_buf.len) catch unreachable;
+
+    const w, const h = board2.size;
+    for (0..w) |dx| for (0..h) |dy| {
+        const loc = board2.location(dx, dy);
+        if (!eql(board1.cells.get(loc), board2.cells.get(loc))) {
+            try list.append(loc);
+        }
+    };
+
+    // TODO verify that the diff actually makes sense?
+
+    const poi = list.items;
+    switch (poi.len) {
+        0 => return error.no_diff,
+        1 => {
+            // should be a PlaceInitialStack
+            _ = try std.fmt.bufPrintZ(str, "{d},{d}", .{ poi[0][0], poi[0][1] });
+        },
+        2 => {
+            // should be a MoveTokens
+            const src, const dest = if (board1.cells.get(poi[0]) == .empty)
+                .{ poi[1], poi[0] }
+            else
+                .{ poi[0], poi[1] };
+            const amt: usize = 1 + board2.cells.get(dest).stack.count;
+            _ = try std.fmt.bufPrintZ(str, "{d},{d}|{d}|{d},{d}", .{
+                src[0],
+                src[1],
+                amt,
+                dest[0],
+                dest[1],
+            });
+        },
+        4 => {
+            // should be a PlaceTile
+            _ = try std.fmt.bufPrintZ(str, "{d},{d}|{d},{d}|{d},{d}|{d},{d}", .{
+                poi[0][0],
+                poi[0][1],
+                poi[1][0],
+                poi[1][1],
+                poi[2][0],
+                poi[2][1],
+                poi[3][0],
+                poi[3][1],
+            });
+        },
+        // if this happens then the diff is illegal
+        else => return error.weird,
+    }
+}
+
+export fn xParseAndDoTurn(board: *Board, turn_src: *const [M:0]u8) bool {
+    const p: []const u8 = std.mem.span(@as([*:0]const u8, @ptrCast(turn_src)));
+    parseAndDoTurn(board, p) catch return false;
+    return true;
+}
+
+pub fn parseAndDoTurn(board: *Board, turn_src: []const u8) !void {
+    var it = std.mem.splitScalar(u8, turn_src, '|');
+    const str1 = it.next() orelse unreachable;
+
+    if (it.next()) |str2| {
+        const str3 = it.next() orelse return error.too_few_pipes;
+        if (it.next()) |str4| {
+            // tile placement
+            std.debug.print(
+                "[{s}] [{s}] [{s}] [{s}]\n",
+                .{ str1, str2, str3, str4 },
+            );
+            std.debug.print("potato", .{});
+            board.addHex(try parseLoc(str1));
+            std.debug.print("potat2o", .{});
+            board.addHex(try parseLoc(str2));
+            std.debug.print("potato3", .{});
+            board.addHex(try parseLoc(str3));
+            std.debug.print("pot4ato", .{});
+            board.addHex(try parseLoc(str4));
+            std.debug.print("pota5to", .{});
+            return;
+        }
+        // is a tile placement
+        const loc1 = try parseLoc(str1);
+        const loc2 = try parseLoc(str3);
+        const amt: Count = @truncate(try std.fmt.parseInt(usize, str2, 10));
+        const dir = factorDirection(loc1, loc2) orelse return error.invalid_direction;
+
+        try board.moveTokens(loc1, dir, amt);
+        return;
+    }
+
+    // is a PlaceInitialStack
+
+    const loc = try parseLoc(str1);
+    try board.placeTokens(loc);
 }
 
 fn factorDirection(a: Location, b: Location) ?Direction {

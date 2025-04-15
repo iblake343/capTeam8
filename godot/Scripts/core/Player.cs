@@ -108,4 +108,7 @@ public static class DirectionExtensions {
 		Console.WriteLine("error in Direction.Back: out of bounds");
 		return Direction.E;
 	}
+
+	
+
 }

@@ -19,8 +19,11 @@ public partial class Aivai : Control
 	{
 		string stateUrl = BASE_URL + "play-state";
 
-		for (int i = 0; i < TEST_IT; i++)
-		//while (INF_LOOP)
+		var autoloadInstance = GetNode<Node>("/root/Music");
+		autoloadInstance.Call("stopSound");
+
+		//for (int i = 0; i < TEST_IT; i++)
+		while (INF_LOOP)
 		{
 			var getStateObj = new
 			{
@@ -53,10 +56,10 @@ public partial class Aivai : Control
 				int action_id = root.GetProperty("action_id").GetInt32();
 				string state = root.GetProperty("state").GetString();
 
-                char[] cState = state.ToCharArray();
+				char[] cState = state.ToCharArray();
 
-                Board board = Board.Parse(cState);
-                
+				Board board = Board.Parse(cState);
+				
 
 				var board_copy = board.Clone();
 				var emk = board.ExpectedMoveKind();
@@ -70,9 +73,7 @@ public partial class Aivai : Control
 					await player.MoveTokens(board_copy);
 				}
 
-				// TODO implement this
-				// string action = Board.diffAsString(board, board_copy);
-                string action = "(insert action here)";
+				string action = Board.DiffAsString(board, board_copy);
 
 				var actionObj = new
 				{

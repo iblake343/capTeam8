@@ -22,15 +22,17 @@ text = "Back"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 535.0
+offset_left = 530.0
 offset_top = 368.0
-offset_right = 1487.0
-offset_bottom = 704.0
+offset_right = 1482.0
+offset_bottom = 761.0
 theme_override_fonts/font = ExtResource("1_45sjd")
 theme_override_font_sizes/font_size = 200
 text = "Playing  In 
 Ai Tournament"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
