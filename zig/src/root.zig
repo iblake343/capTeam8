@@ -136,7 +136,7 @@ pub const Board = struct {
                     't' => 1,
                     else => return error.invalid_ht,
                 }));
-                const amount = try std.fmt.parseInt(Count, amount_src, 10) - 1;
+                const amount: Count = @truncate(try std.fmt.parseInt(usize, amount_src, 10) - 1);
                 board.cells.at(loc).* = .{ .stack = .{ .color = player, .count = amount } };
             } else {
                 return board;
@@ -1138,9 +1138,15 @@ pub fn diffAsString(board1: *const Board, board2: *const Board, str: *[M:0]u8) !
 }
 
 export fn xParseAndDoTurn(board: *Board, turn_src: *const [M:0]u8) bool {
+    const p: []const u8 = std.mem.span(@as([*:0]const u8, @ptrCast(turn_src)));
+    parseAndDoTurn(board, p) catch return false;
+    return true;
+}
+
+pub fn parseAndDoTurn(board: *Board, turn_src: []const u8) !void {
     _ = board;
     _ = turn_src;
-    return false;
+    return error.not_implemented;
 }
 
 fn factorDirection(a: Location, b: Location) ?Direction {
