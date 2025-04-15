@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 public partial class Aivai : Control
 {
-	private static string BASE_URL = "https://softserve.harding.edu/aivai/"; 
-	private static int TEST_IT = 5; 
-	private static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient(); 
-	private const string PLAYER_NAME = "atat"; 
-	private const string PLAYER_TOKEN = "ufSfW8lxPhirMGdwABK9ubvIaXW2KSBfAjk78ZgQmR8"; 
+	private static string BASE_URL = "https://softserve.harding.edu/aivai/";
+	private static int TEST_IT = 5;
+	private static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+	private const string PLAYER_NAME = "atat";
+	private const string PLAYER_TOKEN = "ufSfW8lxPhirMGdwABK9ubvIaXW2KSBfAjk78ZgQmR8";
 	private const string EVENT = "mirror";
 	private const bool INF_LOOP = true;
 	// Called when the node enters the scene tree for the first time.
@@ -19,8 +19,8 @@ public partial class Aivai : Control
 	{
 		string stateUrl = BASE_URL + "play-state";
 
-		//for (int i = 0; i < TEST_IT; i++)
-		while (INF_LOOP)
+		for (int i = 0; i < TEST_IT; i++)
+		//while (INF_LOOP)
 		{
 			var getStateObj = new
 			{
@@ -53,13 +53,14 @@ public partial class Aivai : Control
 				int action_id = root.GetProperty("action_id").GetInt32();
 				string state = root.GetProperty("state").GetString();
 
-                char[] cState = state.ToCharArray();
+				char[] cState = state.ToCharArray();
 
-                Board board = Board.Parse(cState);
+				Board board = Board.Parse(cState);
+				
 
 				var board_copy = board.Clone();
 				var emk = board.ExpectedMoveKind();
-				Player player = new RandPlayer();
+				Player player = new AIPlayer();
 
 				if (emk == 0) {
 					await player.PlaceTile(board_copy);
@@ -101,6 +102,11 @@ public partial class Aivai : Control
 		Uri uri = new Uri(url);
 		HttpResponseMessage response = await client.PostAsync(uri, content);
 		return response;
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
 	}
 
 	private void _on_back_pressed()
