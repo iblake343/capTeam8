@@ -1,23 +1,12 @@
 using Godot;
-using System;
-using System.Xml.Resolvers;
 
 public partial class MultiplayerChoice : CanvasLayer 
 {
-
 	[Export]
 	private int port = 9999;
-	
 	[Export]
 	private string address = "127.0.0.1";
-
 	private ENetMultiplayerPeer peer;
-
-	//[Export]
-	//public PackedScene PlayerFieldScene;
-	//[Export] 
-	//public PackedScene OpponentFieldScene;
-
 	Label statusLbl;
 	public override void _Ready()
 	{
@@ -25,14 +14,28 @@ public partial class MultiplayerChoice : CanvasLayer
 		Multiplayer.PeerDisconnected += PeerDisconnected;
 		Multiplayer.ConnectedToServer += ConnectedToServer;
 		Multiplayer.ConnectionFailed += ConnectionFailed;
+		Multiplayer.ServerDisconnected += ServerDisconnected;
 
 		statusLbl = GetNode<Label>("Control/status");
 		statusLbl.Text = "Choose to host or join a game";
+	
 	}
 
-	private void ConnectionFailed()
+    private void ServerDisconnected()
+    {
+		if (peer != null)
+		{
+			peer.Close();
+			peer = null;
+		}
+        GD.Print("SERVER DISCONNECTED");
+		Multiplayer.MultiplayerPeer = null;
+    }
+
+    private void ConnectionFailed()
 	{
 		GD.Print("CONNECTION FAILED");
+		//Multiplayer.MultiplayerPeer = null;	
 	}
 
 	private void ConnectedToServer()
@@ -52,37 +55,48 @@ public partial class MultiplayerChoice : CanvasLayer
 		statusLbl.Text = "Player  Connected";
 		Rpc("startGame");
 	}
-
-	public override void _Process(double delta)
-	{
-	}
 	
 	private void _on_back_btn_pressed()
 	{
-		Callable.From(() => {GetTree().ChangeSceneToFile("res://Scenes/menu.tscn");}).CallDeferred();
+		if (peer != null)
+		{
+			peer.Close();
+			peer = null;
+		}
 		Multiplayer.MultiplayerPeer = null;
+		Callable.From(() => { GetTree().ChangeSceneToFile("res://Scenes/menu.tscn"); }).CallDeferred();
 	}
 
-	public void _on_host_pressed() { 
-		peer = new ENetMultiplayerPeer();
-		var error = peer.CreateServer(port, 2);
+	public void _on_host_pressed() {
 
-		if (error != Error.Ok) { 
+		if (peer != null)
+		{
+			peer.Close();
+			peer = null;
+		}
+		Multiplayer.MultiplayerPeer = null;
+
+		peer = new ENetMultiplayerPeer();
+		var error = peer.CreateServer(port, 2); 
+
+		if (error != Error.Ok) {
 			GD.Print("error cannot host! : " + error.ToString());
+			peer = null;
+			return;
 		}
 
 		peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
 
+
 		Multiplayer.MultiplayerPeer = peer;
 		GD.Print("Waiting For Players");
 		statusLbl.Text = "Waiting  for  players";
-
-
 	}
+
 	
 	public void _on_join_pressed() { 
 		peer = new ENetMultiplayerPeer();
-		peer.CreateClient(address, port);
+		peer.CreateClient(address, port, 0, 0, 2);
 
 		peer.Host.Compress(ENetConnection.CompressionMode.RangeCoder);
 
@@ -94,15 +108,10 @@ public partial class MultiplayerChoice : CanvasLayer
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void startGame() { 
-		// sync button clicks and allow two choices
-		// host chooses character then p2
-		// coin flip
-		// start game
-		
+
 		var gameScene = ResourceLoader.Load<PackedScene>("res://Scenes/Game.tscn").Instantiate<Node>();
 		GetTree().Root.AddChild(gameScene);
 
-		//GetTree().ChangeSceneToFile("res://Scenes/Game.tscn");
 
 		this.Hide(); 
 	}

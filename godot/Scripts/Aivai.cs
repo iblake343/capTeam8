@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 public partial class Aivai : Control
 {
-	private static string BASE_URL = "https://softserve.harding.edu/aivai/";
-	private static int TEST_IT = 5;
-	private static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
-	private const string PLAYER_NAME = "atat";
-	private const string PLAYER_TOKEN = "ufSfW8lxPhirMGdwABK9ubvIaXW2KSBfAjk78ZgQmR8";
+	private static string BASE_URL = "https://softserve.harding.edu/aivai/"; 
+	private static int TEST_IT = 5; 
+	private static System.Net.Http.HttpClient client = new System.Net.Http.HttpClient(); 
+	private const string PLAYER_NAME = "atat"; 
+	private const string PLAYER_TOKEN = "ufSfW8lxPhirMGdwABK9ubvIaXW2KSBfAjk78ZgQmR8"; 
 	private const string EVENT = "mirror";
 	private const bool INF_LOOP = true;
 	// Called when the node enters the scene tree for the first time.
@@ -32,6 +32,7 @@ public partial class Aivai : Control
 			// Get the state
 			GD.Print("Getting state...");
 			HttpResponseMessage stateReponse = await ApiPostAsync(stateUrl, getStateObj);
+			GD.Print("c");
 
 			if ((int)stateReponse.StatusCode == 204)
 			{
@@ -102,13 +103,10 @@ public partial class Aivai : Control
 		var content = new StringContent(json, Encoding.UTF8, "application/json");
 
 		Uri uri = new Uri(url);
+		GD.Print("a");
 		HttpResponseMessage response = await client.PostAsync(uri, content);
+		GD.Print("b");
 		return response;
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 
 	private void _on_back_pressed()

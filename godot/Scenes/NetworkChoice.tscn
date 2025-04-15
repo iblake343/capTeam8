@@ -45,9 +45,11 @@ grow_vertical = 2
 
 [node name="status" type="Label" parent="Control"]
 layout_mode = 0
+offset_top = 70.0
 offset_right = 1920.0
-offset_bottom = 214.0
-theme_override_colors/font_color = Color(0, 0.482353, 0, 1)
+offset_bottom = 284.0
+theme_override_colors/font_color = Color(0.947199, 0.947199, 0.947199, 1)
+theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("2_7wgvj")
 theme_override_font_sizes/font_size = 200
 text = "NETWORK
