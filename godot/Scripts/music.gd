@@ -21,3 +21,14 @@ func placeLand():
 
 func placeChip():
 	$PlaceChip.play()
+
+
+func _on_underwater_a_finished() -> void:
+	$UnderwaterB.play()
+
+func _on_underwater_b_finished() -> void:
+	$UnderwaterC.play()
+
+
+func _on_underwater_c_finished() -> void:
+	$UnderwaterA.play()
