@@ -22,18 +22,14 @@ func _process(_delta: float) -> void:
 	if animation_player and not animation_player.is_playing():
 		animation_player.play("Animation", 0, true)
 
-func _on_single_player_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/difficulty.tscn")
-	
-
-func _on_two_player_btn_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/characterPlayer1.tscn")
-
 func _on_online_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/NetworkChoice.tscn")
+	get_tree().change_scene_to_file.bind("res://Scenes/NetworkChoice.tscn").call_deferred();
 
 func _on_settings_btn_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/settings.tscn")
+	get_tree().change_scene_to_file.bind("res://Scenes/settings.tscn").call_deferred();
 
 func _on_quit_btn_pressed() -> void:
 	get_tree().quit()
+
+func _on_single_player_btn_pressed() -> void:
+	get_tree().change_scene_to_file.bind("res://Scenes/LocalSetup.tscn").call_deferred();
