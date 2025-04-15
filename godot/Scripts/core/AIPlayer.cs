@@ -164,26 +164,31 @@ public async Task<int> MoveTokens(Board board) {
 		int stackSize = board.At(loc).count;
 
 		foreach (var dest in destOptions) {
-			for (int amt = 1; amt < stackSize; amt++) {
-				moveCounter++;
+			int[] splitOptions = { 1, stackSize / 2, stackSize - 1 };
 
-				var simBoard = board.Clone();
-				simBoard.MoveTokens(loc, dest, amt);
+foreach (int amt in splitOptions.Distinct()) {
+	moveCounter++;
 
-				int score = AlphaBeta(simBoard, 2, int.MinValue, int.MaxValue, false, currentPlayer);
-				int splitBias = Math.Abs((stackSize / 2) - amt);
+	var simBoard = board.Clone();
+	simBoard.MoveTokens(loc, dest, amt);
 
-				GD.Print($"#{moveCounter}: {amt} tokens from ({loc.X},{loc.Y}) → ({dest.X},{dest.Y}) | Score: {score}");
+	int score = AlphaBeta(simBoard, 2, int.MinValue, int.MaxValue, false, currentPlayer);
+	int splitBias = Math.Abs((stackSize / 2) - amt);
 
-				// Prefer higher score, then more balanced splits
-				if (score > bestScore || (score == bestScore && splitBias < bestBias)) {
-					bestScore = score;
-					bestSrc = loc;
-					bestDest = dest;
-					bestAmt = amt;
-					bestBias = splitBias;
-				}
-			}
+	GD.Print($"#{moveCounter}: {amt} tokens from ({loc.X},{loc.Y}) → ({dest.X},{dest.Y}) | Score: {score}");
+
+	// Prefer higher score, then more balanced splits
+	if (simBoard.LegalDestLocations(dest).Count == 0 && (stackSize - amt) > 1)
+		score -= (stackSize - amt) * 5;
+
+	if (score > bestScore || (score == bestScore && splitBias < bestBias)) {
+		bestScore = score;
+		bestSrc = loc;
+		bestDest = dest;
+		bestAmt = amt;
+		bestBias = splitBias;
+	}
+}
 		}
 	}
 
@@ -194,73 +199,91 @@ public async Task<int> MoveTokens(Board board) {
 
 
 private int AlphaBeta(Board board, int depth, int alpha, int beta, bool maximizing, int aiPlayer) {
-	if (depth == 0 || board.Winner() != -1 || 
+	if (depth == 0 || board.ExpectedMoveKind() == -1 || 
 		board.CountStacks(aiPlayer) == 0 || board.CountStacks(1 - aiPlayer) == 0) {
 		return Evaluate(board, aiPlayer);
 	}
-
+	//GD.Print($"Depth: {depth}");
 	var options = board.LegalStartStacks();
 	if (options.Count == 0) {
 		return Evaluate(board, aiPlayer);
 	}
 
 	if (maximizing) {
-		int maxEval = int.MinValue;
+	int maxEval = int.MinValue;
+	bool anyMoveMade = false;
 
-		foreach (var loc in options.Where(loc => (int)board.At(loc).color == aiPlayer)) {
-			var destOptions = board.LegalDestLocations(loc);
-			int stackSize = board.At(loc).count;
+	foreach (var loc in options.Where(loc => (int)board.At(loc).color == aiPlayer)) {
+		var destOptions = board.LegalDestLocations(loc);
+		int stackSize = board.At(loc).count;
 
-			foreach (var dest in destOptions) {
-				bool pruned = false;
+		foreach (var dest in destOptions) {
+			bool pruned = false;
 
-				for (int amt = 1; amt < stackSize; amt++) {
-					var simBoard = board.Clone();
-					simBoard.MoveTokens(loc, dest, amt);
+			int[] splitOptions = { 1, stackSize / 2, stackSize - 1 };
 
-					int eval = AlphaBeta(simBoard, depth - 1, alpha, beta, false, aiPlayer);
-					maxEval = Math.Max(maxEval, eval);
-					alpha = Math.Max(alpha, eval);
+foreach (int amt in splitOptions.Distinct()) {
+	var simBoard = board.Clone();
+	simBoard.MoveTokens(loc, dest, amt);
 
-					if (beta <= alpha) {
-						pruned = true;
-						break;
-					}
-				}
-				if (pruned) break;
-			}
-			if (beta <= alpha) break; // Stop checking other source stacks
-		}
-		return maxEval;
-	} else {
-		int minEval = int.MaxValue;
+	int eval = AlphaBeta(simBoard, depth - 1, alpha, beta, false, aiPlayer);
 
-		foreach (var loc in options.Where(loc => (int)board.At(loc).color == 1 - aiPlayer)) {
-			var destOptions = board.LegalDestLocations(loc);
-			int stackSize = board.At(loc).count;
+	maxEval = Math.Max(maxEval, eval);
+	alpha = Math.Max(alpha, eval);
+	anyMoveMade = true;
 
-			foreach (var dest in destOptions) {
-				bool pruned = false;
-
-				for (int amt = 1; amt < stackSize; amt++) {
-					var simBoard = board.Clone();
-					simBoard.MoveTokens(loc, dest, amt);
-
-					int eval = AlphaBeta(simBoard, depth - 1, alpha, beta, true, aiPlayer);
-					minEval = Math.Min(minEval, eval);
-					beta = Math.Min(beta, eval);
-
-					if (beta <= alpha) {
-						pruned = true;
-						break;
-					}
-				}
-				if (pruned) break;
-			}
-			if (beta <= alpha) break; // Stop checking other source stacks
-		}
-		return minEval;
+	if (beta <= alpha) {
+		pruned = true;
+		break;
 	}
+}
+
+
+			if (pruned) break;
+		}
+		if (beta <= alpha) break;
+	}
+
+	return anyMoveMade ? maxEval : Evaluate(board, aiPlayer);
+}
+
+	else {
+	int minEval = int.MaxValue;
+	bool anyMoveMade = false;
+
+	foreach (var loc in options.Where(loc => (int)board.At(loc).color == 1 - aiPlayer)) {
+		var destOptions = board.LegalDestLocations(loc);
+		int stackSize = board.At(loc).count;
+
+		foreach (var dest in destOptions) {
+			bool pruned = false;
+
+			int[] splitOptions = { 1, stackSize / 2, stackSize - 1 };
+
+foreach (int amt in splitOptions.Distinct()) {
+	var simBoard = board.Clone();
+	simBoard.MoveTokens(loc, dest, amt);
+
+	int eval = AlphaBeta(simBoard, depth - 1, alpha, beta, true, aiPlayer);
+
+	minEval = Math.Min(minEval, eval);
+	beta = Math.Min(beta, eval);
+	anyMoveMade = true;
+
+	if (beta <= alpha) {
+		pruned = true;
+		break;
+	}
+}
+
+			if (pruned) break;
+		}
+		if (beta <= alpha) break;
+	}
+
+	return anyMoveMade ? minEval : Evaluate(board, aiPlayer);
+}
+
 }
 
 
@@ -280,6 +303,8 @@ private int Evaluate(Board board, int aiPlayer) {
 	int opponentMobility = 0;
 	int aiStranded = 0;
 	int opponentStranded = 0;
+	int aiReachable = 0;
+	int opponentReachable = 0;
 
 	var allLocs = new List<Vector2I>();
 
@@ -294,6 +319,7 @@ private int Evaluate(Board board, int aiPlayer) {
 			int dist = Math.Abs(loc.X - center.X) + Math.Abs(loc.Y - center.Y);
 			int centerBonus = Math.Max(0, 5 - dist); // 0–5 based on distance
 
+			// Only count reachability for stacks
 			if ((int)cell.color == aiPlayer && cell.count > 0) {
 				aiTilesControlled++;
 				if (cell.count > 1) aiStacks++;
@@ -301,13 +327,21 @@ private int Evaluate(Board board, int aiPlayer) {
 
 				if (board.LegalDestLocations(loc).Count == 0 && cell.count > 1)
 					aiStranded += (cell.count - 1);
-			} else {
+
+				if (cell.count > 1) {
+					aiReachable += CountReachableTilesViaStraightLines(board, loc);
+				}
+			} else if (cell.count > 0) {
 				opponentTilesControlled++;
 				if (cell.count > 1) opponentStacks++;
 				opponentCenterBonus += centerBonus;
 
 				if (board.LegalDestLocations(loc).Count == 0 && cell.count > 1)
 					opponentStranded += (cell.count - 1);
+
+				if (cell.count > 1) {
+					opponentReachable += CountReachableTilesViaStraightLines(board, loc);
+				}
 			}
 		}
 	}
@@ -320,15 +354,40 @@ private int Evaluate(Board board, int aiPlayer) {
 
 	// --- Scoring components ---
 	int score = 0;
-	
+
 	score += 10 * (aiTilesControlled - opponentTilesControlled);
 	score += 2  * (aiStacks - opponentStacks);          // Number of active stacks
 	score += 5  * (aiMobility - opponentMobility);      // Move flexibility
 	score += 3  * (aiContiguous - opponentContiguous);  // Region unity
 	score += 6  * (aiCenterBonus - opponentCenterBonus); // Positioning
-	score -= 3 * (aiStranded);
-	//score += 3 * opponenetStranded;
+	score += 4  * (aiReachable - opponentReachable);    // Reach-based potential
+
+	int isLateGame = (aiTilesControlled + opponentTilesControlled) > 16 ? 1 : 0;
+	score -= (isLateGame == 1 ? 10 : 3) * aiStranded;
+
 	return score;
 }
+
+private int CountReachableTilesViaStraightLines(Board board, Vector2I start) {
+	int count = 0;
+	var visited = new HashSet<Vector2I>();
+
+	for (int i = 0; i < 6; i++) {
+		Direction dir = (Direction)i;
+		Vector2I probe = start + dir.Vector();
+
+		while (true) {
+			var cell = board.At(probe);
+			if (cell.count != 0) break;
+			if (!visited.Add(probe)) break;
+
+			count++;
+			probe += dir.Vector();
+		}
+	}
+
+	return count;
+}
+
 
 }
