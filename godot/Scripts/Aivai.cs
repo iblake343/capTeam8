@@ -57,7 +57,6 @@ public partial class Aivai : Control
                 char[] cState = state.ToCharArray();
 
                 Board board = Board.Parse(cState);
-                
 
 				var board_copy = board.Clone();
 				var emk = board.ExpectedMoveKind();
