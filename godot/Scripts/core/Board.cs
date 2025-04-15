@@ -31,6 +31,7 @@ public partial class Board : GodotObject {
 		}
 		if (!xParse(data, src_8)) {
 			GD.Print("error while parsing Board state");
+			GD.Print($"failed state: [{new string(src)}], length = {src.Length}");
 		}
 		return new Board(data);
 		}
