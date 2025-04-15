@@ -112,7 +112,6 @@ public partial class MultiplayerChoice : CanvasLayer
 		var gameScene = ResourceLoader.Load<PackedScene>("res://Scenes/Game.tscn").Instantiate<Node>();
 		GetTree().Root.AddChild(gameScene);
 
-
 		this.Hide(); 
 	}
 

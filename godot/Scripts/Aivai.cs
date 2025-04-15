@@ -32,7 +32,6 @@ public partial class Aivai : Control
 			// Get the state
 			GD.Print("Getting state...");
 			HttpResponseMessage stateReponse = await ApiPostAsync(stateUrl, getStateObj);
-			GD.Print("c");
 
 			if ((int)stateReponse.StatusCode == 204)
 			{
@@ -60,7 +59,7 @@ public partial class Aivai : Control
 
 				var board_copy = board.Clone();
 				var emk = board.ExpectedMoveKind();
-				Player player = new AIPlayer();
+				Player player = new RandPlayer();
 
 				if (emk == 0) {
 					await player.PlaceTile(board_copy);
@@ -100,9 +99,7 @@ public partial class Aivai : Control
 		var content = new StringContent(json, Encoding.UTF8, "application/json");
 
 		Uri uri = new Uri(url);
-		GD.Print("a");
 		HttpResponseMessage response = await client.PostAsync(uri, content);
-		GD.Print("b");
 		return response;
 	}
 
