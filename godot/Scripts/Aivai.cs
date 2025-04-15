@@ -19,8 +19,8 @@ public partial class Aivai : Control
 	{
 		string stateUrl = BASE_URL + "play-state";
 
-		for (int i = 0; i < TEST_IT; i++)
-		//while (INF_LOOP)
+		//for (int i = 0; i < TEST_IT; i++)
+		while (INF_LOOP)
 		{
 			var getStateObj = new
 			{
