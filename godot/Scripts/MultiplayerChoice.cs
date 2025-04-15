@@ -91,7 +91,9 @@ public partial class MultiplayerChoice : CanvasLayer
 		statusLbl.Text = "Joining  Game";
 
 	}
-
+	public void _on_ai_btn_pressed(){
+		GetTree().ChangeSceneToFile("res://Scenes/aivai.tscn");
+	}
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void startGame() { 
 		// sync button clicks and allow two choices

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbh0f122qauuh"]
+[gd_scene load_steps=10 format=3 uid="uid://dbh0f122qauuh"]
 
 [ext_resource type="Theme" uid="uid://bex27yqorg7r4" path="res://Themes/LocalSetup.tres" id="1_7eowo"]
 [ext_resource type="Texture2D" uid="uid://qtaxa6w0sylj" path="res://assets/Clownfish1.png" id="1_qv3wu"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://mppe6pdlfd6h" path="res://assets/Crab0.png" id="2_n8o7i"]
 [ext_resource type="Script" path="res://Scenes/PlayerSelector.cs" id="2_o3w3k"]
 [ext_resource type="Texture2D" uid="uid://bi8c3e7e8quew" path="res://assets/Octopus1.png" id="3_i4b7t"]
+[ext_resource type="Script" path="res://Scripts/back_btn.gd" id="4_m8twb"]
 [ext_resource type="Texture2D" uid="uid://c2wdhlyoikr3g" path="res://assets/Shark1 (1).png" id="4_v4wku"]
 [ext_resource type="Script" path="res://Scenes/go_to_game.gd" id="7_x2mjg"]
 
@@ -108,6 +109,31 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 45
 text = "Random"
+
+[node name="BackBtn" type="Button" parent="Center/Main/P1"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+toggle_mode = true
+script = ExtResource("4_m8twb")
+
+[node name="Texture" type="Label" parent="Center/Main/P1/BackBtn"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -31.5
+offset_right = 80.0
+offset_bottom = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 45
+text = "Back"
+horizontal_alignment = 1
 
 [node name="Sel1" type="VBoxContainer" parent="Center/Main"]
 layout_mode = 2
@@ -350,4 +376,5 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 45
 text = "Random"
 
+[connection signal="pressed" from="Center/Main/P1/BackBtn" to="Center/Main/P1/BackBtn" method="_on_pressed"]
 [connection signal="pressed" from="Center/Main/Center/StartButton" to="Center/Main/Center/StartButton" method="_on_pressed"]

@@ -1,8 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://7bri14cfy1xv"]
+[gd_scene load_steps=32 format=3 uid="uid://7bri14cfy1xv"]
 
 [ext_resource type="Script" path="res://Scripts/settings.gd" id="1_f8vdq"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="1_xvcih"]
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="2_bd4b0"]
+[ext_resource type="PackedScene" uid="uid://cp1cs34j8r2ok" path="res://help/help_button.tscn" id="4_5epfs"]
+[ext_resource type="Script" path="res://Scripts/tutorial.gd" id="5_i77e8"]
+[ext_resource type="PackedScene" uid="uid://drm4vemkuehrv" path="res://help/help.tscn" id="6_2bjqm"]
 
 [sub_resource type="Environment" id="Environment_2a37o"]
 background_mode = 4
@@ -18,6 +21,28 @@ auto_exposure_max_sensitivity = 1000.0
 
 [sub_resource type="Environment" id="Environment_gpej2"]
 ambient_light_energy = 16.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p01s3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcgyv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wsywm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j1o4y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_abxus"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7csf6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dx82q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lvhdm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_do636"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tqb43"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uxsdg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qhpf1"]
 
@@ -78,67 +103,48 @@ offset_bottom = 720.0
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("1_xvcih")
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 200
 text = "Atlantic  Attrition"
 
 [node name="—pngtree—buttonStone6967798" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(210, 238)
-scale = Vector2(0.2, 0.156)
+position = Vector2(320, 330)
+scale = Vector2(0.25, 0.195)
 texture = ExtResource("2_bd4b0")
 
-[node name="StartGameBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967798"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2570.0
-offset_top = -1742.0
-offset_right = -543.0
-offset_bottom = -1257.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 0
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0.709804, 1)
-theme_override_colors/font_pressed_color = Color(0, 0.8, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+[node name="HelpButton" parent="VBoxContainer/—pngtree—buttonStone6967798" instance=ExtResource("4_5epfs")]
+offset_left = -1052.0
+offset_top = -400.0
+offset_right = 1048.0
+offset_bottom = 349.0
+theme_override_colors/font_hover_color = Color(0, 0.803922, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.705882, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_xvcih")
 theme_override_font_sizes/font_size = 500
-theme_override_styles/focus = SubResource("StyleBoxEmpty_qhpf1")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_jghrc")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_77jec")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_3jndu")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oontr")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_vfs88")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_as5h2")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_u2k6x")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_i6eu4")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
-text = "tutorial"
-metadata/_edit_use_anchors_ = true
+theme_override_styles/focus = SubResource("StyleBoxEmpty_p01s3")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_mcgyv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wsywm")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_j1o4y")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_abxus")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7csf6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dx82q")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_lvhdm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_do636")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_tqb43")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uxsdg")
+script = ExtResource("5_i77e8")
 
 [node name="—pngtree—buttonStone6967799" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(210, 375)
-scale = Vector2(0.2, 0.156)
+position = Vector2(320, 530)
+scale = Vector2(0.25, 0.195)
 texture = ExtResource("2_bd4b0")
 
 [node name="SettingsBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967799"]
 anchors_preset = -1
-anchor_left = 0.501
-anchor_top = 0.5
-anchor_right = 0.501
-anchor_bottom = 0.5
+anchor_left = 0.501027
+anchor_top = 0.483347
+anchor_right = 0.501027
+anchor_bottom = 0.500013
 offset_left = -2484.08
 offset_top = -1824.04
 offset_right = -514.081
@@ -173,12 +179,22 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Credits"
 metadata/_edit_use_anchors_ = true
 
-[node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="VBoxContainer"]
-position = Vector2(210, 520)
-scale = Vector2(0.2, 0.156)
+[node name="BoxContainer" type="BoxContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Help" parent="BoxContainer" instance=ExtResource("6_2bjqm")]
+visible = false
+position = Vector2(929, 584)
+scale = Vector2(2, 2)
+
+[node name="—pngtree—buttonStone6967800" type="Sprite2D" parent="."]
+position = Vector2(1700, 972)
+scale = Vector2(0.15, 0.117)
 texture = ExtResource("2_bd4b0")
 
-[node name="QuitBtn" type="Button" parent="VBoxContainer/—pngtree—buttonStone6967800"]
+[node name="QuitBtn" type="Button" parent="—pngtree—buttonStone6967800"]
 offset_left = -1045.95
 offset_top = -282.23
 offset_right = 940.054
@@ -202,6 +218,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_88f1u")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_x7wps")
 text = "Back"
 
-[connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967798/StartGameBtn" to="." method="_on_start_game_btn_pressed"]
+[connection signal="visibility_changed" from="VBoxContainer/—pngtree—buttonStone6967798/HelpButton" to="VBoxContainer/—pngtree—buttonStone6967798/HelpButton" method="_on_visibility_changed"]
 [connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967799/SettingsBtn" to="." method="_on_settings_btn_pressed"]
-[connection signal="pressed" from="VBoxContainer/—pngtree—buttonStone6967800/QuitBtn" to="." method="_on_quit_btn_pressed"]
+[connection signal="visibility_changed" from="BoxContainer/Help" to="BoxContainer/Help" method="_on_visibility_changed"]
+[connection signal="pressed" from="—pngtree—buttonStone6967800/QuitBtn" to="." method="_on_quit_btn_pressed"]
