@@ -17,8 +17,6 @@ public partial class Aivai : Control
 	// Called when the node enters the scene tree for the first time.
 	public async override void _Ready()
 	{
-		var autoloadInstance = GetNode<Node>("/root/Music");
-		autoloadInstance.Call("stopSound");
 		string stateUrl = BASE_URL + "play-state";
 
 		for (int i = 0; i < TEST_IT; i++)
@@ -62,7 +60,7 @@ public partial class Aivai : Control
 
 				var board_copy = board.Clone();
 				var emk = board.ExpectedMoveKind();
-				Player player = new RandPlayer();
+				Player player = new AIPlayer();
 
 				if (emk == 0) {
 					await player.PlaceTile(board_copy);
@@ -72,9 +70,7 @@ public partial class Aivai : Control
 					await player.MoveTokens(board_copy);
 				}
 
-				// TODO implement this
-				// string action = Board.diffAsString(board, board_copy);
-				string action = "(insert action here)";
+				string action = Board.DiffAsString(board, board_copy);
 
 				var actionObj = new
 				{
@@ -106,6 +102,11 @@ public partial class Aivai : Control
 		Uri uri = new Uri(url);
 		HttpResponseMessage response = await client.PostAsync(uri, content);
 		return response;
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
 	}
 
 	private void _on_back_pressed()
