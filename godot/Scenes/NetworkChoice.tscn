@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://c4qx35wd0hvbj"]
 
-[ext_resource type="Script" path="res://Scripts/MultiplayerChoice.cs" id="1_ncd5c"]
+[ext_resource type="Script" path="res://Scripts/MultiplayerChoice.cs" id="1_sbjuk"]
 [ext_resource type="FontFile" uid="uid://eedpvm14ido6" path="res://card-shark-font/CardSharkRegular-15mj.ttf" id="2_7wgvj"]
 [ext_resource type="Texture2D" uid="uid://7obvt8os7lpe" path="res://assets/group-of-sharks-swimming-in-ocean-background-free-photo.jpg" id="2_wg7am"]
 [ext_resource type="Texture2D" uid="uid://bfy5g86bjcv37" path="res://assets/—Pngtree—button stone_6967798.png" id="3_uuwkr"]
@@ -28,7 +28,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x7wps"]
 
 [node name="Settings" type="CanvasLayer"]
-script = ExtResource("1_ncd5c")
+script = ExtResource("1_sbjuk")
 
 [node name="Group-of-sharks-swimming-in-ocean-background-free-photo" type="Sprite2D" parent="."]
 position = Vector2(959, 540)

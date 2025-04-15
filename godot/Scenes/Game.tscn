@@ -536,7 +536,6 @@ theme_override_constants/separation = 10
 [node name="HelpButton" parent="UI Layer/UI/Bottom Right UI/VBoxContainer" instance=ExtResource("31_jlvti")]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-theme_override_font_sizes/font_size = 30
 
 [node name="Escape" type="Button" parent="UI Layer/UI/Bottom Right UI/VBoxContainer"]
 layout_mode = 2
