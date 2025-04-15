@@ -70,9 +70,7 @@ public partial class Aivai : Control
 					await player.MoveTokens(board_copy);
 				}
 
-				// TODO implement this
-				// string action = Board.diffAsString(board, board_copy);
-                string action = "(insert action here)";
+				string action = Board.DiffAsString(board, board_copy);
 
 				var actionObj = new
 				{
