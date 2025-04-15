@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 public partial class Globals : Node {
-	public static PlayerKind[] player_kinds = new[]{PlayerKind.Human, PlayerKind.Random};
+	public static PlayerKind[] player_kinds = new[]{PlayerKind.Human, PlayerKind.AI};
 	public static int[] players = new[]{1, 2};
 }
 
