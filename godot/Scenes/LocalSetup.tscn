@@ -1,0 +1,353 @@
+[gd_scene load_steps=9 format=3 uid="uid://dbh0f122qauuh"]
+
+[ext_resource type="Theme" uid="uid://bex27yqorg7r4" path="res://Themes/LocalSetup.tres" id="1_7eowo"]
+[ext_resource type="Texture2D" uid="uid://qtaxa6w0sylj" path="res://assets/Clownfish1.png" id="1_qv3wu"]
+[ext_resource type="Texture2D" uid="uid://7obvt8os7lpe" path="res://assets/group-of-sharks-swimming-in-ocean-background-free-photo.jpg" id="1_xx01i"]
+[ext_resource type="Texture2D" uid="uid://mppe6pdlfd6h" path="res://assets/Crab0.png" id="2_n8o7i"]
+[ext_resource type="Script" path="res://Scenes/PlayerSelector.cs" id="2_o3w3k"]
+[ext_resource type="Texture2D" uid="uid://bi8c3e7e8quew" path="res://assets/Octopus1.png" id="3_i4b7t"]
+[ext_resource type="Texture2D" uid="uid://c2wdhlyoikr3g" path="res://assets/Shark1 (1).png" id="4_v4wku"]
+[ext_resource type="Script" path="res://Scenes/go_to_game.gd" id="7_x2mjg"]
+
+[node name="LocalSetup" type="Node2D"]
+
+[node name="Center" type="CenterContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="TextureRect" type="TextureRect" parent="Center"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 2
+texture = ExtResource("1_xx01i")
+
+[node name="Main" type="HBoxContainer" parent="Center"]
+layout_mode = 2
+theme = ExtResource("1_7eowo")
+theme_override_constants/separation = 50
+
+[node name="P1" type="VBoxContainer" parent="Center/Main"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="Center/Main/P1"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="Kind" type="VBoxContainer" parent="Center/Main/P1"]
+layout_mode = 2
+theme = ExtResource("1_7eowo")
+script = ExtResource("2_o3w3k")
+global_property_name = "p1kind"
+
+[node name="Local" type="Button" parent="Center/Main/P1/Kind"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+toggle_mode = true
+
+[node name="Texture" type="Label" parent="Center/Main/P1/Kind/Local"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -31.5
+offset_right = 80.0
+offset_bottom = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 45
+text = "Human"
+
+[node name="AI" type="Button" parent="Center/Main/P1/Kind"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+toggle_mode = true
+
+[node name="Texture" type="Label" parent="Center/Main/P1/Kind/AI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -34.5
+offset_right = 24.0
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "AI"
+
+[node name="Random" type="Button" parent="Center/Main/P1/Kind"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+toggle_mode = true
+
+[node name="Texture" type="Label" parent="Center/Main/P1/Kind/Random"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -31.5
+offset_right = 91.0
+offset_bottom = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 45
+text = "Random"
+
+[node name="Sel1" type="VBoxContainer" parent="Center/Main"]
+layout_mode = 2
+theme_override_constants/separation = 30
+script = ExtResource("2_o3w3k")
+global_property_name = "p1token"
+
+[node name="Clownfish" type="Button" parent="Center/Main/Sel1"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("1_7eowo")
+toggle_mode = true
+
+[node name="Texture" type="TextureRect" parent="Center/Main/Sel1/Clownfish"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 1425.0
+offset_bottom = 1425.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_qv3wu")
+
+[node name="Crab" type="Button" parent="Center/Main/Sel1"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("1_7eowo")
+toggle_mode = true
+
+[node name="Texture" type="TextureRect" parent="Center/Main/Sel1/Crab"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1525.0
+offset_bottom = 1525.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_n8o7i")
+
+[node name="Octopus" type="Button" parent="Center/Main/Sel1"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("1_7eowo")
+toggle_mode = true
+
+[node name="Texture" type="TextureRect" parent="Center/Main/Sel1/Octopus"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1525.0
+offset_bottom = 1525.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_i4b7t")
+
+[node name="Shark" type="Button" parent="Center/Main/Sel1"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("1_7eowo")
+toggle_mode = true
+
+[node name="Texture" type="TextureRect" parent="Center/Main/Sel1/Shark"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1525.0
+offset_bottom = 1525.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_v4wku")
+
+[node name="Center" type="VBoxContainer" parent="Center/Main"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="StartButton" type="Button" parent="Center/Main/Center"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+text = "Start Game"
+script = ExtResource("7_x2mjg")
+
+[node name="DebugSwitch" type="CheckButton" parent="Center/Main/Center"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Allow Any Combination"
+
+[node name="Sel2" type="VBoxContainer" parent="Center/Main"]
+layout_mode = 2
+theme_override_constants/separation = 30
+script = ExtResource("2_o3w3k")
+global_property_name = "p2token"
+
+[node name="Clownfish" type="Button" parent="Center/Main/Sel2"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+toggle_mode = true
+
+[node name="Texture" type="TextureRect" parent="Center/Main/Sel2/Clownfish"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 1425.0
+offset_bottom = 1425.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_qv3wu")
+
+[node name="Crab" type="Button" parent="Center/Main/Sel2"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+toggle_mode = true
+
+[node name="Texture" type="TextureRect" parent="Center/Main/Sel2/Crab"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1525.0
+offset_bottom = 1525.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_n8o7i")
+
+[node name="Octopus" type="Button" parent="Center/Main/Sel2"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+toggle_mode = true
+
+[node name="Texture" type="TextureRect" parent="Center/Main/Sel2/Octopus"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1525.0
+offset_bottom = 1525.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_i4b7t")
+
+[node name="Shark" type="Button" parent="Center/Main/Sel2"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+toggle_mode = true
+
+[node name="Texture" type="TextureRect" parent="Center/Main/Sel2/Shark"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1525.0
+offset_bottom = 1525.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_v4wku")
+
+[node name="P2" type="VBoxContainer" parent="Center/Main"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="Center/Main/P2"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "Player 2"
+horizontal_alignment = 1
+
+[node name="Kind" type="VBoxContainer" parent="Center/Main/P2"]
+layout_mode = 2
+theme = ExtResource("1_7eowo")
+script = ExtResource("2_o3w3k")
+global_property_name = "p2kind"
+
+[node name="Local" type="Button" parent="Center/Main/P2/Kind"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+toggle_mode = true
+
+[node name="Texture" type="Label" parent="Center/Main/P2/Kind/Local"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -31.5
+offset_right = 80.0
+offset_bottom = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 45
+text = "Human"
+
+[node name="AI" type="Button" parent="Center/Main/P2/Kind"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+toggle_mode = true
+
+[node name="Texture" type="Label" parent="Center/Main/P2/Kind/AI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -34.5
+offset_right = 24.0
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "AI"
+
+[node name="Random" type="Button" parent="Center/Main/P2/Kind"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+toggle_mode = true
+
+[node name="Texture" type="Label" parent="Center/Main/P2/Kind/Random"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -31.5
+offset_right = 91.0
+offset_bottom = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 45
+text = "Random"
+
+[connection signal="pressed" from="Center/Main/Center/StartButton" to="Center/Main/Center/StartButton" method="_on_pressed"]
