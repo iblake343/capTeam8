@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/music.gd" id="1_uo4cf"]
 [ext_resource type="AudioStream" uid="uid://taqcqm84c8o0" path="res://assets/Music/bubble.mp3" id="3_is4jc"]
 [ext_resource type="AudioStream" uid="uid://bwu0vhir6by2v" path="res://assets/Music/Underwater B.mp3" id="3_jltao"]
-[ext_resource type="AudioStream" uid="uid://cs0ktnlx188dy" path="res://assets/Sfx/place land.mp3" id="4_mgaxy"]
+[ext_resource type="AudioStream" uid="uid://dbw61j3ovdmup" path="res://assets/Sfx/place land.mp3" id="4_mgaxy"]
 [ext_resource type="AudioStream" uid="uid://bopqln47p0buh" path="res://assets/Sfx/place chip.mp3" id="5_34q6e"]
 [ext_resource type="AudioStream" uid="uid://wpjeqais6u70" path="res://assets/Music/Underwater A.mp3" id="5_gxst3"]
 [ext_resource type="AudioStream" uid="uid://bgabvrrilfjyo" path="res://assets/Music/Underwater C.mp3" id="7_tleml"]
