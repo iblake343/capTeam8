@@ -53,14 +53,14 @@ public partial class Aivai : Control
 				int action_id = root.GetProperty("action_id").GetInt32();
 				string state = root.GetProperty("state").GetString();
 
-                char[] cState = state.ToCharArray();
+				char[] cState = state.ToCharArray();
 
-                Board board = Board.Parse(cState);
-                
+				Board board = Board.Parse(cState);
+				
 
 				var board_copy = board.Clone();
 				var emk = board.ExpectedMoveKind();
-				Player player = new RandPlayer();
+				Player player = new AIPlayer();
 
 				if (emk == 0) {
 					await player.PlaceTile(board_copy);
@@ -70,9 +70,7 @@ public partial class Aivai : Control
 					await player.MoveTokens(board_copy);
 				}
 
-				// TODO implement this
-				// string action = Board.diffAsString(board, board_copy);
-                string action = "(insert action here)";
+				string action = Board.DiffAsString(board, board_copy);
 
 				var actionObj = new
 				{
