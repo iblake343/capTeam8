@@ -24,18 +24,18 @@ public partial class MultiplayerChoice : CanvasLayer, Player
 	
 	}
 
-    private void ServerDisconnected()
-    {
+	private void ServerDisconnected()
+	{
 		if (peer != null)
 		{
 			peer.Close();
 			peer = null;
 		}
-        GD.Print("SERVER DISCONNECTED");
+		GD.Print("SERVER DISCONNECTED");
 		Multiplayer.MultiplayerPeer = null;
-    }
+	}
 
-    private void ConnectionFailed()
+	private void ConnectionFailed()
 	{
 		GD.Print("CONNECTION FAILED");
 		//Multiplayer.MultiplayerPeer = null;	
@@ -107,6 +107,16 @@ public partial class MultiplayerChoice : CanvasLayer, Player
 		statusLbl.Text = "Joining  Game";
 
 	}
+
+	private int GetOtherPeerId(int currentId)
+	{
+		foreach (int id in Multiplayer.GetPeers())
+		{
+			if (id != currentId)
+				return id;
+		}
+		return currentId;
+	}
 	public void _on_ai_btn_pressed(){
 		GetTree().ChangeSceneToFile("res://Scenes/aivai.tscn");
 	}
@@ -127,53 +137,66 @@ public partial class MultiplayerChoice : CanvasLayer, Player
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.Authority)]
-    public void SubmitMove(string diff, int playerId)
-    {
-       GD.Print($"[Server] Received move from player {playerId}: {diff}");
+	public void SubmitMove(string diff, int playerId)
+	{
+	   GD.Print($"[Server] Received move from player {playerId}: {diff}");
 
 		// Relay the move to the other peer
 		int sender = playerId;
 		int receiver = GetOtherPeerId(sender);
 
 		RpcId(receiver, nameof(ReceiveMove), diff, sender);
-    }
+	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-    public void ReceiveMove(string diff, int playerId)
-    {
-        GD.Print($"[Client] Receiving move from player {playerId}: {diff}");
+	public void ReceiveMove(string diff, int playerId)
+	{
+		GD.Print($"[Client] Receiving move from player {playerId}: {diff}");
 		response = diff;
-    }
+		pendingDiffReceived = true;
+	}
 
 	private string response = null;
-    public async Task<int> DoAction(Board board)
-    {
+	private bool pendingDiffReceived = false;
+	public async Task<int> DoAction(Board board)
+	{
 		// Don't send a move to the peer if it's the first move
 		if (board.Frame().min != board.Frame().max) {
 			string diff = Board.DiffAsString(previousState, board);
-			// submit move
 			int myId = Multiplayer.GetUniqueId();
-			SubmitMove(diff, myId);
+			if (Multiplayer.IsServer())
+			{
+				SubmitMove(diff, myId); // call locally
+			}
+			else
+			{
+				RpcId(1, nameof(SubmitMove), diff, myId); // send to host
+			}
 		}
+
+		while (!pendingDiffReceived)
+			await ToSignal(GetTree().CreateTimer(0.1f), "timeout");
 
 		//response = receive move *(done in rpc recieve function)*
 		string turn = response;
-		board.ParseAndDoTurn(turn); // not implemented yet
+		board.ParseAndDoTurn(turn); 
 		previousState = board.Clone();
+		response = null;
+		pendingDiffReceived = false;
 		return 0;
 	}
 
-    public async Task<int> PlaceTile(Board board)
-    {
+	public async Task<int> PlaceTile(Board board)
+	{
 		return await DoAction(board);
 	}
-    public async Task<int> PlaceInitialStack(Board board)
-    {
+	public async Task<int> PlaceInitialStack(Board board)
+	{
 		return await DoAction(board);
-    }
+	}
 
-    public async Task<int> MoveTokens(Board board)
-    {
+	public async Task<int> MoveTokens(Board board)
+	{
 		return await DoAction(board);
-    }
+	}
 }
