@@ -219,6 +219,9 @@ pub const Board = struct {
                         list.appendAssumeCapacity(loc);
                     }
                 };
+                if (b.size[0] == 0) {
+                    list.appendAssumeCapacity(splat(0));
+                }
             },
             .place_tokens => {
                 // find all .empty cells on the outside;
@@ -1069,6 +1072,75 @@ export fn xCountContiguousStacks(board: *const Board, player: int) callconv(.C) 
         0 => if (i == 0) 0 else 16,
         else => |x| x,
     };
+}
+
+const M = "-10,-10|-10,-10|-10,-10|-10,-10".len; // 31
+export fn xDiffAsString(board1: *const Board, board2: *const Board, str: *[M:0]u8) callconv(.C) bool {
+    diffAsString(board1, board2, str) catch return false;
+    return true;
+}
+
+pub fn diffAsString(board1: *const Board, board2: *const Board, str: *[M:0]u8) !void {
+    // assuming that board2 is the new board, its frame must contain board1's frame.
+
+    var poi_buf: [4]Loc = undefined;
+    var fba = std.heap.FixedBufferAllocator.init(ptrCast(&poi_buf));
+    var list = std.ArrayList(Location).initCapacity(fba.allocator(), poi_buf.len) catch unreachable;
+
+    const w, const h = board2.size;
+    for (0..w) |dx| for (0..h) |dy| {
+        const loc = board2.location(dx, dy);
+        if (!eql(board1.cells.get(loc), board2.cells.get(loc))) {
+            try list.append(loc);
+        }
+    };
+
+    // TODO verify that the diff actually makes sense?
+
+    const poi = list.items;
+    switch (poi.len) {
+        0 => return error.no_diff,
+        1 => {
+            // should be a PlaceInitialStack
+            _ = try std.fmt.bufPrintZ(str, "{d},{d}", .{ poi[0][0], poi[0][1] });
+        },
+        2 => {
+            // should be a MoveTokens
+            const src, const dest = if (board1.cells.get(poi[0]) == .empty)
+                .{ poi[1], poi[0] }
+            else
+                .{ poi[0], poi[1] };
+            const amt: usize = 1 + board2.cells.get(dest).stack.count;
+            _ = try std.fmt.bufPrintZ(str, "{d},{d}|{d}|{d},{d}", .{
+                src[0],
+                src[1],
+                amt,
+                dest[0],
+                dest[1],
+            });
+        },
+        4 => {
+            // should be a PlaceTile
+            _ = try std.fmt.bufPrintZ(str, "{d},{d}|{d},{d}|{d},{d}|{d},{d}", .{
+                poi[0][0],
+                poi[0][1],
+                poi[1][0],
+                poi[1][1],
+                poi[2][0],
+                poi[2][1],
+                poi[3][0],
+                poi[3][1],
+            });
+        },
+        // if this happens then the diff is illegal
+        else => return error.weird,
+    }
+}
+
+export fn xParseAndDoTurn(board: *Board, turn_src: *const [M:0]u8) bool {
+    _ = board;
+    _ = turn_src;
+    return false;
 }
 
 fn factorDirection(a: Location, b: Location) ?Direction {

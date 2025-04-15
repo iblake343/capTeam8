@@ -59,10 +59,17 @@ pub fn main() !void {
             continue;
         }
 
+        const old: Board = board;
+
         board.doTurn(turn) catch |err| {
             maybe_err = err;
             continue;
         };
+
+        var str: [31:0]u8 = undefined;
+        try lib.diffAsString(&old, &board, &str);
+        const s: [*:0]u8 = &str;
+        try stdout.print("turn: [{s}]\n", .{s});
     }
 
     try stdout.print("press ENTER to close the program.\n", .{});
@@ -75,7 +82,7 @@ fn ixOf(as: []Location, a: Location) ?usize {
 }
 
 pub fn drawBoard(board: Board, poi_list: []Location, writer: anytype, color: std.io.tty.Config) !void {
-    const w, const h = board.size;
+    const w, const h = @min(board.size, .{ 1, 1 });
     for (0..h) |dy| {
         try writer.writeByteNTimes(' ', dy);
         for (0..w) |dx| {
