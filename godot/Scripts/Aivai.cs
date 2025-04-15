@@ -18,7 +18,8 @@ public partial class Aivai : Control
 	public async override void _Ready()
 	{
 		string stateUrl = BASE_URL + "play-state";
-
+		var autoloadInstance = GetNode<Node>("/root/Music");
+		autoloadInstance.Call("stopSound");
 		for (int i = 0; i < TEST_IT; i++)
 		//while (INF_LOOP)
 		{

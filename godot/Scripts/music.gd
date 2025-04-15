@@ -15,3 +15,9 @@ func startSound():
 func stopSound():
 	isPlaying = false
 	$UnderwaterB.stop()
+	
+func placeLand():
+	$PlaceLand.play()
+
+func placeChip():
+	$PlaceChip.play()

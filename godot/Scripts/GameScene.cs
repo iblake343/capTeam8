@@ -12,6 +12,7 @@ public partial class GameScene : Node, Display, Player {
 	private Control game_layer;
 	private Hero p1;
 	private Hero p2;
+	private int previousMoveKind = -1;
 	
 	public override void _Ready() {
 		board = new Board();
@@ -63,7 +64,7 @@ public partial class GameScene : Node, Display, Player {
 		var frame = board.Frame();
 		
 		var moveKind = board.ExpectedMoveKind();
-		
+		//0 tile place, 1 initial, 2 move
 		if (board.CurrentPlayer() == 0) {
 			p1.Outline().SetVisible(true);
 			p2.Outline().SetVisible(false);
@@ -71,6 +72,17 @@ public partial class GameScene : Node, Display, Player {
 			p1.Outline().SetVisible(false);
 			p2.Outline().SetVisible(true);
 		}
+		var music = GetNode<Node>("/root/Music");
+		if (previousMoveKind == 0){
+			music.Call("placeLand");
+		}
+		else if (previousMoveKind ==1){
+			music.Call("placeChip");
+		}
+		if (previousMoveKind == 2){
+			music.Call("placeChip");
+		}
+		previousMoveKind = moveKind;
 		
 		if (move_camera) {
 			Camera2D camera = GetNode<Camera2D>("Center/Camera");

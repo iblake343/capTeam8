@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://d21e20r8jje0t"]
+[gd_scene load_steps=6 format=3 uid="uid://d21e20r8jje0t"]
 
 [ext_resource type="Script" path="res://Scripts/music.gd" id="1_uo4cf"]
 [ext_resource type="AudioStream" uid="uid://taqcqm84c8o0" path="res://assets/Music/bubble.mp3" id="3_is4jc"]
-[ext_resource type="AudioStream" uid="uid://d2n1m8f080ct4" path="res://assets/Music/Underwater B.mp3" id="3_jltao"]
+[ext_resource type="AudioStream" uid="uid://bwu0vhir6by2v" path="res://assets/Music/Underwater B.mp3" id="3_jltao"]
+[ext_resource type="AudioStream" uid="uid://cs0ktnlx188dy" path="res://assets/Sfx/place land.mp3" id="4_mgaxy"]
+[ext_resource type="AudioStream" uid="uid://bopqln47p0buh" path="res://assets/Sfx/place chip.mp3" id="5_34q6e"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_uo4cf")
@@ -12,3 +14,9 @@ stream = ExtResource("3_jltao")
 
 [node name="Bubble" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_is4jc")
+
+[node name="PlaceLand" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mgaxy")
+
+[node name="PlaceChip" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_34q6e")

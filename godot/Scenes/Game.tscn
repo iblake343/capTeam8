@@ -576,6 +576,7 @@ theme_override_constants/separation = 40
 
 [node name="Label" type="Label" parent="UI Layer/UI/Win Dialogue/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = " are the winners!"
 
